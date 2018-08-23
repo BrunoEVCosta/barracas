@@ -9,11 +9,19 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// redirect stdout / stderr
+if (process.env.mode=="PRODUCTION") process.__defineGetter__('stdout', function() { return fs.createWriteStream('/var/log/brapiServer.log', {flags:'a'}) })
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+if (process.env.mode=="PRODUCTION") process.env.log="combined"
+app.use(logger(process.env.log || 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
