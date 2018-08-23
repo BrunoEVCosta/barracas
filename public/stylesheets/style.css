@@ -1,0 +1,55 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.fila{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.tent{
+	width: 1fr;
+	height: 100px;
+	border: 1px solid black;
+	text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: xx-large;
+    grid-column: 1 / 2;
+    margin: 1px;
+}
+.tent.annex{
+	grid-column: 2 / 2;
+}
+.collapse{
+	grid-column: 1 / 2;
+}
+.collapse.annex{
+	grid-column: 2 / 2;
+}
+.tent[rented]{
+	background-color: green;
+}
+
+.tent[reserved]{
+	background-color: blue;
+}
+
+.aluger{
+	border: 1px solid blue;
+    border-radius-bottom: 20px;
+}
+
+
+.tent[rented]{
+	background-color: green;
+}
+
+.tent[frontal] + .btn.day{
+
+}
