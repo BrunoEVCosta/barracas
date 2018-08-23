@@ -10,7 +10,7 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // redirect stdout / stderr
-if (process.env.mode=="PRODUCTION") process.__defineGetter__('stdout', function() { return fs.createWriteStream('/var/log/brapiServer.log', {flags:'a'}) })
+if (process.env.mode=="PRODUCTION") process.__defineGetter__('stdout', function() { return fs.createWriteStream('/var/log/webServer.log', {flags:'a'}) })
 
 
 // view engine setup
