@@ -22,6 +22,8 @@ block content
             if item.number.endsWith("A")
                 button.btn.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
                 .collapse.annex(id="collapse"+item.id)
+                    .reservar.card.card-body
+                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca (not working yet)   
                     .aluguer.card.card-body
                         if item.frontal
                             .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
@@ -38,6 +40,8 @@ block content
             else
                 button.btn.tent(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
                 .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
+                    .reservar.card.card-body
+                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca (not working yet)   
                     .aluguer.card.card-body
                         if item.frontal
                             .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
