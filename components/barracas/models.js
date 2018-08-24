@@ -12,7 +12,6 @@ m.getRow=function(attributes){
 		where: attributes.where
 
 	}).then(function(res){
-		console.log(res)
 		return res
 	}).catch(function(err){
 		console.log('Get Row - Err: '+ err);
@@ -24,14 +23,18 @@ m.getRow=function(attributes){
 m.rentTent=function(attributes){
 	return db.Aluguer
 	.create({
-		barracaChapeusId: 2,
+		barracaChapeusId: attributes.id,
 		nome: '',
-		valor: '8.00',
+		valor: attributes.price,
 		senha: '999999',
 		lote: '999999',
 		operadorId:'1',
-	}
-	)
+	}).then(function(task){
+		return task.dataValues.id 
+	}).catch(function(err){
+		console.log('Rent Tent - Err: '+ err);
+		return err
+	})
 }
 
 

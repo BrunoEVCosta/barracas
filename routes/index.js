@@ -9,10 +9,8 @@ router.get('/', function(req, res, next) {
 router.get('/fila/:numero',function(req, res, next){
 	var fila = req.params.numero;
 	var dados = require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
-			console.log(dados)
-			var fila="Fila 1"
-
-			res.render('esquemaFilaBarracas',{title: fila,dados:dados})
+			var title="Fila "+fila
+			res.render('esquemaFilaBarracas',{title: title,dados:dados})
 	})
 })
 
@@ -20,11 +18,19 @@ router.get('/fila/:numero',function(req, res, next){
 //Change to post add time security and limit access to this.
 router.get('/alugar/barraca/:id',function(req,res, next){
 	var id=req.params.id
-	var dados = require('./../components/barracas/controller/alugarBarracaDia')(id).then(function(dados){
-			console.log(dados)
+	var price=req.query.price
+	transporter={
+		id:id,
+		price:price
+	}
+	console.log(transporter)
+	var dados = require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
+			console.log(id)
 			var fila="Fila 1"
 
-			res.json({})
+			res.status(200).json({id:id})
+	}).catch(function(err){
+		res.status(404).json(err)
 	})	
 })
 

@@ -1,9 +1,7 @@
 var models= require('./../models');
 
-module.exports = function(d){
+module.exports = function(transporter){
 	var call="rentTent";
- 	var attributes=''
-	models[call](attributes).then(function(res){
-		console.log(res);
-	})
+ 	var attributes=transporter;
+	return models[call](attributes)
 }

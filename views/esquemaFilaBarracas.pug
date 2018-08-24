@@ -1,38 +1,53 @@
 extends layout
 
 block content
-	h1=title
+    a(href="/") 
+        h1=title
 
 
-	.fila
-		for item in dados
-			if item.number.endsWith("A")
-				button.btn.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
-				.collapse.annex(id="collapse"+item.id)
-					.aluger.card.card-body
-						if item.frontal
-							.btn.btn-primary.btn-lg.day.frontal Dia (8€)
-						else
-							.btn.btn-primary.btn-lg.day.side Dia (7€)
-						.btn.btn-primary.btn-lg Meio Dia (5€)
-						.form-inline
-							.form-group
-								label(for="otherValue") Outro valor: &nbsp; 
-								input.form-control(id="otherValue",type="text",size="3")
-								.input-group-prepend
-									.input-group-text €
-			else
-				button.btn.tent(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
-				.collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
-					.aluger.card.card-body
-						if item.frontal
-							.btn.btn-primary.btn-lg.day.frontal Dia (8€)
-						else
-							.btn.btn-primary.btn-lg.day.side Dia (7€)
-						.btn.btn-primary.btn-lg Meio Dia (5€)
-						.form-inline
-							.form-group
-								label(for="otherValue") Outro valor: &nbsp; 
-								input.form-control(id="otherValue",type="text",size="3")
-								.input-group-prepend
-									.input-group-text €
+
+    modal(id="exampleModal",tabindex="-1",role="dialog",aria-labelledby="exampleModalLabel",aria-hidden="true",style="display:none")  
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                    h5.modal-title(id="exampleModalLabel") Modal title
+                    button(type="button",class="close",data-dismiss="modal",aria-label="Close")
+                        span(aria-hidden="true") &times;
+                .modal-body modal body
+                .modal-footer
+                    button.btn.btn-secondary(type="button",data-dismiss="modal") Close
+                    button.btn.btn-primary(type="button") Save changes
+    .fila
+        for item in dados
+            if item.number.endsWith("A")
+                button.btn.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
+                .collapse.annex(id="collapse"+item.id)
+                    .aluguer.card.card-body
+                        if item.frontal
+                            .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                        else
+                            .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
+                        .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
+                        .form-inline
+                            .form-group
+                                label(for="otherValue") Outro valor: &nbsp; 
+                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                .input-group-prepend
+                                    .input-group-text €
+                                .btn.btn-primary.btn-lg.otherValue(price="") Alugar
+            else
+                button.btn.tent(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
+                .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
+                    .aluguer.card.card-body
+                        if item.frontal
+                            .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                        else
+                            .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
+                        .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
+                        .form-inline
+                            .form-group
+                                label(for="otherValue") Outro valor: &nbsp; 
+                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                .input-group-prepend
+                                    .input-group-text €
+                                .btn.btn-primary.btn-lg.otherValue(price="") Alugar
