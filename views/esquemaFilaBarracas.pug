@@ -6,25 +6,53 @@ block content
 
 
 
-    modal(id="exampleModal",tabindex="-1",role="dialog",aria-labelledby="exampleModalLabel",aria-hidden="true",style="display:none")  
+    .modal.fade(id="reserveTent",tabindex="-1",role="dialog",aria-labelledby="reserveTentLabel",aria-hidden="true",style="display:none")  
         .modal-dialog(role="document")
             .modal-content
                 .modal-header
-                    h5.modal-title(id="exampleModalLabel") Modal title
+                    h5.modal-title(id="reserveTentLabel") Reservar barraca para vário dias
                     button(type="button",class="close",data-dismiss="modal",aria-label="Close")
                         span(aria-hidden="true") &times;
-                .modal-body modal body
+                .modal-body
+                    form
+                        input.form-control(type="hidden",value="")
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for="name") Nome
+                            .col-sm-8
+                                input.form-control(type="input",id="name",placeholder="Anónimo")
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for="startDate") Data de ínicio
+                            .col-sm-8
+                                input.form-control.date(type="date",id="startDate",min="",placeholder="")
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for="endDate") Data de fim
+                            .col-sm-8
+                                input.form-control.date(type="date",id="endDate",min="",placeholder="")
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for="price") Valor
+                            .col-sm-8.input-group.mb-2
+                                input.form-control(type="number",id="price",min="0",step="0.50",placeholder="")
+                                .input-group-prepend
+                                    .input-group-text €
+                        .form-group.row
+                            label.col-sm-4.col-form-label(for="pago") Pago
+                            .col-sm-8
+                                input.form-control(type="checkbox",id="pago")
+                        .form-group.row
+                            .btn.btn-primary Semana
+                            .btn.btn-primary Quinzena
+                            .btn.btn-primary Mês
                 .modal-footer
-                    button.btn.btn-secondary(type="button",data-dismiss="modal") Close
-                    button.btn.btn-primary(type="button") Save changes
+                    button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
+                    button.btn.btn-primary(type="button") Reservar
     .fila
         for item in dados
             if item.number.endsWith("A")
                 button.btn.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
                 .collapse.annex(id="collapse"+item.id)
                     .reservar.card.card-body
-                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca (not working yet)   
-                    .aluguer.card.card-body
+                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca   
+                    .alugar.card.card-body
                         if item.frontal
                             .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
                         else
@@ -41,8 +69,8 @@ block content
                 button.btn.tent(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
                 .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
                     .reservar.card.card-body
-                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca (not working yet)   
-                    .aluguer.card.card-body
+                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca
+                    .alugar.card.card-body
                         if item.frontal
                             .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
                         else

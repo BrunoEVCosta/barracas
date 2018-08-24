@@ -37,5 +37,21 @@ m.rentTent=function(attributes){
 	})
 }
 
+m.reserveTent=function(attributes){
+	return db.Reserva
+	.create({
+		barracaChapeusId: attributes.id,
+		nome: '',
+		dataInicio: '',
+		dataFim: '',
+		valor: attributes.price,
+		operadorId:'1',
+	}).then(function(task){
+		return task.dataValues.id 
+	}).catch(function(err){
+		console.log('Rent Tent - Err: '+ err);
+		return err
+	})
+}
 
 module.exports=m
