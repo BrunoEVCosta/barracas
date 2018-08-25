@@ -100,7 +100,7 @@ m.reserveTent=function(attributes){
 m.reportRents=function(attributes){
 	return db.Aluguer
 	.findAndCountAll({
-		attributes:['valor','data',[Sequelize.fn('SUM', Sequelize.col('valor')),"Sum(valor)"]],
+		attributes:['valor',[Sequelize.fn('SUM', Sequelize.col('valor')),"Sum(valor)"]],
 		group: 'valor',
 		where: attributes.where
 	}).then(function(res){
