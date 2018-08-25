@@ -40,7 +40,7 @@ block content
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca
                     if item.reserved || item.rented
                         .info.card.card-body
-                            h5 Informacao
+                            h5 Informacao #{item.rentId}
                             p Alugada desde #{item.startDate} 
                             p até #{item.endDate}
                     else

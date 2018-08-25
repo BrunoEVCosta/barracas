@@ -29,9 +29,11 @@ module.exports = function(row){
       		let id=row.dataValues.id
           let startDate=""
           let endDate=""
+          let rentId=""
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
       			rented=isDateToday(rented	)
+            rentId=res.rows[i].dataValues.Aluguer.dataValues.id
       		}catch(err){
       			rented=false
       		}
@@ -53,6 +55,7 @@ module.exports = function(row){
             startDate: startDate,
             endDate: endDate,
       			pago: false,
+            rentId: rentId,
       		}
       	}
       	for (i in data){

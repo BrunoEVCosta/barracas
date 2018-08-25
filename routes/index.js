@@ -8,16 +8,47 @@ router.get('/', function(req, res, next) {
 
 router.get('/fila/:numero',function(req, res, next){
 	var fila = req.params.numero;
-	var dados = require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
-			var title="Fila "+fila
-			res.render('esquemaFilaBarracas',{title: title,dados:dados})
+	require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
+		var title="Fila "+fila
+		res.render('esquemaFilaBarracas',{title: title,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
 	})
 })
 
+router.get('/alterar/reserva/:id',function(req, res, next){
+	var options=req.params;
+	require('./../components/barracas/controller/getReserve')(options).then(function(dados){
+		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
+
+
+router.get('/alterar/aluguer/:id',function(req, res, next){
+	var options=req.params;
+	require('./../components/barracas/controller/getRent')(options).then(function(dados){
+		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
+
+router.get('/cancelar/aluguer/:id',function(req, res, next){
+	var options=req.params;
+	require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
+		res.render('index',{})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
 
 router.get('/relatorios/aluguer/hoje',function(req, res, next){
-	var dados = require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
+	require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
 			res.json(dados)
+	}).catch(function(err){
+		res.status(404).json(err)
 	})
 })
 
@@ -34,11 +65,11 @@ router.get('/alugar/barraca/:id',function(req,res, next){
 		price:price
 	}
 	console.log(transporter)
-	var dados = require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
-			console.log(id)
-			var fila="Fila 1"
+	require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
+		console.log(id)
+		var fila="Fila 1"
 
-			res.status(200).json({id:id})
+		res.status(200).json({id:id})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})	

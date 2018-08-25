@@ -22,6 +22,31 @@ m.getRow=function(attributes){
 	})
 }
 
+m.getReserve=function(attributes){
+	return db.Reservas
+	.findAndCountAll({
+		where: attributes.where
+	}).then(function(res){
+		console.log(res.rows[0].dataValues)
+		return res.rows[0].dataValues
+	}).catch(function(err){
+		console.log('Get reserve - Err: '+ err);
+		return err;
+	})
+}
+
+m.getRent=function(attributes){
+	return db.Aluguer
+	.findAndCountAll({
+		where: attributes.where
+	}).then(function(res){
+		console.log(res.rows[0].dataValues)
+		return res.rows[0].dataValues
+	}).catch(function(err){
+		console.log('Get reserve - Err: '+ err);
+		return err;
+	})
+}
 
 m.rentTent=function(attributes){
 	return db.Aluguer
@@ -40,6 +65,18 @@ m.rentTent=function(attributes){
 	})
 }
 
+m.cancelRent=function(attributes){
+	return db.Aluguer
+	.destroy({
+		where: attributes.where,
+	}).then(function(task){
+		return task 
+	}).catch(function(err){
+		console.log('Kill Rent Tent - Err: '+ err);
+		return err
+	})
+}
+
 m.reserveTent=function(attributes){
 	return db.Reservas
 	.create({
@@ -52,10 +89,13 @@ m.reserveTent=function(attributes){
 	}).then(function(task){
 		return task.dataValues.id 
 	}).catch(function(err){
-		console.log('Rent Tent - Err: '+ err);
+		console.log('Reserve Tent - Err: '+ err);
 		return err
 	})
 }
+
+
+
 
 m.reportRents=function(attributes){
 	return db.Aluguer
@@ -67,7 +107,7 @@ m.reportRents=function(attributes){
 		console.log(res)
 		return res
 	}).catch(function(err){
-		console.log('Get Row - Err: '+ err);
+		console.log('Report Rents - Err: '+ err);
 		return err;
 	})
 }
