@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	$('.aluguar .btn').click(function(){
+	$('.alugar .btn').click(function(){
 		var tent=$(this).closest('.collapse').prev('button.tent')
 		var tentId=tent.attr('id');
 		var price=$(this).attr('price')

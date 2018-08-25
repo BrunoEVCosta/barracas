@@ -36,8 +36,6 @@ module.exports = function(row){
           try{
             let startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
             let endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
-            console.log(startDate)
-            console.log(endDate)
             reserved=isReserved(startDate,endDate)
             //rented=isDateToday(rented )
           }catch(err){

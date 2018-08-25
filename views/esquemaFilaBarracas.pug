@@ -52,34 +52,36 @@ block content
                 .collapse.annex(id="collapse"+item.id)
                     .reservar.card.card-body
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca   
-                    .alugar.card.card-body
-                        if item.frontal
-                            .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
-                        else
-                            .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
-                        .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
-                        .form-inline
-                            .form-group
-                                label(for="otherValue") Outro valor: &nbsp; 
-                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
-                                .input-group-prepend
-                                    .input-group-text €
-                                .btn.btn-primary.btn-lg.otherValue(price="") Alugar
+                    unless item.reserved || item.rented
+                        .alugar.card.card-body
+                            if item.frontal
+                                .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                            else
+                                .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
+                            .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
+                            .form-inline
+                                .form-group
+                                    label(for="otherValue") Outro valor: &nbsp; 
+                                    input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                    .input-group-prepend
+                                        .input-group-text €
+                                    .btn.btn-primary.btn-lg.otherValue(price="") Alugar
             else
                 button.btn.tent(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
                 .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
                     .reservar.card.card-body
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca
-                    .alugar.card.card-body
-                        if item.frontal
-                            .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
-                        else
-                            .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
-                        .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
-                        .form-inline
-                            .form-group
-                                label(for="otherValue") Outro valor: &nbsp; 
-                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
-                                .input-group-prepend
-                                    .input-group-text €
-                                .btn.btn-primary.btn-lg.otherValue(price="") Alugar
+                    unless item.reserved || item.rented
+                        .alugar.card.card-body
+                            if item.frontal
+                                .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                            else
+                                .btn.btn-primary.btn-lg.day.side(price="7.00") Dia (7€)
+                            .btn.btn-primary.btn-lg(price="5.00") Meio Dia (5€)
+                            .form-inline
+                                .form-group
+                                    label(for="otherValue") Outro valor: &nbsp; 
+                                    input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                    .input-group-prepend
+                                        .input-group-text €
+                                    .btn.btn-primary.btn-lg.otherValue(price="") Alugar
