@@ -27,7 +27,6 @@ m.getReserve=function(attributes){
 	.findAndCountAll({
 		where: attributes.where
 	}).then(function(res){
-		console.log(res.rows[0].dataValues)
 		return res.rows[0].dataValues
 	}).catch(function(err){
 		console.log('Get reserve - Err: '+ err);
@@ -40,7 +39,6 @@ m.getRent=function(attributes){
 	.findAndCountAll({
 		where: attributes.where
 	}).then(function(res){
-		console.log(res.rows[0].dataValues)
 		return res.rows[0].dataValues
 	}).catch(function(err){
 		console.log('Get reserve - Err: '+ err);
@@ -104,7 +102,6 @@ m.reportRents=function(attributes){
 		group: 'valor',
 		where: attributes.where
 	}).then(function(res){
-		console.log(res)
 		return res
 	}).catch(function(err){
 		console.log('Report Rents - Err: '+ err);
