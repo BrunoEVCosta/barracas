@@ -27,6 +27,8 @@ module.exports = function(row){
           let rented=false
       		let reserved=false
       		let id=row.dataValues.id
+          let startDate=""
+          let endDate=""
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
       			rented=isDateToday(rented	)
@@ -34,8 +36,8 @@ module.exports = function(row){
       			rented=false
       		}
           try{
-            let startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
-            let endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
+            startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
+            endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
             reserved=isReserved(startDate,endDate)
             //rented=isDateToday(rented )
           }catch(err){
@@ -48,6 +50,8 @@ module.exports = function(row){
       			rented: rented,
       			reserved: reserved,
       			frontal: row.dataValues.subTipo=="Frontal"? true : false,
+            startDate: startDate,
+            endDate: endDate,
       			pago: false,
       		}
       	}

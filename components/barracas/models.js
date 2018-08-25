@@ -1,4 +1,5 @@
 var db = require('./../sqldb');
+var Sequelize = require('sequelize');
 
 //Break up this file into domains once it gets to big.
 var m={}
@@ -53,6 +54,21 @@ m.reserveTent=function(attributes){
 	}).catch(function(err){
 		console.log('Rent Tent - Err: '+ err);
 		return err
+	})
+}
+
+m.reportRents=function(attributes){
+	return db.Aluguer
+	.findAndCountAll({
+		attributes:['valor','data',[Sequelize.fn('SUM', Sequelize.col('valor')),"Sum(valor)"]],
+		group: 'valor',
+		where: attributes.where
+	}).then(function(res){
+		console.log(res)
+		return res
+	}).catch(function(err){
+		console.log('Get Row - Err: '+ err);
+		return err;
 	})
 }
 

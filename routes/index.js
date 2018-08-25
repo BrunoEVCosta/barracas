@@ -14,6 +14,13 @@ router.get('/fila/:numero',function(req, res, next){
 	})
 })
 
+
+router.get('/relatorios/aluguer/hoje',function(req, res, next){
+	var dados = require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
+			res.json(dados)
+	})
+})
+
 router.get('/vista-geral',function(req, res, next){
 	res.render('vistaGeral',{})
 })
