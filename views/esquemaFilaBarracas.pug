@@ -15,9 +15,11 @@ block content
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca   
                     if item.reserved || item.rented
                         .info.card.card-body
-                            h5 Informacao
-                            p Alugada desde #{item.startDate} 
-                            p até #{item.endDate}
+                            h5 Informacao #{item.rentId}
+                            p Alugada desde: 
+                                strong #{item.startDate} 
+                            p até: 
+                                strong #{item.endDate}
                     else
                         .alugar.card.card-body
                             if item.frontal
@@ -41,8 +43,10 @@ block content
                     if item.reserved || item.rented
                         .info.card.card-body
                             h5 Informacao #{item.rentId}
-                            p Alugada desde #{item.startDate} 
-                            p até #{item.endDate}
+                            p Alugada desde: 
+                                strong #{item.startDate} 
+                            p até: 
+                                strong #{item.endDate}
                     else
                         .alugar.card.card-body
                             if item.frontal

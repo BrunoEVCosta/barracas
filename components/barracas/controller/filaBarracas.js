@@ -41,6 +41,8 @@ module.exports = function(row){
             startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
             endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
             reserved=isReserved(startDate,endDate)
+            startDate=getDatePart(startDate)
+            endDate=getDatePart(endDate)
             //rented=isDateToday(rented )
           }catch(err){
             reserved=false
@@ -85,6 +87,20 @@ function isDateToday(date){
 		}
 	}
 	return false
+}
+
+function getDatePart(date){
+  var d=new Date(date)
+  let yyyy=d.getFullYear()
+  let mm=pad(d.getMonth()+1,2)
+  let dd=pad(d.getDate(),2)  
+  return yyyy+"-"+mm+"-"+dd
+}
+
+function pad(num, size) {
+  var s = num+"";
+  while (s.length < size) s = "0" + s;
+  return s;
 }
 
 function isReserved(start,end){
