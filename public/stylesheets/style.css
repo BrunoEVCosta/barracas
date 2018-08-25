@@ -6,6 +6,34 @@ body {
 a {
   color: #00B7FF;
 }
+.general-schema{
+	display: grid;
+	grid-template-columns: repeat(4,1fr);
+	grid-template-rows: 1fr
+	grid-gap: 20px;
+}
+
+.fila-1{
+	width:200px;
+	grid-column: 1 / 4;
+	grid-row:1 / 1;
+}
+.fila-2{
+	width:200px;
+	grid-column: 2 / 4;
+	grid-row:1 / 1;
+}
+.fila-4{
+	width:200px;
+	grid-column: 3 / 4;
+	grid-row:1 / 1;
+
+}
+.fila-5{
+	width:200px;
+	grid-row:1 / 1;
+	grid-column: 4 / 4;
+}
 
 .fila{
 	display: grid;
@@ -53,3 +81,4 @@ a {
 .tent[frontal] + .btn.day{
 
 }
+

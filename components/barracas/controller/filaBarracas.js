@@ -24,7 +24,8 @@ module.exports = function(row){
 
       	for ( i in res.rows){
       		let row=res.rows[i]
-      		let rented=false
+          let rented=false
+      		let reserved=false
       		let id=row.dataValues.id
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
@@ -32,12 +33,22 @@ module.exports = function(row){
       		}catch(err){
       			rented=false
       		}
+          try{
+            let startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
+            let endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
+            console.log(startDate)
+            console.log(endDate)
+            reserved=isReserved(startDate,endDate)
+            //rented=isDateToday(rented )
+          }catch(err){
+            reserved=false
+          }          
 
       		data[id]={ 
       			id:	id,
       			number: row.dataValues.numero,
       			rented: rented,
-      			reserved: false,
+      			reserved: reserved,
       			frontal: row.dataValues.subTipo=="Frontal"? true : false,
       			pago: false,
       		}
@@ -69,4 +80,17 @@ function isDateToday(date){
 		}
 	}
 	return false
+}
+
+function isReserved(start,end){
+  var start=new Date(start)
+  var end=new Date(end)
+  var end=end.setDate(end.getDate()+1)
+  var now=new Date()
+  if( now.getTime()>start.getTime() && now.getTime()<end ){
+    return true
+  }else{
+    return false
+  }
+  
 }

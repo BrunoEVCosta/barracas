@@ -8,6 +8,8 @@ m.getRow=function(attributes){
 	.findAndCountAll({
 		include: [{
 			model: db.Aluguer
+		},{
+			model: db.Reservas
 		}],
 		where: attributes.where
 
@@ -38,12 +40,12 @@ m.rentTent=function(attributes){
 }
 
 m.reserveTent=function(attributes){
-	return db.Reserva
+	return db.Reservas
 	.create({
 		barracaChapeusId: attributes.id,
-		nome: '',
-		dataInicio: '',
-		dataFim: '',
+		nome: attributes.name,
+		dataInicio: attributes.startDate,
+		dataFim: attributes.endDate,
 		valor: attributes.price,
 		operadorId:'1',
 	}).then(function(task){

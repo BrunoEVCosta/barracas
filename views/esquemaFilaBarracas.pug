@@ -15,7 +15,7 @@ block content
                         span(aria-hidden="true") &times;
                 .modal-body
                     form
-                        input.form-control(type="hidden",value="")
+                        input.form-control.id(type="hidden",value="")
                         .form-group.row
                             label.col-sm-4.col-form-label(for="name") Nome
                             .col-sm-8
@@ -44,7 +44,7 @@ block content
                             .btn.btn-primary Mês
                 .modal-footer
                     button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
-                    button.btn.btn-primary(type="button") Reservar
+                    button.btn.btn-primary.reservar(type="button") Reservar
     .fila
         for item in dados
             if item.number.endsWith("A")
