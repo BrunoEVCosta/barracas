@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1 Gestão de pessoas
+  table.table.table-hover
+    thead
+      th ID
+      th Nome
+      th Mudar palavra-pass
+      th Revoke
+    tbody
+      for row in dados
+        tr(accessId=row.userId)
+          td=row.userId
+          td=row.name
+          td
+            a(href="/") link &nbsp;
+            input.pass(type="hidden",value="/")
+            button.copyText.btn.btn-dark(type="button") copy link
+          td
+            form(method="POST",action="/users/revoke/access/")
+              input(id="id",name="id",type="hidden",value=row.userId)
+              button.btn.btn-alert(type="submit") Revoke
+
+  button.btn.btn-alert() Criar novo utilizador

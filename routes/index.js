@@ -88,7 +88,8 @@ router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 
 router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
-			res.json(dados)
+			console.log(dados.rows[0].dataValues)
+			res.render("relatorioAluguers",{title:"Relatório aluguers ao dia" ,dados:dados})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})
@@ -116,9 +117,11 @@ router.post('/login',function(req, res, next){
 router.get('/alugar/barraca/:id',loggedIn,function(req,res, next){
 	var id=req.params.id
 	var price=req.query.price
+	var userId=req.cookies.userId
 	transporter={
 		id:id,
-		price:price
+		price:price,
+		userId: userId
 	}
 	console.log(transporter)
 	require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
@@ -141,9 +144,20 @@ router.post('/users/revoke/access/',loggedIn,function(req,res){
 router.get('/users/manage/accesses',loggedIn,function(req,res){
 	var attributes={}
 	require('./../components/barracas/controller/manageAccesses')(attributes).then(function(data){
-		console.log(data)
 		res.render('manageAccesses',{
 			title:"Acessos",
+			dados: data
+		}).catch(function(err){
+			res.status(404).json(err)
+		})
+	})
+})
+
+router.get('/users/manage/users',loggedIn,function(req,res){
+	var attributes={}
+	require('./../components/barracas/controller/manageUsers')(attributes).then(function(data){
+		res.render('manageUsers',{
+			title:"Users",
 			dados: data
 		}).catch(function(err){
 			res.status(404).json(err)
@@ -158,12 +172,14 @@ router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 	var startDate=req.query.startDate
 	var endDate=req.query.endDate
 	var name=req.query.name
+	var userId=req.cookie.userId
 	transporter={
-		id:id,
-		price:price,
-		startDate:startDate,
-		endDate:endDate,
-		name:name
+		id: id,
+		price: price,
+		startDate: startDate,
+		endDate: endDate,
+		name: name,
+		userId: userId
 	}
 	require('./../components/barracas/controller/reservarBarraca')(transporter).then(function(id){
 		res.status(200).json({id:id})

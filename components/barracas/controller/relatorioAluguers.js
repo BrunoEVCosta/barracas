@@ -7,7 +7,20 @@ module.exports = function(transporter){
  		"$between": getSurroundingDates()
  		}
  	} 	
-	return models[call](attributes)
+	return new Promise(function(res,rej){
+		models[call](attributes).then(function(result){
+			data=[]
+			total=0
+			for (i in result.rows){
+				var row=result.rows[i];
+				data.push(row.dataValues)
+				total+=row.dataValues.sum
+			}
+			res({rows:data,total:total})
+		}).catch(function(err){
+			rej(err)
+		})
+	})
 }
 
 

@@ -54,7 +54,7 @@ m.rentTent=function(attributes){
 		valor: attributes.price,
 		senha: '999999',
 		lote: '999999',
-		operadorId:'1',
+		operadorId:attributes.userId,
 	}).then(function(task){
 		return task.dataValues.id 
 	}).catch(function(err){
@@ -83,7 +83,7 @@ m.reserveTent=function(attributes){
 		dataInicio: attributes.startDate,
 		dataFim: attributes.endDate,
 		valor: attributes.price,
-		operadorId:'1',
+		operadorId: attributes.userId,
 	}).then(function(task){
 		return task.dataValues.id 
 	}).catch(function(err){
@@ -98,7 +98,7 @@ m.reserveTent=function(attributes){
 m.reportRents=function(attributes){
 	return db.Aluguer
 	.findAndCountAll({
-		attributes:['valor',[Sequelize.fn('SUM', Sequelize.col('valor')),"Sum(valor)"]],
+		attributes:['valor',[Sequelize.fn('SUM', Sequelize.col('valor')),"sum"]],
 		group: 'valor',
 		where: attributes.where
 	}).then(function(res){
@@ -194,6 +194,18 @@ m.getAccesses=function(attributes){
 	return db.Acesso
 	.findAll({
 		include:[{model:db.Pessoas}],
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Get User id - Err: '+ err);
+		return err;
+	})
+}
+
+m.getUsers=function(attributes){	
+	return db.Pessoas
+	.findAll({
 		where: attributes.where
 	}).then(function(res){
 		return res
