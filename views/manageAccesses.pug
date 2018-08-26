@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h1 Gestão de accessos activos
+  table.table.table-hover
+    thead
+      th ID
+      th Nome
+      th IP
+      th Plataforma
+      th Revoke
+    tbody
+      for row in dados
+        tr(accessId=row.accessId)
+          td=row.accessId
+          td=row.name 
+          td=row.ip 
+          td=row.platform 
+          td
+            form(method="POST",action="/users/revoke/access/")
+              input(id="id",name="id",type="hidden",value=row.accessId)
+              button.btn.btn-alert(type="submit") Revoke

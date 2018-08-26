@@ -14,7 +14,14 @@ module.exports = function(sequelize, DataTypes) {
       unique: true,
     },
     nome: DataTypes.STRING(50),
+    email: DataTypes.STRING(200),
     permissao: DataTypes.STRING(50),
+    hash: DataTypes.STRING(65),
+    createdOn: DataTypes.DATE,
+    confirmationToken: DataTypes.STRING(100),
+    active: DataTypes.BOOLEAN(1),
+    attempt: DataTypes.INTEGER(5),
+    ban: DataTypes.BOOLEAN(1),
   }, {
     tableName: 'Pessoas',
     timestamps: false,
@@ -22,6 +29,10 @@ module.exports = function(sequelize, DataTypes) {
 
    classMethods: {
       associate: function associate(models) {    
+        Pessoas.belongsTo(models.Acesso, {
+          foreignKey: 'id',              //on Pessoas
+          targetKey: 'pessoasId',  //foreign key  
+        });
         Pessoas.belongsTo(models.Aluguer, {
           foreignKey: 'id',              //on Pessoas
           targetKey: 'operadorId',  //foreign key  

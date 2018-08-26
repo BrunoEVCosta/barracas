@@ -2,14 +2,22 @@ extends layout
 
 block content
   h1 Gestão de Barracas e Chapéus
-  form.card
-    .form-row.card-body
-      .col
-        input(type="email",placeholder="Email")
-      .col
-        input(type="password",placeholder="Palavra Passe")
-      .col
-        button.btn.btn-primary(type="button") Login
+  if dados
+    .card
+      .card-body
+        h5=dados.name
+        form(method="POST",action="/users/revoke/access/")
+          input(type="hidden",id="id",name="id",value=dados.accessId)
+          button.btn.btn-primary(type="submit") Logout
+  else
+    form.card(method="POST",action="/login")
+      .form-row.card-body
+        .col
+          input(id="name",name="email",type="email",placeholder="Email")
+        .col
+          input(id="password",name="password",type="password",placeholder="Palavra Passe")
+        .col
+          button.btn.btn-primary(type="submit") Login
   .card
     .card-title
       h2 Barracas

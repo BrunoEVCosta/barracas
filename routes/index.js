@@ -1,12 +1,48 @@
 var express = require('express');
 var router = express.Router();
 
+var Cookies = require('cookies');
+var Keygrip = require("keygrip");
+var keylist=["SEKRIT2", "SEKRIT1"]; //Set a list of o keys.
+var keys = new Keygrip(keylist,'sha256','hex')
+
+
+function loggedIn(req,res,next){
+	var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
+	var attributes={}
+	attributes.id=req.cookies.accessId
+	require('./../components/barracas/controller/getAccessTokenById')(attributes).then(function(access){
+		//verify sig
+		if(req.cookies.accessToken === access.accessToken && access.valid)
+			next()
+		else
+			//if "/" this else redirect to it
+			res.render('index', { title: 'Gestão de barracas'});
+	}).catch(function(err){
+			res.render('index', { title: 'Gestão de barracas'});
+	})
+}
+
+
+
+
+function getCookieData(req){
+	var cookies=req.cookies
+	var result={
+		name: cookies.name,
+		accessId: cookies.accessId 
+	}
+	console.log(result)
+	return result;
+}
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', loggedIn, function(req, res, next) {
+	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req) });
 });
 
-router.get('/fila/:numero',function(req, res, next){
+
+router.get('/fila/:numero',loggedIn,function(req, res, next){
 	var fila = req.params.numero;
 	require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
 		var title="Fila "+fila
@@ -16,7 +52,21 @@ router.get('/fila/:numero',function(req, res, next){
 	})
 })
 
-router.get('/alterar/reserva/:id',function(req, res, next){
+router.get('/cancelar/aluguer/:id',loggedIn,function(req, res, next){
+	var options=req.params;
+	require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
+		res.render('index',{ title: 'Gestão de barracas' })
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
+
+router.get('/vista-geral',loggedIn, function(req, res, next){
+	res.render('vistaGeral',{title: "Vista Geral"})
+})
+
+//API
+router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
 	var options=req.params;
 	require('./../components/barracas/controller/getReserve')(options).then(function(dados){
 		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
@@ -26,7 +76,7 @@ router.get('/alterar/reserva/:id',function(req, res, next){
 })
 
 
-router.get('/alterar/aluguer/:id',function(req, res, next){
+router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 	var options=req.params;
 	require('./../components/barracas/controller/getRent')(options).then(function(dados){
 		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
@@ -35,16 +85,8 @@ router.get('/alterar/aluguer/:id',function(req, res, next){
 	})	
 })
 
-router.get('/cancelar/aluguer/:id',function(req, res, next){
-	var options=req.params;
-	require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
-		res.render('index',{})
-	}).catch(function(err){
-		res.status(404).json(err)
-	})	
-})
 
-router.get('/relatorios/aluguer/hoje',function(req, res, next){
+router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
 			res.json(dados)
 	}).catch(function(err){
@@ -52,12 +94,26 @@ router.get('/relatorios/aluguer/hoje',function(req, res, next){
 	})
 })
 
-router.get('/vista-geral',function(req, res, next){
-	res.render('vistaGeral',{})
+
+router.post('/login',function(req, res, next){
+	var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
+	var options=req.body
+
+	options.platform=req.headers['user-agent']
+
+	function callBack(name,accessId,userId,token){
+		cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId).set( "accessToken", token, { signed: true, maxAge: (1000 * 60 * 60 * 30 * 12) } );
+	}
+
+	require('./../components/barracas/controller/login')(options,callBack).then(function(dados){
+		res.redirect("/")
+	}).catch(function(err){
+		res.status(404).json(err)
+	})
 })
 
 //Change to post add time security and limit access to this.
-router.get('/alugar/barraca/:id',function(req,res, next){
+router.get('/alugar/barraca/:id',loggedIn,function(req,res, next){
 	var id=req.params.id
 	var price=req.query.price
 	transporter={
@@ -68,15 +124,35 @@ router.get('/alugar/barraca/:id',function(req,res, next){
 	require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
 		console.log(id)
 		var fila="Fila 1"
-
 		res.status(200).json({id:id})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})	
 })
 
+router.post('/users/revoke/access/',loggedIn,function(req,res){
+	var attributes=req.body
+	require('./../components/barracas/controller/revokeAccessToken')(attributes).then(function(data){
+		res.redirect('/users/manage/accesses')
+	}).catch(function(err){
+		res.redirect('/users/manage/accesses')
+	})
+})
+router.get('/users/manage/accesses',loggedIn,function(req,res){
+	var attributes={}
+	require('./../components/barracas/controller/manageAccesses')(attributes).then(function(data){
+		console.log(data)
+		res.render('manageAccesses',{
+			title:"Acessos",
+			dados: data
+		}).catch(function(err){
+			res.status(404).json(err)
+		})
+	})
+})
+
 //Change to post add time security and limit access to this.
-router.get('/reservar/barraca/:id',function(req,res, next){
+router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 	var id=req.params.id
 	var price=req.query.price
 	var startDate=req.query.startDate
@@ -89,12 +165,8 @@ router.get('/reservar/barraca/:id',function(req,res, next){
 		endDate:endDate,
 		name:name
 	}
-	console.log(transporter)
-	var dados = require('./../components/barracas/controller/reservarBarraca')(transporter).then(function(id){
-			console.log(id)
-			var fila="Fila 1"
-
-			res.status(200).json({id:id})
+	require('./../components/barracas/controller/reservarBarraca')(transporter).then(function(id){
+		res.status(200).json({id:id})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})	

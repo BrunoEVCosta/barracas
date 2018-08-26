@@ -109,4 +109,110 @@ m.reportRents=function(attributes){
 	})
 }
 
+m.getUser=function(attributes){
+	return db.Pessoas
+	.find({
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Get User id - Err: '+ err);
+		return err;
+	})
+}
+
+m.getAccessToken=function(attributes){
+	return db.Acesso
+	.find({
+		attributes: ['accessToken','valid'],
+		where: attributes.where
+	}).then(function(res){
+		return res.dataValues
+	}).catch(function(err){
+		console.log('Get user hash - Err: '+ err);
+		return err;
+	})
+}
+
+m.incrementLoginAttempt=function(attributes){
+	return db.Pessoas
+	.findById(attributes.id).then(function(pessoas){
+		return pessoas.increment('attempt', {by:1})
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('IncrementLoginAttempt - Err: '+ err);
+		return err;
+	})
+}
+
+m.resetLoginAttempt=function(attributes){
+	return db.Pessoas
+	.findById(attributes.id).then(function(pessoas){
+		return pessoas.update({attempt:0})
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Reset Login Attempt - Err: '+ err);
+		return err;
+	})
+}
+
+m.createUser=function(attributes){
+	return db.Pessoas
+	.create({
+		nome: attributes.name,
+		permissao: attributes.permission,
+		hash: attributes.hash,
+		confirmationToken: attributes.confirmationToken,
+		active: attributes.active
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Create user - Err: '+ err);
+		return err;
+	})
+}
+
+m.createAccess=function(attributes){
+	return db.Acesso
+	.create({
+		pessoasId: attributes.id,
+		ip: attributes.ip,
+		platform: attributes.platform,
+		valid: attributes.valid,
+		accessToken: attributes.accessToken
+	}).then(function(res){
+		return res.dataValues.id
+	}).catch(function(err){
+		console.log('Create access - Err: '+ err);
+		return err;
+	})
+}
+
+m.getAccesses=function(attributes){	
+	return db.Acesso
+	.findAll({
+		include:[{model:db.Pessoas}],
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Get User id - Err: '+ err);
+		return err;
+	})
+}
+
+m.revokeAccessToken=function(attributes){	
+	return db.Acesso
+	.findById(attributes.id).then(function(acesso){
+		return acesso.update({valid:0})
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Revoke Access - Err: '+ err);
+		return err;
+	})
+}
+
 module.exports=m

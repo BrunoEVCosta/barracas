@@ -28,13 +28,11 @@ CREATE TABLE `Acesso` (
   `acesso` datetime DEFAULT CURRENT_TIMESTAMP,
   `ip` int(11) NOT NULL,
   `platform` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `accessToken` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL,
   `valid` tinyint(1) DEFAULT '0',
-  `revokedOn` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `Acesso_fk0` (`pessoasId`),
   CONSTRAINT `Acesso_fk0` FOREIGN KEY (`pessoasId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +41,6 @@ CREATE TABLE `Acesso` (
 
 LOCK TABLES `Acesso` WRITE;
 /*!40000 ALTER TABLE `Acesso` DISABLE KEYS */;
-INSERT INTO `Acesso` VALUES (1,1,'2018-08-26 00:44:54',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','7vrdrk6l1irphv7qou9hroj3gj48l84lbsrjsewarc44if68shzp4mmgkengzv',1,NULL),(2,1,'2018-08-26 00:52:00',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','p29tkulkmwho0hxrvim2966evn98vkus5x4puqjjq2ycigdpxjqm5dkpagopah',1,NULL),(3,1,'2018-08-26 01:07:06',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','9uwvs7g7rifrv2rp1ulwjskl1t5gh2uz7ack36y66ysl5cu7ic47duv3t6myzz',1,NULL),(4,1,'2018-08-26 01:08:08',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','sd7d292yfvck43j7e0wn5z5zrxvlcq659rxupue6lmru95rrr9r2svifkxziik',1,NULL),(5,1,'2018-08-26 01:10:23',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','wmz4qarqpypbj77c90grxr476wejv5rxfdzxkx0m9n76uhvbv18ib911gm3j43',1,NULL),(6,1,'2018-08-26 01:25:58',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','7gu19xxsce8zvd6o42hd85ec4ptbdaixygetzjd5tz1djaa5mr3pgxw72qkns9',1,NULL),(7,1,'2018-08-26 01:28:03',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','p6k4gti7rkjozljitpy0ni1bfw6t5suuin5a50p0lgqr0fn8t1nunox0umujpr',1,NULL);
 /*!40000 ALTER TABLE `Acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +160,7 @@ CREATE TABLE `Pessoas` (
 
 LOCK TABLES `Pessoas` WRITE;
 /*!40000 ALTER TABLE `Pessoas` DISABLE KEYS */;
-INSERT INTO `Pessoas` VALUES (1,'Bruno Costa','brunovasquescosta@gmail.com','admin','3370cb1b99f1487826f0a0e358776978f6c52f6359ca21e30d3e5ec2b5f80f49','2018-08-25 00:00:00','209ie9320ie2eopqidadi320',1,0,0);
+INSERT INTO `Pessoas` VALUES (1,'Bruno Costa','brunovasquescosta@gmail.com','admin','9269d6322d226fdbaafe19ffce32b83f8c8474cc3ecfed18b5703713324094f3','2018-08-25 00:00:00','209ie9320ie2eopqidadi320',1,0,0);
 /*!40000 ALTER TABLE `Pessoas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-26  1:32:19
+-- Dump completed on 2018-08-25 23:03:36
