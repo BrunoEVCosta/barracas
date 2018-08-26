@@ -18,6 +18,7 @@ module.exports = function(transporter){
 			}
 			res({rows:data,total:total})
 		}).catch(function(err){
+			//Is empty an error????
 			rej(err)
 		})
 	})

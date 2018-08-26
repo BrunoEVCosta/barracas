@@ -88,7 +88,6 @@ router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 
 router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
-			console.log(dados.rows[0].dataValues)
 			res.render("relatorioAluguers",{title:"Relatório aluguers ao dia" ,dados:dados})
 	}).catch(function(err){
 		res.status(404).json(err)
@@ -172,7 +171,7 @@ router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 	var startDate=req.query.startDate
 	var endDate=req.query.endDate
 	var name=req.query.name
-	var userId=req.cookie.userId
+	var userId=req.cookies.userId
 	transporter={
 		id: id,
 		price: price,
