@@ -25,7 +25,6 @@ module.exports = function(options,callBack){
 			hash.update(seed+attributes.password+createdOn);
 
 			const calculatedHash=hash.digest('hex')
-			console.log(data)
 	 		if ( calculatedHash === storedHash && data.active){
 	 			models['resetLoginAttempt'](attributes)
 	 			models['createAccess'](attributes).then(function(accessId){

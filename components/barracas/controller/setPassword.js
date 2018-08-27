@@ -13,7 +13,6 @@ module.exports = function(options){
 			const hash = crypto.createHash('sha256');
 			hash.update(seed+attributes.password+createdOn);
 			attributes.hash=hash.digest('hex')
-			console.log(attributes)
 			var call="setNewPassword";
 			res(models[call](attributes))
 	
