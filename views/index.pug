@@ -18,31 +18,32 @@ block content
           input(id="password",name="password",type="password",placeholder="Palavra Passe")
         .col
           button.btn.btn-primary(type="submit") Login
-  .card
-    .card-title
-      h2 Barracas
-    .card-body
-      .fila
-        a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/1") Fila 1
-        a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/2") Fila 2
-        a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/3") Fila 3 (Trás)
-        a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/4") Fila 4
-        a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/5") Fila 5
-  h2 Chapéus
-  .fila
-    a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus") Fila 1
-  h2 Vista geral
-  .fila
-    a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral") Vista Geral
-  h2 Relatórios
-  .fila
-    a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
-  if role=="admin"
+  if loggedin
     .card
       .card-title
-        h2 Administração
+        h2 Barracas
       .card-body
         .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir accessos
-        
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/1") Fila 1
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/2") Fila 2
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/3") Fila 3 (Trás)
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/4") Fila 4
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/5") Fila 5
+    h2 Chapéus
+    .fila
+      a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus") Fila 1
+    h2 Vista geral
+    .fila
+      a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral") Vista Geral
+    h2 Relatórios
+    .fila
+      a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
+    if role=="admin"
+      .card
+        .card-title
+          h2 Administração
+        .card-body
+          .fila
+            a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
+            a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir accessos
+          

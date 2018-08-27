@@ -63,11 +63,11 @@ function getCookieData(req){
 
 /* GET home page. */
 router.get('/admin', loggedIn, isAdmin, function(req, res, next) {
-	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin" });
+	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin",loggedin: true });
 });
 
 router.get('/', loggedIn, function(req, res, next) {
-	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req) });
+	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req), loggedin: true });
 });
 
 
