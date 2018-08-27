@@ -208,9 +208,9 @@ router.get('/users/manage/users',loggedIn,isAdmin,function(req,res){
 		res.render('manageUsers',{
 			title:"Users",
 			dados: data
-		}).catch(function(err){
+		}
+	}).catch(function(err){
 			res.status(404).json(err)
-		})
 	})
 })
 
