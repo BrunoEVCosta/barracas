@@ -195,9 +195,10 @@ router.get('/users/manage/accesses',loggedIn,isAdmin,function(req,res){
 		res.render('manageAccesses',{
 			title:"Acessos",
 			dados: data
-		}).catch(function(err){
-			res.status(404).json(err)
 		})
+	}).catch(function(err){
+			res.status(404).json(err)
+
 	})
 })
 
