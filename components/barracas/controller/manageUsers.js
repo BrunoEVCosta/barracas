@@ -13,6 +13,8 @@ module.exports = function(options){
 					data.push({
 						userId: row.id,
 						name:row.nome,
+						active: row.active,
+						permission: row.permissao
 					})
 				}				
 				res(data)

@@ -14,18 +14,19 @@ module.exports = function(options,callBack){
 	 		var id = data.id
 	 		var name = data.nome
 	 		var storedHash = data.hash
-	 		var createOn = data.createOn
+	 		var createdOn = data.createdOn
 	 		var attempt = data.attempt
 			
 	 		attributes.id=id
 	 		attributes.valid=1
-	 		attributes.accessToken=rand(160,36)+rand(160,36)
+	 		attributes.accessToken=rand(160,36)+rand(160,36);
 
 			const hash = crypto.createHash('sha256');
-			hash.update(seed+attributes.password+createOn);
+			hash.update(seed+attributes.password+createdOn);
 
 			const calculatedHash=hash.digest('hex')
-	 		if ( calculatedHash  === storedHash){
+			console.log(data)
+	 		if ( calculatedHash === storedHash && data.active){
 	 			models['resetLoginAttempt'](attributes)
 	 			models['createAccess'](attributes).then(function(accessId){
 		 			callBack(name,accessId,id,attributes.accessToken)

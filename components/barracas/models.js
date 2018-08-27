@@ -125,6 +125,7 @@ m.getAccessToken=function(attributes){
 	return db.Acesso
 	.find({
 		attributes: ['accessToken','valid'],
+		include: [{model: db.Pessoas }],
 		where: attributes.where
 	}).then(function(res){
 		return res.dataValues
@@ -158,12 +159,36 @@ m.resetLoginAttempt=function(attributes){
 	})
 }
 
+m.setNewPassword=function(attributes){
+	return db.Pessoas
+	.findById(attributes.id).then(function(pessoas){
+		return pessoas.update({hash:attributes.hash})
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Set new password: '+ err);
+		return err;
+	})
+}
+
+m.setUserActiveState=function(attributes){
+	return db.Pessoas
+	.findById(attributes.id).then(function(pessoas){
+		return pessoas.update({active:attributes.active})
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Set active state: '+ err);
+		return err;
+	})
+}
+
 m.createUser=function(attributes){
 	return db.Pessoas
 	.create({
 		nome: attributes.name,
+		email: attributes.email,
 		permissao: attributes.permission,
-		hash: attributes.hash,
 		confirmationToken: attributes.confirmationToken,
 		active: attributes.active
 	}).then(function(res){

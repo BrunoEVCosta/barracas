@@ -37,3 +37,12 @@ block content
   h2 Relatórios
   .fila
     a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
+  if role=="admin"
+    .card
+      .card-title
+        h2 Administração
+      .card-body
+        .fila
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir accessos
+        

@@ -1,25 +1,55 @@
 extends layout
 
 block content
-  h1 Gestão de pessoas
+  a(href="/admin")
+    h1 Gestão de pessoas
   table.table.table-hover
     thead
+      th Activo
       th ID
       th Nome
+      th Permissão
       th Mudar palavra-pass
       th Revoke
     tbody
       for row in dados
         tr(accessId=row.userId)
+          td=row.active
           td=row.userId
           td=row.name
+          td=row.permission
           td
+            form(method="POST",action="/users/set/password")
+              input(id="id",name="id",type="hidden",value=row.userId)
+              //needs double input of password 
+              input(id="password",name="password",type="password",value=row.userId)
+              button.btn.btn-alert(type="submit") set password
             a(href="/") link &nbsp;
             input.pass(type="hidden",value="/")
             button.copyText.btn.btn-dark(type="button") copy link
           td
-            form(method="POST",action="/users/revoke/access/")
+            form(method="POST",action="/users/set/active-state")
               input(id="id",name="id",type="hidden",value=row.userId)
+              input(id="active",name="active",type="hidden",value=1)
+              button.btn.btn-alert(type="submit") Activate
+            form(method="POST",action="/users/set/active-state")
+              input(id="id",name="id",type="hidden",value=row.userId)
+              input(id="active",name="active",type="hidden",value=0)
               button.btn.btn-alert(type="submit") Revoke
-
-  button.btn.btn-alert() Criar novo utilizador
+  form.card(method="POST",action="/users/create/user")
+    .form-row.card-body
+      .col
+        label(for="name") Nome: &nbsp;
+        input(id="name",name="name",type="text",placeholder="Nome")
+      .col
+        label(for="email") Email: &nbsp;
+        input(id="email",name="email",type="email",placeholder="Email")
+      .col
+        label(for="permission") Permissão: &nbsp;
+        select(id="permission",name="permission")
+          option(selected) user
+          option admin
+          option viewer
+          option manager
+      .col
+        button.btn.btn-alert(type="submit") Criar novo utilizador

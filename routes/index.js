@@ -23,8 +23,32 @@ function loggedIn(req,res,next){
 	})
 }
 
+function getScrope(req,res){
+	var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
+	var attributes={}
+	attributes.id=req.cookies.accessId
+	return new Promise(function(res,rej){
+		require('./../components/barracas/controller/getAccessTokenById')(attributes).then(function(access){
+			res(access.Pessoa.dataValues.permissao)
+		}).catch(function(err){
+			rej(err)
+		})	
+	})
+}
 
-
+function isAdmin(req,res,next){
+	getScrope(req,res).then(function(scope){
+		//Assert??
+		if(scope === "admin"){
+			next();
+		}else{
+			res.redirect('/');
+		}
+	}).catch(function(err){
+		console.log("Error getting scope "+ err);
+		res.redirect('/');
+	})
+}
 
 function getCookieData(req){
 	var cookies=req.cookies
@@ -36,7 +60,13 @@ function getCookieData(req){
 	return result;
 }
 
+// USER LAND
+
 /* GET home page. */
+router.get('/admin', loggedIn, isAdmin, function(req, res, next) {
+	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin" });
+});
+
 router.get('/', loggedIn, function(req, res, next) {
 	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req) });
 });
@@ -52,14 +82,6 @@ router.get('/fila/:numero',loggedIn,function(req, res, next){
 	})
 })
 
-router.get('/cancelar/aluguer/:id',loggedIn,function(req, res, next){
-	var options=req.params;
-	require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
-		res.render('index',{ title: 'Gestão de barracas' })
-	}).catch(function(err){
-		res.status(404).json(err)
-	})	
-})
 
 router.get('/vista-geral',loggedIn, function(req, res, next){
 	res.render('vistaGeral',{title: "Vista Geral"})
@@ -112,6 +134,16 @@ router.post('/login',function(req, res, next){
 	})
 })
 
+//LOGOUT
+router.post('/users/revoke/access/',loggedIn,function(req,res){
+	var attributes=req.body
+	require('./../components/barracas/controller/revokeAccessToken')(attributes).then(function(data){
+		res.redirect('/users/manage/accesses')
+	}).catch(function(err){
+		res.redirect('/users/manage/accesses')
+	})
+})
+
 //Change to post add time security and limit access to this.
 router.get('/alugar/barraca/:id',loggedIn,function(req,res, next){
 	var id=req.params.id
@@ -130,38 +162,6 @@ router.get('/alugar/barraca/:id',loggedIn,function(req,res, next){
 	}).catch(function(err){
 		res.status(404).json(err)
 	})	
-})
-
-router.post('/users/revoke/access/',loggedIn,function(req,res){
-	var attributes=req.body
-	require('./../components/barracas/controller/revokeAccessToken')(attributes).then(function(data){
-		res.redirect('/users/manage/accesses')
-	}).catch(function(err){
-		res.redirect('/users/manage/accesses')
-	})
-})
-router.get('/users/manage/accesses',loggedIn,function(req,res){
-	var attributes={}
-	require('./../components/barracas/controller/manageAccesses')(attributes).then(function(data){
-		res.render('manageAccesses',{
-			title:"Acessos",
-			dados: data
-		}).catch(function(err){
-			res.status(404).json(err)
-		})
-	})
-})
-
-router.get('/users/manage/users',loggedIn,function(req,res){
-	var attributes={}
-	require('./../components/barracas/controller/manageUsers')(attributes).then(function(data){
-		res.render('manageUsers',{
-			title:"Users",
-			dados: data
-		}).catch(function(err){
-			res.status(404).json(err)
-		})
-	})
 })
 
 //Change to post add time security and limit access to this.
@@ -186,5 +186,69 @@ router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 		res.status(404).json(err)
 	})	
 })
+
+
+///ADMINISTRATION
+
+router.get('/users/manage/accesses',loggedIn,isAdmin,function(req,res){
+	var attributes={}
+	require('./../components/barracas/controller/manageAccesses')(attributes).then(function(data){
+		res.render('manageAccesses',{
+			title:"Acessos",
+			dados: data
+		}).catch(function(err){
+			res.status(404).json(err)
+		})
+	})
+})
+
+router.get('/users/manage/users',loggedIn,isAdmin,function(req,res){
+	var attributes={}
+	require('./../components/barracas/controller/manageUsers')(attributes).then(function(data){
+		res.render('manageUsers',{
+			title:"Users",
+			dados: data
+		}).catch(function(err){
+			res.status(404).json(err)
+		})
+	})
+})
+
+router.post('/users/set/password',loggedIn,isAdmin,function(req,res){
+	var options=req.body
+	require('./../components/barracas/controller/setPassword')(options).then(function(dados){
+		res.redirect('/users/manage/users');
+	}).catch(function(err){
+		res.status(404).json(err)
+	})
+})
+
+router.post('/users/set/active-state',loggedIn,isAdmin,function(req,res){
+	var options=req.body
+	require('./../components/barracas/controller/setUserActiveState')(options).then(function(dados){
+		res.redirect('/users/manage/users');
+	}).catch(function(err){
+		res.status(404).json(err)
+	})
+})
+
+router.post('/users/create/user/',loggedIn,isAdmin,function(req,res){
+	var options=req.body
+	require('./../components/barracas/controller/createUser')(options).then(function(dados){
+		res.redirect('/users/manage/users');
+	}).catch(function(err){
+		res.status(404).json(err)
+	})		
+})
+
+router.get('/cancelar/aluguer/:id',loggedIn,isAdmin,function(req, res, next){
+	var options=req.params;
+	require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
+		res.render('index',{ title: 'Gestão de barracas' })
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
+
 
 module.exports = router;
