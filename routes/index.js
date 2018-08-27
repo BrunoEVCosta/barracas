@@ -56,7 +56,6 @@ function getCookieData(req){
 		name: cookies.name,
 		accessId: cookies.accessId 
 	}
-	console.log(result)
 	return result;
 }
 
@@ -110,7 +109,7 @@ router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 
 router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
-			res.render("relatorioAluguers",{title:"Relatório aluguers ao dia" ,dados:dados})
+		res.render("relatorioAluguers",{title:"Relatório aluguers ao dia" ,dados:dados})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})

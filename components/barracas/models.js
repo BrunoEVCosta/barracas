@@ -190,7 +190,9 @@ m.createUser=function(attributes){
 		email: attributes.email,
 		permissao: attributes.permission,
 		confirmationToken: attributes.confirmationToken,
-		active: attributes.active
+		active: attributes.active,
+		hash: "jkljlkjkljljljlkjlkjlkj"
+
 	}).then(function(res){
 		return res
 	}).catch(function(err){
