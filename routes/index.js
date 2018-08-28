@@ -120,7 +120,7 @@ router.get('/informacao',function(req,res){
 router.post('/login',function(req, res, next){
 	var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
 	var options=req.body
-    options.ip=req.connection.remoteAddress
+    options.ip=req.connection.remoteAddress.split(":").pop()
 	options.platform=req.headers['user-agent']
 
 	function callBack(name,accessId,userId,token){

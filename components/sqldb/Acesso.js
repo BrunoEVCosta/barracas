@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     pessoasId: DataTypes.INTEGER(5),
     acesso: DataTypes.DATE,
-    ip: DataTypes.INTEGER(11),
+    ip: DataTypes.STRING(11),
     platform: DataTypes.STRING(100),
     accessToken: DataTypes.STRING(72),
     valid: DataTypes.BOOLEAN(1),
