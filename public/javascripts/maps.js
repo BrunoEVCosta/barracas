@@ -27,5 +27,5 @@ function initMap(lat,lng) {
 
   flightPath.setMap(map);
 }
-initMap()
+
 
