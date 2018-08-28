@@ -70,7 +70,6 @@ router.get('/', loggedIn, function(req, res, next) {
 	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req), loggedin: true });
 });
 
-
 router.get('/fila/:numero',loggedIn,function(req, res, next){
 	var fila = req.params.numero;
 	require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
@@ -80,7 +79,6 @@ router.get('/fila/:numero',loggedIn,function(req, res, next){
 		res.status(404).json(err)
 	})
 })
-
 
 router.get('/vista-geral',loggedIn, function(req, res, next){
 	res.render('vistaGeral',{title: "Vista Geral"})
@@ -95,7 +93,6 @@ router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
 		res.status(404).json(err)
 	})	
 })
-
 
 router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 	var options=req.params;
@@ -113,6 +110,10 @@ router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	}).catch(function(err){
 		res.status(404).json(err)
 	})
+})
+
+router.get('/informacao',function(req,res){
+	res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus"})
 })
 
 

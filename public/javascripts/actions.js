@@ -84,5 +84,6 @@ $(document).ready(function(){
 	  /* Alert the copied text */
 	  alert("Copied the text: " + copyText.val());
 	}
-
 })
+
+
