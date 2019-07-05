@@ -26,7 +26,7 @@ CREATE TABLE `Acesso` (
   `id` int(50) NOT NULL AUTO_INCREMENT,
   `pessoasId` int(5) NOT NULL,
   `acesso` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ip` int(11) NOT NULL,
+  `ip` varchar(50) NOT NULL,
   `platform` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `accessToken` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL,
   `valid` tinyint(1) DEFAULT '0',

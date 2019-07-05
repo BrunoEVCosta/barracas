@@ -26,11 +26,11 @@ cd git
 git clone https://github.com/netbofia/barracas.git
 
 sudo mysql_secure_installation
-sudo mysql -u root -p < "create USER 'brunocosta'@'localhost' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'brunocosta'@'localhost'; FLUSH PRIVILEGES; CREATE DATABASE barracas;"
+sudo mysql -u root -p -e "create USER 'brunocosta'@'localhost' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON *.* TO 'brunocosta'@'localhost'; FLUSH PRIVILEGES; CREATE DATABASE barracas;"
 
 cd barracas
 mysql -u brunocosta -D barracas -p <SQL/LATEST_dump.sql
-mysql -u brunocosta -p < "CREATE USER 'myapp'@'localhost' IDENTIFIED BY '2nFJf798uo2p'; GRANT ALL PRIVILEGES ON `barracas`.* TO 'myapp'@'localhost'; FLUSH PRIVILEGES;" 
+mysql -u brunocosta -p -e "CREATE USER 'myapp'@'localhost' IDENTIFIED BY '2nFJf798uo2p'; GRANT ALL PRIVILEGES ON barracas.* TO 'myapp'@'localhost'; FLUSH PRIVILEGES;" 
 
 
 
