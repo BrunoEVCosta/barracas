@@ -1,0 +1,12 @@
+[Unit]
+Description=Barracas server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+#User=brunocosta
+Type=simple
+ExecStart=/home/brunocosta/git/barracas/bin/startServer
+
+[Install]
+WantedBy=multi-user.target

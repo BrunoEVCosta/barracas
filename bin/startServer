@@ -1,0 +1,9 @@
+#!/usr/bin/env bash     
+
+USER="brunocosta"
+PROJECT=barracas
+
+PATHDIR="/home/$USER/git/$PROJECT"
+#Executable script for systemd
+cd $PATHDIR
+sudo user=$USER mode=PRODUCTION npm start
