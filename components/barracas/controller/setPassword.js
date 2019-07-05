@@ -15,7 +15,6 @@ module.exports = function(options){
 			attributes.hash=hash.digest('hex')
 			var call="setNewPassword";
 			res(models[call](attributes))
-	
 	 	}).catch(function(err){
 	 		rej(err)
 	 	})

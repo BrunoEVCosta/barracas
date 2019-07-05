@@ -27,7 +27,7 @@ CREATE TABLE `Acesso` (
   `pessoasId` int(5) NOT NULL,
   `acesso` datetime DEFAULT CURRENT_TIMESTAMP,
   `ip` int(11) NOT NULL,
-  `platform` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `platform` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
   `accessToken` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL,
   `valid` tinyint(1) DEFAULT '0',
   `revokedOn` datetime DEFAULT NULL,
@@ -163,7 +163,7 @@ CREATE TABLE `Pessoas` (
 
 LOCK TABLES `Pessoas` WRITE;
 /*!40000 ALTER TABLE `Pessoas` DISABLE KEYS */;
-INSERT INTO `Pessoas` VALUES (1,'Bruno Costa','brunovasquescosta@gmail.com','admin','3370cb1b99f1487826f0a0e358776978f6c52f6359ca21e30d3e5ec2b5f80f49','2018-08-25 00:00:00','209ie9320ie2eopqidadi320',1,0,0);
+INSERT INTO `Pessoas` VALUES (1,'Bruno Costa','brunovasquescosta@gmail.com','admin','be57a929a1377a009245e9c31f287e38609822752c6dfe5f89b9f6baf4c9696f','2018-08-25 00:00:00','209ie9320ie2eopqidadi320',1,0,0);
 /*!40000 ALTER TABLE `Pessoas` ENABLE KEYS */;
 UNLOCK TABLES;
 
