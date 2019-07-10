@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	h1=title
+	table.table.table-hover
+    thead
+      th Valor
+      th Total
+    tbody
+      for row in dados.rows
+        tr
+          td=row.valor
+          td=row.sum
+      tr
+        th Valor Total
+        th=dados.total

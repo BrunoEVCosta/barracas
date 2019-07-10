@@ -112,6 +112,15 @@ router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 	})
 })
 
+router.get('/relatorios/reservas/:ano/:mes/',loggedIn,function(req,res,next){
+	require('./../components/barracas/controller/relatorioReservas')().then(function(dados){
+		res.render("relatorioReservas",{title:"Relatório reservas mês" ,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
+
+
 router.get('/informacao',function(req,res){
 	res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus"})
 })
@@ -250,6 +259,8 @@ router.get('/cancelar/aluguer/:id',loggedIn,isAdmin,function(req, res, next){
 		res.status(404).json(err)
 	})	
 })
+
+
 
 
 module.exports = router;

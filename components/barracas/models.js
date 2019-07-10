@@ -109,6 +109,18 @@ m.reportRents=function(attributes){
 	})
 }
 
+m.reportReserves=function(attributes){
+	return db.Aluguer
+	.findAndCountAll({
+		where: attributes.where
+	}).then(function(res){
+		return res
+	}).catch(function(err){
+		console.log('Report Reserves - Err: '+ err);
+		return err;
+	})
+}
+
 m.getUser=function(attributes){
 	return db.Pessoas
 	.find({
