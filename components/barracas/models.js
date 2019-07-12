@@ -3,7 +3,6 @@ var Sequelize = require('sequelize');
 
 //Break up this file into domains once it gets to big.
 var m={}
-
 m.getRow=function(attributes){
 	return db.BarracasChapeus
 	.findAndCountAll({
@@ -110,7 +109,7 @@ m.reportRents=function(attributes){
 }
 
 m.reportReserves=function(attributes){
-	return db.Aluguer
+	return db.Reservas
 	.findAndCountAll({
 		where: attributes.where
 	}).then(function(res){

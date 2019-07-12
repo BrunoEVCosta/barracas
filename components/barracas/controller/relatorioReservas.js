@@ -1,7 +1,7 @@
 var models= require('./../models');
 
 module.exports = function(transporter){
-	var call="reportRerserves";
+	var call="reportReserves";
  	var attributes={};
  	var year=transporter.ano
  	var queryMonth=thisMonth(transporter.mes)
@@ -14,6 +14,7 @@ module.exports = function(transporter){
  			"$lt": `${year}-${nextMonthSTR}-01`
  		}
  	} 	
+
 	return new Promise(function(res,rej){
 		models[call](attributes).then(function(result){
 			data=[]
@@ -21,9 +22,8 @@ module.exports = function(transporter){
 			for (i in result.rows){
 				var row=result.rows[i];
 				data.push(row.dataValues)
-				total+=row.dataValues.sum
 			}
-			res({rows:data,total:total})
+			res({rows:data})
 		}).catch(function(err){
 			//Is empty an error????
 			rej(err)
