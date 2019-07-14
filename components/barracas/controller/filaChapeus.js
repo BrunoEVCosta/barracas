@@ -11,7 +11,7 @@ module.exports = function(row){
  	var call='getRow'
  	var attributes={}
  	attributes.where={
- 		"localizacao":"Fila Chapeu"+row,
+ 		"localizacao":"Fila Chapeu "+row,
  		"tipo":"Chapeu"
 		}
 
