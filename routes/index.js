@@ -113,7 +113,8 @@ router.get('/relatorios/aluguer/hoje',loggedIn,function(req, res, next){
 })
 
 router.get('/relatorios/reservas/:ano/:mes/',loggedIn,function(req,res,next){
-	require('./../components/barracas/controller/relatorioReservas')().then(function(dados){
+	var options=req.params;
+	require('./../components/barracas/controller/relatorioReservas')(options).then(function(dados){
 		res.render("relatorioReservas",{title:"Relatório reservas mês" ,dados:dados})
 	}).catch(function(err){
 		res.status(404).json(err)
