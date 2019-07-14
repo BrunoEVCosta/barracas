@@ -10,7 +10,10 @@ module.exports = function(row){
  return new Promise(function(resolve,reject){
  	var call='getRow'
  	var attributes={}
- 	attributes.where={"localizacao":"Fila "+row}
+ 	attributes.where={
+    "localizacao":"Fila "+row,
+    "tipo": "Barraca"
+ }
 
     models[call](attributes).then(function(res){
     
