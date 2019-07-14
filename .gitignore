@@ -62,3 +62,4 @@ config_barracas.js
 .next
 
 SQL/InsertData/tableValues.tsv
+SQL/DB_backup/*
