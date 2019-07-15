@@ -2,12 +2,13 @@ extends layout
 
 block content
   h1=title
-  table.table.table-hover
-    thead
-      each key in Object.keys(dados.rows[0])
-        td=key
-    tbody
-      for row in dados.rows
-        tr
-          for value in row
-            td=value
+  if (dados.rows.length>0)
+    table.table.table-hover
+      thead
+        each key in Object.keys(dados.rows[0])
+          td=key
+      tbody
+        for row in dados.rows
+          tr
+            for value in row
+              td=value
