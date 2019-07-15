@@ -25,11 +25,10 @@ a {
 	display: grid;
 	grid-template-columns: repeat(3,2fr) 9fr repeat(2,2fr);
 	grid-template-rows: 1fr
-	grid-gap: 20px;
+	grid-column-gap: 20px;
 }
 .zona-centro{
 	display: grid;
-	grid-template-columns: 1fr;
 	grid-template-rows: repeat(3,50px);
 	text-align: center;
     vertical-align: middle;
@@ -44,6 +43,7 @@ a {
 .fila-4{
 	grid-row:3;
 }
+
 .fila.vertical{
 	display: grid;
 	grid-template-columns: 1fr 1fr;
@@ -53,7 +53,7 @@ a {
 	grid-template-columns: repeat(9,1fr);
 }
 .tent{
-	grid-column: 1/2;
+	grid-column: 1;
 	width: 1fr;
 	height: 100px;
 	border: 1px solid black;
@@ -64,39 +64,12 @@ a {
     margin: 1px;
 }
 .tent.annex{
-	grid-column: 2 / 2;
+	grid-column: 2;
 }
 .tent.Traseira{
 	width:1fr;
 	grid-row:3;
 }
-.tent.Traseira1{
-	grid-row:3/3;	
-}
-.tent.Traseira2{
-	grid-row:3/3;	
-}
-.tent.Traseira3{
-	grid-column: 3;
-	grid-row:3/3;	
-}
-.tent.Traseira4{
-	grid-column: 4/9;
-	grid-row:3/3;	
-}
-.tent.Traseira5{
-	grid-column: 5/9;
-	grid-row:3/3;	
-}
-.tent.Traseira6{
-	grid-column: 6/9;
-	grid-row:3/3;	
-}
-.tent.Traseira7{
-	grid-column: 7/9;
-	grid-row:3/3;	
-}
-
 
 .collapse{
 	grid-column: 1 / 2;
