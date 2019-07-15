@@ -1,30 +1,37 @@
 $(document).ready(function(){
 	var load=$('.general-schema').attr('load')
 	if (load){
-		$.get("/fila/1",function(data){
-			console.log($.parseHTML(data)[4]);
+		$.get("/barracas/fila/1",function(data){
 			fila1=$.parseHTML(data)[4]
 			$('.fila-1').append(fila1)
 		},"html")
-		$.get("/fila/2",function(data){
-			console.log($.parseHTML(data)[4]);
+		$.get("/barracas/fila/2",function(data){
 			fila2=$.parseHTML(data)[4]
 			$('.fila-2').append(fila2)
 		},"html")
-		$.get("/fila/3",function(data){
-			console.log($.parseHTML(data)[4]);
+		$.get("/barracas/fila/3",function(data){
 			fila3=$.parseHTML(data)[4]
 			$('.fila-3').append(fila3)
 		},"html")
-		$.get("/fila/4",function(data){
-			console.log($.parseHTML(data)[4]);
+		$.get("/barracas/fila/4",function(data){
 			fila4=$.parseHTML(data)[4]
 			$('.fila-4').append(fila4)
 		},"html")
-		$.get("/fila/5",function(data){
-			console.log($.parseHTML(data)[4]);
+		$.get("/barracas/fila/5",function(data){
 			fila5=$.parseHTML(data)[4]
 			$('.fila-5').append(fila5)
+		},"html")
+		$.get("/barracas/fila/6",function(data){
+			fila5=$.parseHTML(data)[4]
+			$('.fila-6').append(fila5)
+		},"html")
+		$.get("/chapeus/fila/1",function(data){
+			fila5=$.parseHTML(data)[4]
+			$('.chapeus-fila-1').append(fila5)
+		},"html")
+		$.get("/chapeus/fila/2",function(data){
+			fila5=$.parseHTML(data)[4]
+			$('.chapeus-fila-2').append(fila5)
 		},"html")
 	}
 })	
