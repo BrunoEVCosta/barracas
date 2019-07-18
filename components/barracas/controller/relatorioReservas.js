@@ -29,7 +29,17 @@ module.exports = function(transporter){
 				row.dataValues.dataInicio=row.dataValues.dataInicio.toUTCString()
 				row.dataValues.dataFim=row.dataValues.dataFim.toUTCString()
 				row.dataValues.registo=row.dataValues.registo.toUTCString()
-				data.push(row.dataValues)
+				data.push({
+					"#":row.dataValues.numero,
+					tipo:row.dataValues.tipo,
+					subTipo:row.dataValues.subTipo,
+					Fila:row.dataValues.localizacao,
+					nome:row.dataValues.nome,
+					inicio:row.dataValues.dataInicio,
+					fim:row.dataValues.dataFim
+
+
+				})
 			})
 			res({rows:data})
 		}).catch(function(err){
