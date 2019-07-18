@@ -10,7 +10,10 @@ module.exports = function(row){
  return new Promise(function(resolve,reject){
  	var call='getRow'
  	var attributes={}
- 	attributes.where={"localizacao":"Fila "+row}
+ 	attributes.where={
+    "localizacao":"Fila "+row,
+    "tipo": "Barraca"
+ }
 
     models[call](attributes).then(function(res){
     
@@ -21,6 +24,7 @@ module.exports = function(row){
       }else{
       	var data={}
       	var result=[]
+        var vertical=1
 
       	for ( i in res.rows){
       		let row=res.rows[i]
@@ -54,6 +58,8 @@ module.exports = function(row){
       			rented: rented,
       			reserved: reserved,
       			frontal: row.dataValues.subTipo=="Frontal"? true : false,
+            traseira: row.dataValues.subTipo=="Traseira" ? true : false,
+            subtipo: row.dataValues.subTipo,
             startDate: startDate,
             endDate: endDate,
       			pago: false,
@@ -63,6 +69,7 @@ module.exports = function(row){
       	for (i in data){
       		result.push(data[i])
       	}
+        console.log(result)
         resolve(result);
       }//end else
       //end then

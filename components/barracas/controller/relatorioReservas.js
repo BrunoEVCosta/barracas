@@ -8,10 +8,10 @@ module.exports = function(transporter){
  	var nextMonthSTR=nextMonth(transporter.mes)
  	attributes.where={
  		dataInicio: {
- 			"$gt": `${year}-${queryMonth}-01`
+ 			"$lte": `${year}-${nextMonthSTR}-01`
  		},
  		dataFim: {
- 			"$lt": `${year}-${nextMonthSTR}-01`
+ 			"$gte": `${year}-${queryMonth}-01`
  		}
  	} 	
 
@@ -19,10 +19,18 @@ module.exports = function(transporter){
 		models[call](attributes).then(function(result){
 			data=[]
 			total=0
-			for (i in result.rows){
-				var row=result.rows[i];
+			result.rows.forEach(function(row){
+				Object.assign(row.dataValues, row.dataValues.BarracasChapeu.dataValues)
+				delete row.dataValues.id
+				delete row.dataValues.barracaChapeusId
+				row.dataValues.operadorId=row.dataValues.Pessoa.nome
+				delete row.dataValues.Pessoa
+				delete row.dataValues.BarracasChapeu
+				row.dataValues.dataInicio=row.dataValues.dataInicio.toUTCString()
+				row.dataValues.dataFim=row.dataValues.dataFim.toUTCString()
+				row.dataValues.registo=row.dataValues.registo.toUTCString()
 				data.push(row.dataValues)
-			}
+			})
 			res({rows:data})
 		}).catch(function(err){
 			//Is empty an error????

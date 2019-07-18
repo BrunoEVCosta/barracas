@@ -31,8 +31,12 @@ for( index in tables){
 }
 
 Object.keys(db).forEach(function(modelName) {
-  if ('associate' in db[modelName]) {
-    db[modelName].associate(db);
+  if ('classMethods' in db[modelName].options) {
+    try {
+      db[modelName].options.classMethods.associate(db);
+    } catch(e) {
+      debug_std(`Occured while trying to associate ${modelName}\n${e}`);
+    }
   }
 });
 

@@ -70,11 +70,21 @@ router.get('/', loggedIn, function(req, res, next) {
 	res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req), loggedin: true });
 });
 
-router.get('/fila/:numero',loggedIn,function(req, res, next){
+router.get('/barracas/fila/:numero',loggedIn,function(req, res, next){
 	var fila = req.params.numero;
 	require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
 		var title="Fila "+fila
 		res.render('esquemaFilaBarracas',{title: title,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})
+})
+
+router.get('/chapeus/fila/:numero',loggedIn,function(req, res, next){
+	var fila = req.params.numero;
+	require('./../components/barracas/controller/filaChapeus')(fila).then(function(dados){
+		var title="Fila "+fila
+		res.render('esquemaFilaChapeus',{title: title,dados:dados})
 	}).catch(function(err){
 		res.status(404).json(err)
 	})

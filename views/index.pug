@@ -24,23 +24,32 @@ block content
         h2 Barracas
       .card-body
         .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/1") Fila 1
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/2") Fila 2
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/3") Fila 3
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/4") Fila 4 (Trás)
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/5") Fila 5
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/fila/6") Fila 6
-    h2 Chapéus
-    .fila
-      a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/1") Fila 1
-      a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/2") Fila 2
-    h2 Vista geral
-    .fila
-      a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral") Vista Geral
-    h2 Relatórios
-    .fila
-      a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
-      a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/2019/08") Reservas     //Ano atual???    Get from router
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/1") Fila 1
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/2") Fila 2
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/3") Fila 3
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/4") Fila 4 (Trás)
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/5") Fila 5
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/6") Fila 6
+    .card
+      .card-title
+        h2 Chapéus
+      .card-body  
+        .fila
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/fila/1") Fila 1
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/fila/2") Fila 2
+    .card
+      .card-title    
+        h2 Vista geral
+      .card-body
+        .fila
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral") Vista Geral
+    .card
+      .card-title    
+        h2 Relatórios
+      .card-body    
+        .fila
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/2019/08") Reservas
     if role=="admin"
       .card
         .card-title

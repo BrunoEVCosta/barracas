@@ -111,6 +111,11 @@ m.reportRents=function(attributes){
 m.reportReserves=function(attributes){
 	return db.Reservas
 	.findAndCountAll({
+		include:[{
+			model:db.BarracasChapeus
+		},{
+			model:db.Pessoas
+		}],
 		where: attributes.where
 	}).then(function(res){
 		return res
