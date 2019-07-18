@@ -85,6 +85,8 @@ router.get('/vista-geral',loggedIn, function(req, res, next){
 })
 
 //API
+
+
 router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
 	var options=req.params;
 	require('./../components/barracas/controller/getReserve')(options).then(function(dados){
@@ -121,6 +123,14 @@ router.get('/relatorios/reservas/:ano/:mes/',loggedIn,function(req,res,next){
 	})	
 })
 
+router.get('/relatorios/reservas/:ano/:mes/:barraca',loggedIn,function(req,res,next){
+	var options=req.params;
+	require('./../components/barracas/controller/relatorioReservas')(options).then(function(dados){
+		res.json({dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})	
+})
 
 router.get('/informacao',function(req,res){
 	res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus"})
@@ -195,6 +205,34 @@ router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 	}).catch(function(err){
 		res.status(404).json(err)
 	})	
+})
+
+// Reserve layout
+router.get('/calendar/:barraca',loggedIn,function(req,res){
+	res.render('calendar/layout',{title:"Layout"})
+})
+
+router.get('/calendar',loggedIn,function(req,res){
+	res.json(
+{
+  events: [
+    {
+      title: 'Event1',
+      start: '2019-07-04',
+      end:'2019-07-08'
+    },
+    {
+      title: 'Event2',
+      start: '2019-07-05',
+      end:'2019-07-21'
+    }
+    // etc...
+  ],
+  color: 'yellow',   // an option!
+  textColor: 'black' // an option!
+}
+
+		)
 })
 
 
