@@ -1,5 +1,4 @@
 var models= require('./../models');
-
 module.exports = function(transporter){
 	var call="reportReserves";
  	var attributes={};
@@ -14,7 +13,7 @@ module.exports = function(transporter){
  			"$gte": `${year}-${queryMonth}-01`
  		}
  	} 	
-
+ 	transporter.espacoId != null ? attributes.where.barracaChapeusId = transporter.espacoId : null
 	return new Promise(function(res,rej){
 		models[call](attributes).then(function(result){
 			data=[]
@@ -33,12 +32,13 @@ module.exports = function(transporter){
 					"#":row.dataValues.numero,
 					tipo:row.dataValues.tipo,
 					subTipo:row.dataValues.subTipo,
-					Fila:row.dataValues.localizacao,
+					fila:row.dataValues.localizacao,
 					nome:row.dataValues.nome,
 					inicio:row.dataValues.dataInicio,
-					fim:row.dataValues.dataFim
-
-
+					fim:row.dataValues.dataFim,
+					valor:row.dataValues.valor,
+					operador:row.dataValues.operadorId,
+					registo:row.dataValues.registo
 				})
 			})
 			res({rows:data})
