@@ -5,6 +5,8 @@ module.exports = function(transporter){
  	var year=transporter.ano
  	var queryMonth=thisMonth(transporter.mes)
  	var nextMonthSTR=nextMonth(transporter.mes)
+ 	queryMonth=="00" ? nextMonthSTR="12" : null
+ 	queryMonth=="00" ? queryMonth="01" : null
  	attributes.where={
  		dataInicio: {
  			"$lte": `${year}-${nextMonthSTR}-01`
