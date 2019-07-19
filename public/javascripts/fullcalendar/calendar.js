@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-  $.get("/relatorios/reservas/2019/08/35",function(data){
+  let espaco=$("#calendar").attr("espaco")
+  $.get(`/relatorios/reservas/2019/00/${espaco}`,function(data){
   	let reservas=[]
   	var rows=data.dados.rows
   	rows.forEach(function(row){
