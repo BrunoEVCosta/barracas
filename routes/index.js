@@ -218,8 +218,9 @@ router.get('/reservar/barraca/:id',loggedIn,function(req,res, next){
 })
 
 // Reserve layout
-router.get('/calendar/:barraca',loggedIn,function(req,res){
-	res.render('calendar/layout',{title:"Layout"})
+router.get('/calendar/:espaco',loggedIn,function(req,res){
+	let espaco = req.params.espaco
+	res.render('calendar/layout',{title:"Layout", espaco })
 })
 
 router.get('/calendar',loggedIn,function(req,res){
