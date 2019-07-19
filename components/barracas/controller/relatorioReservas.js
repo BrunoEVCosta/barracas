@@ -25,8 +25,8 @@ module.exports = function(transporter){
 				row.dataValues.operadorId=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
 				delete row.dataValues.BarracasChapeu
-				row.dataValues.dataInicio=row.dataValues.dataInicio.toUTCString()
-				row.dataValues.dataFim=row.dataValues.dataFim.toUTCString()
+				row.dataValues.dataInicio=row.dataValues.dataInicio
+				row.dataValues.dataFim=row.dataValues.dataFim
 				row.dataValues.registo=row.dataValues.registo.toUTCString()
 				data.push({
 					"#":row.dataValues.numero,
