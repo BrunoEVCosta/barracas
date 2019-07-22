@@ -27,8 +27,8 @@ module.exports = function(transporter){
 				row.dataValues.operadorId=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
 				delete row.dataValues.BarracasChapeu
-				row.dataValues.dataInicio=row.dataValues.dataInicio
-				row.dataValues.dataFim=row.dataValues.dataFim
+				row.dataValues.dataInicio= new Date(row.dataValues.dataInicio).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
+				row.dataValues.dataFim= new Date(row.dataValues.dataFim).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
 				row.dataValues.registo=row.dataValues.registo.toUTCString()
 				data.push({
 					"#":row.dataValues.numero,
