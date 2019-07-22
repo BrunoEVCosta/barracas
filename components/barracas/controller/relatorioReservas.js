@@ -33,7 +33,7 @@ module.exports = function(transporter){
 				delete row.dataValues.BarracasChapeu
 				row.dataValues.inicio= new Date(row.dataValues.inicio).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
 				row.dataValues.fim= new Date(row.dataValues.fim).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
-				row.dataValues.registo=row.dataValues.registo.toUTCString()
+				row.dataValues.registo=row.dataValues.em || row.dataValues.registo
 				data[id]={
 					"#":row.dataValues.numero,
 					tipo:row.dataValues.tipo,
@@ -47,7 +47,7 @@ module.exports = function(transporter){
 					valor:row.dataValues.valor,
 					pago:row.dataValues.pago,
 					operador:row.dataValues.operadorId,
-					registo:row.dataValues.registo,
+					registo: row.dataValues.registo.toUTCString() ,
 					reservaId:row.dataValues.reservaId,
 					espacoId:espacoId
 				}
