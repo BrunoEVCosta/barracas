@@ -16,11 +16,17 @@ block content
     table.table.table-hover.reserves.report
       thead
         each key in Object.keys(dados.rows[0])
-          td=key
+          if (key=="fimLong" || key == "inicioLong")  
+            td.d-none
+          else  
+            td=key
       tbody
         for row in dados.rows
           tr
-            for value in row
-              td=value
+            for value,index in row
+              if (index=="fimLong" || index == "inicioLong")  
+                td.d-none=value
+              else
+                td=value
             td.editar.d-none 
               button.btn.btn-primary editar

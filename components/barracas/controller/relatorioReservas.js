@@ -36,8 +36,10 @@ module.exports = function(transporter){
 					subTipo:row.dataValues.subTipo,
 					fila:row.dataValues.localizacao,
 					nome:row.dataValues.nome,
-					inicio:row.dataValues.dataInicio,
-					fim:row.dataValues.dataFim,
+					inicioLong:row.dataValues.dataInicio,
+					inicio:getDatePart(row.dataValues.dataInicio),
+					fimLong:row.dataValues.dataFim,
+					fim:getDatePart(row.dataValues.dataFim),
 					valor:row.dataValues.valor,
 					operador:row.dataValues.operadorId,
 					registo:row.dataValues.registo
@@ -59,4 +61,19 @@ function nextMonth(thisMonth){
 	let nextMonth
 	thisMonth>=9 ? nextMonth=thisMonth+1 : nextMonth=`0${thisMonth+1}`
 	return nextMonth
+}
+
+
+function getDatePart(date){
+  var d=new Date(date)
+  let yyyy=d.getFullYear()
+  let mm=pad(d.getMonth()+1,2)
+  let dd=pad(d.getDate(),2)  
+  return yyyy+"-"+mm+"-"+dd
+}
+
+function pad(num, size) {
+  var s = num+"";
+  while (s.length < size) s = "0" + s;
+  return s;
 }
