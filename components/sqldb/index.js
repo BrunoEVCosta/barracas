@@ -9,6 +9,8 @@ var config_barracas = require('./../../config_barracas');
 var Sequelize = require('sequelize');
 var glob = require('glob');
 var path = require('path');
+var debug = require('debug')
+//var debug_std = debug
 //DB credentials
 var db = {
   sequelize: new Sequelize(

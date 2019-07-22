@@ -14,7 +14,7 @@
         unique: true,
       },
     valor: DataTypes.FLOAT,
-    pago: DataTypes.tinyINTEGER(1),
+    pago: DataTypes.BOOLEAN,
     reservaId: DataTypes.INTEGER(11),
     comentarioId: DataTypes.INTEGER(11),
     operadorId: DataTypes.INTEGER(11),
