@@ -45,3 +45,5 @@ CREATE TABLE `ReservasEdicoes` (
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE Reservas CHANGE dataInicio inicio DATE NOT NULL;
+ALTER TABLE Reservas CHANGE dataFim fim DATE NOT NULL;
