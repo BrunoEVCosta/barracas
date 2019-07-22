@@ -96,6 +96,16 @@ router.get('/vista-geral',loggedIn, function(req, res, next){
 
 //API
 
+router.post('/alterar/reserva/datas',loggedIn, function(req, res, next){
+	var options=req.body;
+	console.log(options)
+/*	require('./../components/barracas/controller/getReserve')(options).then(function(dados){
+		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
+	}).catch(function(err){
+		res.status(404).json(err)
+	})*/
+	res.json(options)	
+})
 
 router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
 	var options=req.params;
@@ -105,6 +115,8 @@ router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
 		res.status(404).json(err)
 	})	
 })
+
+
 
 router.get('/alterar/aluguer/:id',loggedIn,function(req, res, next){
 	var options=req.params;

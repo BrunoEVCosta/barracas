@@ -22,12 +22,16 @@ block content
             td=key
       tbody
         for row in dados.rows
-          tr
+          tr(editing=false)
             for value,index in row
               if (index=="fimLong" || index == "inicioLong" || index=="id")  
                 td.d-none=value
               else
-                td=value
-            td.editar.d-none 
-              button.btn.btn-primary editar
+                td
+                  if (index=="fim" || index=="inicio")
+                    input.form-control.date(name=index,type="date",readonly,value=value)
+                  else
+                    | #{value}
+            td.funcoes.d-none 
+              button.btn.btn-primary.editar editar
               a.btn.btn-primary(href=`/calendar/${row.id}`) calendário
