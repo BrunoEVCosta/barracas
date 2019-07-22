@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
     comentarioId: DataTypes.INTEGER(10),
     operadorId: DataTypes.INTEGER(11),
     registo: DataTypes.DATE,
+    del: BOOLEAN,
   }, {
     tableName: 'Reservas',
     timestamps: false,
