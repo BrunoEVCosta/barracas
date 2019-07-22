@@ -42,8 +42,8 @@ module.exports = function(row){
       			rented=false
       		}
           try{
-            startDate=res.rows[i].dataValues.Reserva.dataValues.dataInicio
-            endDate=res.rows[i].dataValues.Reserva.dataValues.dataFim
+            startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
+            endDate=res.rows[i].dataValues.Reserva.dataValues.fim
             reserved=isReserved(startDate,endDate)
             startDate=getDatePart(startDate)
             endDate=getDatePart(endDate)
