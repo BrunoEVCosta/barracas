@@ -79,8 +79,8 @@ m.reserveTent=function(attributes){
 	.create({
 		barracaChapeusId: attributes.id,
 		nome: attributes.name,
-		dataInicio: attributes.startDate,
-		dataFim: attributes.endDate,
+		inicio: attributes.startDate,
+		fim: attributes.endDate,
 		valor: attributes.price,
 		operadorId: attributes.userId,
 	}).then(function(task){
@@ -91,6 +91,22 @@ m.reserveTent=function(attributes){
 	})
 }
 
+m.reserveEdit=function(attributes){
+	return db.ReservasEdicoes
+	.create({
+		nome: attributes.nome,
+		reservaId: attributes.id,
+		inicio: attributes.inicio,
+		fim: attributes.fim,
+		valor: attributes.valor,
+		operadorId: attributes.userId,		
+	}).then(function(task){
+		return task.dataValues.id 
+	}).catch(function(err){
+		console.log('Reserve Tent - Err: '+ err);
+		return err
+	})
+}
 
 
 
@@ -115,6 +131,8 @@ m.reportReserves=function(attributes){
 			model:db.BarracasChapeus
 		},{
 			model:db.Pessoas
+		},{
+			model:db.ReservasEdicoes
 		}],
 		where: attributes.where
 	}).then(function(res){
