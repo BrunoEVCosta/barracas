@@ -22,7 +22,7 @@ module.exports = function(transporter){
 			total=0
 			result.rows.forEach(function(row){
 				Object.assign(row.dataValues, row.dataValues.BarracasChapeu.dataValues)
-				delete row.dataValues.id
+				
 				delete row.dataValues.barracaChapeusId
 				row.dataValues.operadorId=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
@@ -42,7 +42,8 @@ module.exports = function(transporter){
 					fim:getDatePart(row.dataValues.dataFim),
 					valor:row.dataValues.valor,
 					operador:row.dataValues.operadorId,
-					registo:row.dataValues.registo
+					registo:row.dataValues.registo,
+					id:row.dataValues.id
 				})
 			})
 			res({rows:data})

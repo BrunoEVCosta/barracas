@@ -16,7 +16,7 @@ block content
     table.table.table-hover.reserves.report
       thead
         each key in Object.keys(dados.rows[0])
-          if (key=="fimLong" || key == "inicioLong")  
+          if (key=="fimLong" || key == "inicioLong" || key=="id")  
             td.d-none
           else  
             td=key
@@ -24,9 +24,10 @@ block content
         for row in dados.rows
           tr
             for value,index in row
-              if (index=="fimLong" || index == "inicioLong")  
+              if (index=="fimLong" || index == "inicioLong" || index=="id")  
                 td.d-none=value
               else
                 td=value
             td.editar.d-none 
               button.btn.btn-primary editar
+              a.btn.btn-primary(href=`/calendar/${row.id}`) calendário
