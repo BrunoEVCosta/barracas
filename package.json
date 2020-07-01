@@ -23,6 +23,6 @@
     "mysql": "^2.17.1",
     "pug": "2.0.0-beta11",
     "sequelize": "^3.35.1",
-    "greenlock-express": "^2.7.17",
+    "greenlock-express": "^2.7.17"
   }
 }
