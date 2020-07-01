@@ -11,6 +11,7 @@
     "cookie-parser": "~1.4.3",
     "cookies": "^0.7.1",
     "csprng": "^0.1.2",
+    "d3-time": "^1.0.11",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "fs": "0.0.1-security",
@@ -21,6 +22,7 @@
     "morgan": "~1.9.0",
     "mysql": "^2.17.1",
     "pug": "2.0.0-beta11",
-    "sequelize": "^3.35.1"
+    "sequelize": "^3.35.1",
+    "greenlock-express": "^2.7.17",
   }
 }
