@@ -1,30 +1,16 @@
 $(document).ready(function(){
 	var load=$('.general-schema').attr('load')
 	if (load){
-		$.get("/barracas/fila/1",function(data){
-			fila1=$.parseHTML(data)[4]
-			$('.fila-1').append(fila1)
-		},"html")
-		$.get("/barracas/fila/2",function(data){
-			fila2=$.parseHTML(data)[4]
-			$('.fila-2').append(fila2)
-		},"html")
-		$.get("/barracas/fila/3",function(data){
-			fila3=$.parseHTML(data)[4]
-			$('.fila-3').append(fila3)
-		},"html")
-		$.get("/barracas/fila/4",function(data){
-			fila4=$.parseHTML(data)[4]
-			$('.fila-4').append(fila4)
-		},"html")
-		$.get("/barracas/fila/5",function(data){
-			fila5=$.parseHTML(data)[4]
-			$('.fila-5').append(fila5)
-		},"html")
-		$.get("/barracas/fila/6",function(data){
-			fila5=$.parseHTML(data)[4]
-			$('.fila-6').append(fila5)
-		},"html")
+		$('.barracas').each(function(){
+		  let fila=$(this).attr("fila")
+		  loadFilaBarracas(fila)
+		})
+		function loadFilaBarracas(fila){
+			$.get(`/barracas/fila/${fila}`,function(data){
+				filaBarracas=$.parseHTML(data)[4]
+				$(`.barracas[fila|="${fila}"`).append(filaBarracas)
+			},"html")			
+		}
 		$.get("/chapeus/fila/1",function(data){
 			fila5=$.parseHTML(data)[4]
 			$('.chapeus-fila-1').append(fila5)

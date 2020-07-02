@@ -23,15 +23,15 @@ a {
 }
 .general-schema{
 	display: grid;
-	grid-template-columns: repeat(3,2fr) 9fr repeat(2,2fr);
-	grid-template-rows: 1fr
+	grid-template-columns: repeat(2,2fr) 5fr repeat(2,2fr); /* ajust this to the number of cols*/
+	grid-template-rows: 1fr;
 	grid-column-gap: 20px;
 }
-.zona-centro{
+.zona-central{
 	display: grid;
-	grid-template-rows: repeat(3,50px);
+	grid-template-rows: repeat(3,150px);
 	text-align: center;
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .chapeus-fila-1{
@@ -40,8 +40,11 @@ a {
 .chapeus-fila-2{
 	grid-row:2;
 }
-.fila-4{
+.fila-horizontal{
 	grid-row:3;
+}
+.chapeu{
+  width:13%;  /* ajust to fit them in the center*/
 }
 
 .fila.vertical{
@@ -67,10 +70,9 @@ a {
 	grid-column: 2;
 }
 .tent.Traseira{
-	width:1fr;
+	width:13%;
 	grid-row:3;
 }
-
 .collapse{
 	grid-column: 1 / 2;
 }
