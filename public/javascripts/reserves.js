@@ -10,10 +10,11 @@ $(document).ready(function(){
 		let that = $(this)
 		let row= that.closest("tr")
 		if(that.text()=="modificar"){
-			dates={}
+			data={}
 			row.find(".date").each(function(){
-				dates[$(this).attr("name")]=$(this).val()
+				data[$(this).attr("name")]=$(this).val()
 			})
+			data.id=row.find("data")
 			$.post({
 				url:"/alterar/reserva/datas",
 				data:dates,
