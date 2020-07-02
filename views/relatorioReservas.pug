@@ -25,13 +25,16 @@ block content
           tr(editing=false)
             for value,index in row
               if (index=="fimLong" || index == "inicioLong" || index=="id")  
-                td.d-none=value
+                td.d-none(id=index)=value
               else
-                td
+                td(id=index)
                   if (index=="fim" || index=="inicio")
                     input.form-control.date(name=index,type="date",readonly,value=value)
                   else
                     | #{value}
             td.funcoes.d-none 
               button.btn.btn-primary.editar editar
-              a.btn.btn-primary(href=`/calendar/${row.id}`) calendário
+              a.btn.btn-primary(href=`/calendar/${row.espacoId}`) calendário
+      .alert.alert-warning.alert-dismissible.fade.show.d-none.erro(role="alert") Erro algo correu mal! 
+        button.close(type="button",data-dismiss="alert",aria-label="Close")
+          span(aria-hidden="true") &times;

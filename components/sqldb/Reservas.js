@@ -15,12 +15,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     barracaChapeusId: DataTypes.INTEGER(5),
     nome: DataTypes.STRING(254),
-    dataInicio: DataTypes.DATEONLY,
-    dataFim: DataTypes.DATEONLY,
+    inicio: DataTypes.DATEONLY,
+    fim: DataTypes.DATEONLY,
     valor: DataTypes.FLOAT,
     comentarioId: DataTypes.INTEGER(10),
     operadorId: DataTypes.INTEGER(11),
     registo: DataTypes.DATE,
+    del: DataTypes.BOOLEAN,
   }, {
     tableName: 'Reservas',
     timestamps: false,
@@ -39,6 +40,10 @@ module.exports = function(sequelize, DataTypes) {
         Reservas.belongsTo(models.Pessoas, {
           foreignKey: 'operadorId',              //on Reservas
           targetKey: 'id',  //foreign key  
+        });
+        Reservas.belongsTo(models.ReservasEdicoes, {
+            foreignKey: 'id',              //on ReservasEdicoes
+            targetKey: 'reservaId',  //foreign key  
         }); 
       }
     },

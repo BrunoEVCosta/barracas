@@ -8,45 +8,54 @@ module.exports = function(transporter){
  	queryMonth=="00" ? nextMonthSTR="12" : null
  	queryMonth=="00" ? queryMonth="01" : null
  	attributes.where={
- 		dataInicio: {
+ 		inicio: {
  			"$lte": `${year}-${nextMonthSTR}-01`
  		},
- 		dataFim: {
+ 		fim: {
  			"$gte": `${year}-${queryMonth}-01`
  		}
  	} 	
  	transporter.espacoId != null ? attributes.where.barracaChapeusId = transporter.espacoId : null
 	return new Promise(function(res,rej){
 		models[call](attributes).then(function(result){
-			data=[]
+			data={}
+			output=[]
 			total=0
 			result.rows.forEach(function(row){
+				let id=row.dataValues.id
+				row.dataValues.reservaId=row.dataValues.id
 				Object.assign(row.dataValues, row.dataValues.BarracasChapeu.dataValues)
-				
+				let espacoId=row.dataValues.id
+				if ( row.dataValues.ReservasEdico != null) Object.assign(row.dataValues, row.dataValues.ReservasEdico.dataValues)
 				delete row.dataValues.barracaChapeusId
 				row.dataValues.operadorId=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
 				delete row.dataValues.BarracasChapeu
-				row.dataValues.dataInicio= new Date(row.dataValues.dataInicio).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
-				row.dataValues.dataFim= new Date(row.dataValues.dataFim).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
-				row.dataValues.registo=row.dataValues.registo.toUTCString()
-				data.push({
+				row.dataValues.inicio= new Date(row.dataValues.inicio).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
+				row.dataValues.fim= new Date(row.dataValues.fim).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
+				row.dataValues.registo=row.dataValues.em || row.dataValues.registo
+				data[id]={
 					"#":row.dataValues.numero,
 					tipo:row.dataValues.tipo,
 					subTipo:row.dataValues.subTipo,
 					fila:row.dataValues.localizacao,
 					nome:row.dataValues.nome,
-					inicioLong:row.dataValues.dataInicio,
-					inicio:getDatePart(row.dataValues.dataInicio),
-					fimLong:row.dataValues.dataFim,
-					fim:getDatePart(row.dataValues.dataFim),
+					inicioLong:row.dataValues.inicio,
+					inicio:getDatePart(row.dataValues.inicio),
+					fimLong:row.dataValues.fim,
+					fim:getDatePart(row.dataValues.fim),
 					valor:row.dataValues.valor,
+					pago:row.dataValues.pago,
 					operador:row.dataValues.operadorId,
-					registo:row.dataValues.registo,
-					id:row.dataValues.id
-				})
+					registo: row.dataValues.registo.toUTCString() ,
+					reservaId:row.dataValues.reservaId,
+					espacoId:espacoId
+				}
 			})
-			res({rows:data})
+			Object.keys(data).forEach(function(key){
+				output.push(data[key])
+			})
+			res({rows:output})
 		}).catch(function(err){
 			//Is empty an error????
 			rej(err)

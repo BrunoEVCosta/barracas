@@ -98,13 +98,16 @@ router.get('/vista-geral',loggedIn, function(req, res, next){
 
 router.post('/alterar/reserva/datas',loggedIn, function(req, res, next){
 	var options=req.body;
-	console.log(options)
-/*	require('./../components/barracas/controller/getReserve')(options).then(function(dados){
-		res.status(200).json(dados);//render('esquemaFilaBarracas',{title: title,dados:dados})
+	options.userId=req.cookies.userId
+	require('./../components/barracas/controller/reservaEditar')(options).then(function(dados){
+		if (dados instanceof Error){
+			res.status(400).json(dados)
+		}else{
+			res.status(200).status(200).json("ok");
+		}
 	}).catch(function(err){
 		res.status(404).json(err)
-	})*/
-	res.json(options)	
+	})
 })
 
 router.get('/alterar/reserva/:id',loggedIn, function(req, res, next){
@@ -235,28 +238,6 @@ router.get('/calendar/:espaco',loggedIn,function(req,res){
 	res.render('calendar/layout',{title:"Layout", espaco })
 })
 
-router.get('/calendar',loggedIn,function(req,res){
-	res.json(
-{
-  events: [
-    {
-      title: 'Event1',
-      start: '2019-07-04',
-      end:'2019-07-08'
-    },
-    {
-      title: 'Event2',
-      start: '2019-07-05',
-      end:'2019-07-21'
-    }
-    // etc...
-  ],
-  color: 'yellow',   // an option!
-  textColor: 'black' // an option!
-}
-
-		)
-})
 
 
 ///ADMINISTRATION
