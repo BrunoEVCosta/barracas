@@ -11,13 +11,15 @@ block content
           button.btn.btn-primary(type="submit") Logout
   else
     form.card(method="POST",action="/login")
-      .form-row.card-body
-        .col
-          input(id="name",name="email",type="email",placeholder="Email")
-        .col
-          input(id="password",name="password",type="password",placeholder="Palavra Passe")
-        .col
-          button.btn.btn-primary(type="submit") Login
+      .card-body
+        .form-group
+          label(for="email") Email
+          input.form-control.form-control-lg(id="email",name="email",type="email",placeholder="Email")
+        .form-group
+          label(for="password") Palavra-passe
+          input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
+        .form-group
+          button.btn.btn-primary.btn-block.btn-lg(type="submit") Login
   if loggedin
     .card
       .card-title
