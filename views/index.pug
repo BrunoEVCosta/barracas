@@ -50,7 +50,10 @@ block content
       .card-body    
         .fila
           a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/2019/08") Reservas
+          - now=new Date()
+          - year=now.getFullYear()
+          - month=now.getMonth()+1
+          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas
     if role=="admin"
       .card
         .card-title

@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
   let espaco=$("#calendar").attr("espaco")
-  $.get(`/relatorios/reservas/2019/00/${espaco}`,function(data){
+  let now=new Date()
+  let anoCorrente=now.getFullYear()
+  $.get(`/relatorios/reservas/${anoCorrente}/00/${espaco}`,function(data){
   	let reservas=[]
   	var rows=data.dados.rows
   	rows.forEach(function(row){
