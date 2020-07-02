@@ -69,7 +69,6 @@ module.exports = function(row){
       	for (i in data){
       		result.push(data[i])
       	}
-        console.log(result)
         resolve(result);
       }//end else
       //end then
