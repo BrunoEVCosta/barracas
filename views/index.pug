@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  script(src='https://apis.google.com/js/platform.js', async='', defer='')  
   h1 Gestão de Barracas e Chapéus
   if dados
     .card
@@ -20,6 +21,9 @@ block content
           input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
         .form-group
           button.btn.btn-primary.btn-block.btn-lg(type="submit") Login
+          button.btn.btn-lg-btn-primary(onclick="signOut();") google Sign out
+      .card-body
+        .g-signin2(data-onsuccess='onSignIn', data-theme='dark')
   if loggedin
     .card
       .card-title
