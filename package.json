@@ -16,6 +16,7 @@
     "express": "~4.16.0",
     "fs": "0.0.1-security",
     "glob": "^7.1.2",
+    "google-auth-library": "^6.0.2",
     "greenlock-express": "^2.7.17",
     "http-errors": "~1.6.2",
     "keygrip": "^1.0.2",
