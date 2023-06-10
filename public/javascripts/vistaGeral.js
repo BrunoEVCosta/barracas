@@ -7,16 +7,17 @@ $(document).ready(function(){
 		})
 		function loadFilaBarracas(fila){
 			$.get(`/barracas/fila/${fila}`,function(data){
-				filaBarracas=$.parseHTML(data)[4]
+				let filaBarracas=$.parseHTML(data)
+				filaBarracas=filaBarracas[6]
 				$(`.barracas[fila|="${fila}"`).append(filaBarracas)
 			},"html")			
 		}
 		$.get("/chapeus/fila/1",function(data){
-			fila5=$.parseHTML(data)[4]
+			fila5=$.parseHTML(data)[6]
 			$('.chapeus-fila-1').append(fila5)
 		},"html")
 		$.get("/chapeus/fila/2",function(data){
-			fila5=$.parseHTML(data)[4]
+			fila5=$.parseHTML(data)[6]
 			$('.chapeus-fila-2').append(fila5)
 		},"html")
 	}

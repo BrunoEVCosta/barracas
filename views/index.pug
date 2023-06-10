@@ -1,7 +1,6 @@
 extends layout
-
 block content
-  script(src='https://apis.google.com/js/platform.js', async='', defer='')  
+  script(src="https://apis.google.com/js/platform.js", async="", defer="")  
   h1 Gestão de Barracas e Chapéus
   if dados
     .card
@@ -9,7 +8,7 @@ block content
         h5=dados.name
         form(method="POST",action="/users/revoke/access/")
           input(type="hidden",id="id",name="id",value=dados.accessId)
-          button.btn.btn-primary(type="submit") Logout
+          button.btn.btn-primary(type="submit",onclick='signOut();') Logout
   else
     form.card(method="POST",action="/login")
       .card-body
@@ -21,9 +20,15 @@ block content
           input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
         .form-group
           button.btn.btn-primary.btn-block.btn-lg(type="submit") Login
-          button.btn.btn-lg-btn-primary(onclick="signOut();") google Sign out
+    .card
       .card-body
-        .g-signin2(data-onsuccess='onSignIn', data-theme='dark')
+        .container
+          .row.justify-content-md-center
+            .col.col-lg-6
+              h3 Autenticação através de outras plataformas   
+          .row.justify-content-md-center
+            .col.col-lg-2
+              .g-signin2(data-onsuccess="onSignIn")
   if loggedin
     .card
       .card-title
