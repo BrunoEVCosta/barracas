@@ -17,4 +17,3 @@ insertScripts(names);
 
 window.Vue = Vue
 window.VueSelect=VueSelect
-Object.keys(buildingblocks).forEach(key=>window[key]=buildingblocks[key])
