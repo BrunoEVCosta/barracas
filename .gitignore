@@ -63,3 +63,6 @@ config_barracas.js
 
 SQL/InsertData/tableValues.tsv
 SQL/DB_backup/*
+
+# Webpack gererated js
+public/webpack/*
