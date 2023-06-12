@@ -66,3 +66,6 @@ SQL/DB_backup/*
 
 # Webpack gererated js
 public/webpack/*
+
+#JetBrains folder
+.idea
