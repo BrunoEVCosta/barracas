@@ -5,17 +5,20 @@ html(lang="pt",content-type="text/html;charset=UTF-8")
     title= title
     meta(name="google-site-verification",content="0i5RgOYfm-_5xwIkoSfvfkhbLXd5R-ixSJ3aUP2G1D8")
     meta(name='google-signin-client_id', content='925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleusercontent.com')
+    // https://favicon.io/favicon-converter/
+    link(rel="apple-touch-icon",sizes="180x180",href="/images/apple-touch-icon.png")
+    link(rel="icon", type="image/png" sizes="32x32" href="/images/favicon-32x32.png")
+    link(rel="icon", type="image/png" sizes="16x16" href="/images/favicon-16x16.png")
+    link(rel="manifest", href="/images/site.webmanifest")
     link(rel='stylesheet', href='/stylesheets/style.css')
-    //link(rel="stylesheet",href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css",integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA",crossorigin="anonymous")
   body
     block content
-    //script(src="https://code.jquery.com/jquery-3.3.1.min.js",integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=",crossorigin="anonymous")
-    //script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js",integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1",crossorigin="anonymous")
-    //script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js",integrity="sha384-7aThvCh9TypR7fIc2HV4O/nFMVCBwyIUKL8XCtKE+8xgCgl/PQGuFsvShjr74PBp",crossorigin="anonymous")
-    script(src="/javascripts/actions.js")
+    script(src='/webpack/webpack.js')
+    script#actions(src="/javascripts/actions.js")
+    script(src="/javascripts/loader.js")
     script(src="/javascripts/vistaGeral.js")
     script(src="/javascripts/reserves.js")
     script(src="/javascripts/login.js")
-    script(src='/webpack/webpack.js')
+
 
 

@@ -19,3 +19,18 @@ node install.js
 - update google auth
 - install schema layout
 - config bootstrap v5
+
+## DB setup
+Either run config.sh if you are setting up a new AWS instance.
+Alternatively use this:
+
+```bash
+sudo mysql -u root -p -e "CREATE DATABASE barracas;"
+mysql -u brunocosta -D barracas -p <SQL/LATEST_dump.sql
+mysql -u brunocosta -p -e "CREATE USER '[user]'@'localhost' IDENTIFIED BY ''; GRANT ALL PRIVILEGES ON barracas.* TO 'myapp'@'localhost'; FLUSH PRIVILEGES;" 
+```
+
+
+## QR code:
+Site: \<dominio>/informacoes
+Preço e mapa
