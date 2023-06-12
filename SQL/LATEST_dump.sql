@@ -1,13 +1,13 @@
--- MariaDB dump 10.17  Distrib 10.4.13-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.35-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: condominio
+-- Host: localhost    Database: barracas
 -- ------------------------------------------------------
--- Server version	10.4.13-MariaDB
+-- Server version	10.1.35-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,167 +16,216 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Anotacao`
+-- Table structure for table `Acesso`
 --
 
-DROP TABLE IF EXISTS `Anotacao`;
+DROP TABLE IF EXISTS `Acesso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Anotacao` (
+CREATE TABLE `Acesso` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `pessoasId` int(5) NOT NULL,
+  `acesso` datetime DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(50) NOT NULL,
+  `platform` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accessToken` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `valid` tinyint(1) DEFAULT '0',
+  `revokedOn` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Acesso_fk0` (`pessoasId`),
+  CONSTRAINT `Acesso_fk0` FOREIGN KEY (`pessoasId`) REFERENCES `Pessoas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Acesso`
+--
+
+LOCK TABLES `Acesso` WRITE;
+/*!40000 ALTER TABLE `Acesso` DISABLE KEYS */;
+INSERT INTO `Acesso` VALUES (1,1,'2018-08-26 00:44:54',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','7vrdrk6l1irphv7qou9hroj3gj48l84lbsrjsewarc44if68shzp4mmgkengzv',1,NULL),(2,1,'2018-08-26 00:52:00',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','p29tkulkmwho0hxrvim2966evn98vkus5x4puqjjq2ycigdpxjqm5dkpagopah',1,NULL),(3,1,'2018-08-26 01:07:06',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','9uwvs7g7rifrv2rp1ulwjskl1t5gh2uz7ack36y66ysl5cu7ic47duv3t6myzz',1,NULL),(4,1,'2018-08-26 01:08:08',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','sd7d292yfvck43j7e0wn5z5zrxvlcq659rxupue6lmru95rrr9r2svifkxziik',1,NULL),(5,1,'2018-08-26 01:10:23',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','wmz4qarqpypbj77c90grxr476wejv5rxfdzxkx0m9n76uhvbv18ib911gm3j43',1,NULL),(6,1,'2018-08-26 01:25:58',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','7gu19xxsce8zvd6o42hd85ec4ptbdaixygetzjd5tz1djaa5mr3pgxw72qkns9',1,NULL),(7,1,'2018-08-26 01:28:03',0,'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/5','p6k4gti7rkjozljitpy0ni1bfw6t5suuin5a50p0lgqr0fn8t1nunox0umujpr',1,NULL);
+/*!40000 ALTER TABLE `Acesso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Aluguer`
+--
+
+DROP TABLE IF EXISTS `Aluguer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Aluguer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `barracaChapeusId` int(5) NOT NULL,
+  `nome` varchar(254) DEFAULT NULL,
+  `data` datetime DEFAULT CURRENT_TIMESTAMP,
+  `valor` float NOT NULL,
+  `comentarioId` int(10) DEFAULT NULL,
+  `senha` int(10) DEFAULT NULL,
+  `lote` int(11) DEFAULT NULL,
+  `operadorId` int(11) NOT NULL,
+  `registo` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `Aluguer_fk0` (`barracaChapeusId`),
+  KEY `Aluguer_fk1` (`comentarioId`),
+  KEY `Aluguer_fk2` (`operadorId`),
+  CONSTRAINT `Aluguer_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
+  CONSTRAINT `Aluguer_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
+  CONSTRAINT `Aluguer_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Aluguer`
+--
+
+LOCK TABLES `Aluguer` WRITE;
+/*!40000 ALTER TABLE `Aluguer` DISABLE KEYS */;
+INSERT INTO `Aluguer` VALUES (1,1,'','2018-08-14 00:00:00',7,NULL,1,1,1,'2018-08-21 00:00:00'),(2,2,'','0000-00-00 00:00:00',8,NULL,999999,999999,1,'0000-00-00 00:00:00'),(3,2,'','0000-00-00 00:00:00',8,NULL,999999,999999,1,'2018-08-23 14:09:04'),(4,2,'','0000-00-00 00:00:00',8,NULL,999999,999999,1,'2018-08-23 14:09:49'),(5,2,'','0000-00-00 00:00:00',8,NULL,999999,999999,1,'2018-08-23 14:10:25'),(6,1,'','2018-08-23 21:48:21',0,NULL,999999,999999,1,'2018-08-23 21:48:21'),(7,12,'','2018-08-23 21:48:27',0,NULL,999999,999999,1,'2018-08-23 21:48:27'),(8,9,'','2018-08-23 21:48:33',0,NULL,999999,999999,1,'2018-08-23 21:48:33'),(9,5,'','2018-08-23 21:48:53',0,NULL,999999,999999,1,'2018-08-23 21:48:53'),(10,1,'','2018-08-23 23:15:48',0,NULL,999999,999999,1,'2018-08-23 23:15:48'),(11,7,'','2018-08-23 23:24:30',0,NULL,999999,999999,1,'2018-08-23 23:24:30'),(12,17,'','2018-08-23 23:54:17',0,NULL,999999,999999,1,'2018-08-23 23:54:17'),(13,17,'','2018-08-23 23:54:38',0,NULL,999999,999999,1,'2018-08-23 23:54:38'),(14,16,'','2018-08-23 23:54:43',0,NULL,999999,999999,1,'2018-08-23 23:54:43'),(15,14,'','2018-08-23 23:54:48',0,NULL,999999,999999,1,'2018-08-23 23:54:48'),(16,19,'','2018-08-23 23:56:34',7,NULL,999999,999999,1,'2018-08-23 23:56:34'),(17,21,'','2018-08-23 23:57:03',5,NULL,999999,999999,1,'2018-08-23 23:57:03'),(18,14,'','2018-08-23 23:58:17',7,NULL,999999,999999,1,'2018-08-23 23:58:17'),(19,14,'','2018-08-23 23:59:38',7,NULL,999999,999999,1,'2018-08-23 23:59:38'),(20,14,'','2018-08-23 23:59:44',0,NULL,999999,999999,1,'2018-08-23 23:59:44'),(44,15,'','2018-08-24 09:54:27',8,NULL,999999,999999,1,'2018-08-24 09:54:27'),(45,15,'','2018-08-24 21:09:24',75,NULL,999999,999999,1,'2018-08-24 21:09:24'),(46,15,'','2018-08-24 21:14:01',75,NULL,999999,999999,1,'2018-08-24 21:14:01'),(47,15,'','2018-08-24 21:14:01',75,NULL,999999,999999,1,'2018-08-24 21:14:01');
+/*!40000 ALTER TABLE `Aluguer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `BarracasChapeus`
+--
+
+DROP TABLE IF EXISTS `BarracasChapeus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `BarracasChapeus` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `numero` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tipo` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `subTipo` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `classificacao` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `rubrica` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imputado` int(4) NOT NULL,
-  `comments` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subTipo` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `localizacao` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Anotacao`
+-- Dumping data for table `BarracasChapeus`
 --
 
-LOCK TABLES `Anotacao` WRITE;
-/*!40000 ALTER TABLE `Anotacao` DISABLE KEYS */;
-INSERT INTO `Anotacao` VALUES (1,'1','1','Transferência','1',2001,'1'),(2,'1','1','Transferência','1',2001,'1'),(3,'1','1','Schindler','1',2001,'1'),(4,'1','1','Transferência','1',2001,'1'),(5,'1','1','Agua','1',2001,'1'),(6,'Garagem','1','EDP','1',2001,'1'),(7,'1','1','Agua','1',2001,'1'),(8,'1','1','Agua','1',2001,'1'),(9,'1','1','Agua','1',2001,'1'),(10,'1','1','CGD','1',2001,'1'),(11,'1','1','Transferência','1',2001,'1'),(12,'Garagem','1','EDP','1',2001,'1'),(13,'1','1','Transferência','1',2017,'1'),(14,'1','1','Agua','1',2017,'1'),(15,'Video Porteiro','1 F','Transferência','1',2018,'1'),(16,'Comissões','1','CGD','1',2018,'1'),(17,'Garagem','','EDP','1',2018,'1'),(18,'Reparação','Pro. de Rep de 2017 - Alarme, Contactos Eléctricos, Pintura, 2 de 2','Schindler','1',2018,'1'),(19,'Comum','','EDP','1',2018,'1'),(20,'Taxa','1','CGD','1',2018,'ss'),(21,'Tranferência Inter-contas','Limpeza outros','Transferência','1',2018,'1'),(22,'Agua','','Agua','1',2018,'1'),(23,'Comissões','1','CGD','1',2018,'1'),(24,'Agua','','Agua','1',2018,'1'),(25,'Garagem','1','EDP','1',2018,'1'),(26,'Comum','1','EDP','1',2018,'1'),(27,'Comissões','1','CGD','1',2018,'1'),(28,'Agua','','Agua','1',2018,''),(29,'1 E','2 Sem','Quota de Condominio','1',2018,'1'),(30,'Comissões','1','CGD','1',2018,'1'),(31,'Agua','','Agua','1',2018,''),(32,'Imposto de selo','1','CGD','1',2018,'1'),(33,'Contracto de Manutenção','2 Sem','Schindler','1',2018,'1'),(34,'Comissões','1','CGD','1',2018,'1'),(35,'Garagem','1','EDP','1',2018,'1'),(36,'Comum','1','EDP','1',2018,'1'),(37,'3 D + Gar C','2 Sem','Quota de Condominio','1',2018,'1'),(38,'Agua','','Agua','1',2018,'1'),(39,'Comissões','1','CGD','1',2018,'1'),(40,'Agua','','Agua','1',2018,'1'),(41,'Imposto de selo','1','CGD','1',2018,'1'),(42,'Video Porteiro','2 de 2 ','Transferência','1',2018,'1'),(43,'Comissões','1','CGD','1',2018,'1'),(44,'Garagem','1','EDP','1',2018,'1'),(45,'Comum','1','EDP','1',2018,'1'),(46,'Quota Condominio + VP','RC D - 2 Sem + VP','Transferência','1',2018,'1'),(47,'Imposto de selo','1','CGD','1',2018,'1'),(48,'Video Porteiro','1 de 2','Transferência','1',2018,'1'),(49,'Taxa','Alteração de titularidade','CGD','1',2018,'1'),(50,'Quota Condominio + VP','1 E 1Sem + VP','Transferência','1',2018,'1'),(51,'3 F + Gar A','Ano + G 2017','Quota de Condominio','1',2017,'1'),(52,'Video Porteiro','3 D - 1 VP','Transferência','1',2018,'1'),(53,'Quota Condominio + VP','3 E - 1 Sem + VP','Transferência','1',2018,'1'),(54,'Quota Condominio + VP','2 D - 2 Sem + VP','Transferência','1',2018,'1'),(55,'Agua','','Agua','1',2018,'1'),(56,'Video Porteiro','1 D ','Transferência','1',2018,'1'),(57,'1 D','2 Sem','Quota de Condominio','1',2018,'1'),(58,'G B','G B','Quota de Condominio','1',2018,'1'),(59,'Comissões','1','CGD','1',2018,'1'),(60,'1 F','1 F ??','Quota de Condominio','1',2018,'1'),(61,'1 F','1 F ??','Quota de Condominio','1',2018,'1'),(62,'Quota Condominio + VP','2 E - 1 Sem + VP + ! Credito !','Transferência','1',2018,'1'),(63,'3 D + Gar C','1 Sem + G C','Quota de Condominio','1',2018,'1'),(64,'RC D','1 Sem','Quota de Condominio','1',2018,'1'),(65,'Agua','','Agua','1',2018,'1'),(66,'Comissões','1','CGD','1',2018,'1'),(67,'Garagem','1','EDP','1',2018,'1'),(68,'Comum','1','EDP','1',2018,'1'),(69,'Imposto de selo','1','CGD','1',2018,'1'),(70,'Contracto de manutenção','1 Sem 2018','Schindler','1',2018,'1'),(71,'2 D ','1 Sem','Quota de Condominio','1',2018,'1'),(72,'Agua','','Agua','1',2018,'1'),(73,'Seguro','','Seguro','1',2018,'1'),(74,'Comissões','1','CGD','1',2018,'1'),(75,'Imposto de selo','1','CGD','1',2018,'1'),(76,'Reparação','Amortecedor porta Emmeloord','Schindler','1',2018,'1'),(77,'Agua','','Agua','1',2018,'1'),(78,'Garagem','1','EDP','1',2018,'1'),(79,'Comum','1','EDP','1',2018,'1'),(80,'Comissões','1','CGD','1',2018,'1'),(81,'Agua','','Agua','1',2018,'1'),(82,'1 D','1 Sem','Quota de Condominio','1',2018,'1'),(83,'Comissões','1','CGD','1',2018,'1'),(84,'1','1','Agua','1',2023,'1'),(85,'1','1','Agua','1',2023,'1'),(86,'1','1','Agua','1',2023,'1'),(87,'1','1','Agua','1',2023,'1'),(88,'1','1','Agua','1',2023,'1'),(89,'1','1','Agua','1',2023,'1'),(90,'1','1','Agua','1',2023,'1'),(91,'Comissões','Manutenção de Conta','CGD','1',2019,'1'),(92,'Garagem','1','EDP','1',2019,'1'),(93,'1 F','2 Sem','Quota de Condominio','1',2019,'1'),(94,'1','1','Agua','1',2019,'1'),(95,'Comum','1','EDP','1',2019,'1'),(96,'3 D','2 Sem','Quota de Condominio','1',2019,'1'),(97,'2E','2 Sem','Quota de Condominio','1',2019,'1'),(98,'1','1','Agua','1',2019,'1'),(99,'Comissões','Manutenção de Conta','CGD','1',2019,'1'),(100,'1','1','Agua','1',2019,'1'),(101,'G B','Ano + G C (2018)','Quota de Condominio','1',2019,'1'),(102,'Comissões','1','CGD','1',2019,'1'),(103,'Garagem','1','EDP','1',2019,'1'),(104,'Comum','1','EDP','1',2019,'1'),(105,'3 E','Ano 2019 + 2 Sem 2018','Quota de Condominio','1',2019,'1'),(106,'3 D','1 Sem + GC(2018)','Quota de Condominio','1',2019,'1'),(107,'Comissões','1','CGD','1',2019,'1'),(108,'1 E','2 Sem','Quota de Condominio','1',2019,'1'),(109,'1','1','Agua','1',2019,'1'),(110,'1','1','Agua','1',2019,'1'),(111,'Garagem','1','EDP','1',2019,'1'),(112,'Comum','1','EDP','1',2019,'1'),(113,'Comissões','1','CGD','1',2019,'1'),(114,'1 D','2 Sem','Quota de Condominio','1',2019,'1'),(115,'1','1','Agua','1',2019,'1'),(116,'2 D','2 Sem','Quota de Condominio','1',2019,'1'),(117,'Comissões','1','CGD','1',2019,'1'),(118,'1 F','1 Sem','Quota de Condominio','1',2019,'1'),(119,'1','1','Agua','1',2019,'1'),(120,'Comissões','1','CGD','1',2019,'1'),(121,'Garagem','1','EDP','1',2019,'1'),(122,'Comum','1','EDP','1',2019,'1'),(123,'2 E','1 Sem','Quota de Condominio','1',2019,'1'),(124,'1','1','Agua','1',2019,'1'),(125,'1 E','1 Sem','Quota de Condominio','1',2019,'1'),(126,'Comissões','1','CGD','1',2019,'1'),(127,'RC D','Ano','Quota de Condominio','1',2019,'1'),(128,'2 D','1 Sem','Quota de Condominio','1',2019,'1'),(129,'1','1','Agua','1',2019,'1'),(130,'Comissões','1','CGD','1',2019,'1'),(131,'Garagem','1','EDP','1',2019,'1'),(132,'Comum','1','EDP','1',2019,'1'),(133,'Taxa','1','CGD','1',2019,'1'),(134,'1','1','Schindler','1',2019,'1'),(135,'1','1','Agua','1',2019,'1'),(136,'Comissões','1','CGD','1',2019,'1'),(137,'1','1','Seguro','1',2019,'1'),(138,'1','1','Agua','1',2019,'1'),(139,'Taxa','1','CGD','1',2019,'1'),(140,'1','1','Schindler','1',2019,'1'),(141,'Comissões','1','CGD','1',2019,'1'),(142,'Garagem','1','EDP','1',2019,'1'),(143,'Comum','1','EDP','1',2019,'1'),(144,'2 E','2 Sem','Quota de Condominio','1',2018,'1'),(145,'1','1','Agua','1',2019,'1'),(146,'Taxa','1','CGD','1',2019,'1'),(147,'1','1','Schindler','1',2019,'1'),(148,'1 D','1 Sem','Quota de Condominio','1',2019,'1'),(149,'Dezembro 2018','1','Agua','1',2018,'1'),(150,'Comissões','1','CGD','1',2019,'1'),(151,'3 F','Ano + GA(2017)','Quota de Condominio','1',2018,'1'),(152,'1','1','Agua','1',2020,'1'),(153,'1','1','Agua','1',2020,'1'),(154,'1','1','Agua','1',2020,'1'),(155,'1','1','Agua','1',2020,'1'),(156,'1','1','Outros','1',2018,'1'),(157,'','','Limpeza','1',2018,'1'),(158,'','','Limpeza','1',2018,'1'),(159,'1','1','Outros','1',2018,'1'),(160,'Manutenção','Porta de entrada','Outros','1',2018,'1'),(161,'RC F','1 Sem','Quota de Condominio','1',2018,'1'),(162,'','','Limpeza','1',2018,'1'),(163,'Video Porteiro','Orçamento sistema video porteiro','Transferência','1',2018,'1'),(164,'Quota Condominio + VP','RC F | 2 Sem + VP','Transferência','1',2018,'1'),(165,'','','Limpeza','1',2018,'1'),(166,'','','Limpeza','1',2018,'1'),(167,'Video Porteiro','RC E','Transferência','1',2018,'1'),(168,'','','Limpeza','1',2018,'1'),(169,'','','Limpeza','1',2018,'1'),(170,'','','Limpeza','1',2018,'1'),(171,'','','Limpeza','1',2018,'1'),(172,'','','Limpeza','1',2018,'1'),(173,'','','Limpeza','1',2018,'1'),(174,'','','Limpeza','1',2018,'1'),(175,'RC E','Ano','Quota de Condominio','1',2018,'1'),(176,'Video Porteiro','RC D','Transferência','1',2018,'1'),(177,'RC D','2 Sem','Quota de Condominio','1',2018,'1'),(178,'Video Porteiro','1 E','Transferência','1',2018,'1'),(179,'1 E','1 Sem','Quota de Condominio','1',2018,'1'),(180,'3 E','1 Sem','Quota de Condominio','1',2018,'1'),(181,'Video Porteiro','3 E','Transferência','1',2018,'1'),(182,'2 D','2 Sem','Quota de Condominio','1',2018,'1'),(183,'Video Porteiro','2 D','Transferência','1',2018,'1'),(184,'2 E','1 Sem','Quota de Condominio','1',2018,'1'),(185,'Video Porteiro','2 E + Credito 10€','Transferência','1',2018,'1'),(186,'RC F','2 Sem','Quota de Condominio','1',2018,'1'),(187,'Video Porteiro','RC F','Transferência','1',2018,'1'),(188,'1','1','Limpeza','1',2018,'1'),(189,'3 E','2 Sem','Quota de Condominio','1',2018,'1'),(190,'3 E','Ano','Quota de Condominio','1',2019,''),(191,'1','1','Limpeza','1',2019,'1'),(192,'1','1','Limpeza','1',2019,'1'),(193,'1','1','Limpeza','1',2019,'1'),(194,'1','1','Transferência','1',2019,'1'),(195,'1','1','Limpeza','1',2019,'1'),(196,'1','1','Limpeza','1',2019,'1'),(197,'1','1','Limpeza','1',2019,'1'),(198,'1','1','Limpeza','1',2019,'1'),(199,'1','1','Limpeza','1',2019,'1'),(200,'1','1','Transferência','1',2019,'1'),(201,'1','1','Limpeza','1',2019,'1');
-/*!40000 ALTER TABLE `Anotacao` ENABLE KEYS */;
+LOCK TABLES `BarracasChapeus` WRITE;
+/*!40000 ALTER TABLE `BarracasChapeus` DISABLE KEYS */;
+INSERT INTO `BarracasChapeus` VALUES (1,'1','Barraca','Frontal','Fila 1'),(2,'1A','Barraca','Frontal','Fila 1'),(3,'2','Barraca','Lateral','Fila 1'),(4,'3','Barraca','Lateral','Fila 1'),(5,'4','Barraca','Lateral','Fila 1'),(6,'5','Barraca','Lateral','Fila 1'),(7,'6','Barraca','Lateral','Fila 1'),(8,'7','Barraca','Lateral','Fila 1'),(9,'8','Barraca','Lateral','Fila 1'),(10,'9','Barraca','Lateral','Fila 1'),(11,'10','Barraca','Lateral','Fila 1'),(12,'11','Barraca','Lateral','Fila 1'),(13,'12','Barraca','Lateral','Fila 1'),(14,'14','Barraca','Frontal','Fila 2'),(15,'14A','Barraca','Frontal','Fila 2'),(16,'15','Barraca','Lateral','Fila 2'),(17,'16','Barraca','Lateral','Fila 2'),(18,'17','Barraca','Lateral','Fila 2'),(19,'18','Barraca','Lateral','Fila 2'),(20,'19','Barraca','Lateral','Fila 2'),(21,'20','Barraca','Lateral','Fila 2'),(22,'21','Barraca','Lateral','Fila 2'),(23,'22','Barraca','Lateral','Fila 2'),(24,'23','Barraca','Lateral','Fila 2'),(25,'24','Barraca','Traseira','Fila 3'),(26,'25','Barraca','Traseira','Fila 3'),(27,'26','Barraca','Traseira','Fila 3'),(28,'27','Barraca','Traseira','Fila 3'),(29,'28','Barraca','Traseira','Fila 3'),(30,'29','Barraca','Traseira','Fila 3'),(31,'30','Barraca','Traseira','Fila 3'),(32,'31','Barraca','Traseira','Fila 3'),(33,'32','Barraca','Traseira','Fila 3'),(34,'33','Barraca','Traseira','Fila 3'),(35,'34','Barraca','Frontal','Fila 4'),(36,'34A','Barraca','Frontal','Fila 4'),(37,'35','Barraca','Lateral','Fila 4'),(38,'36','Barraca','Lateral','Fila 4'),(39,'37','Barraca','Lateral','Fila 4'),(40,'38','Barraca','Lateral','Fila 4'),(41,'39','Barraca','Lateral','Fila 4'),(42,'40','Barraca','Lateral','Fila 4'),(43,'41','Barraca','Lateral','Fila 4'),(44,'42','Barraca','Lateral','Fila 4'),(45,'43','Barraca','Lateral','Fila 4'),(46,'44','Barraca','Frontal','Fila 5'),(47,'45','Barraca','Lateral','Fila 5'),(48,'46','Barraca','Lateral','Fila 5'),(49,'47','Barraca','Lateral','Fila 5'),(50,'48','Barraca','Lateral','Fila 5'),(51,'49','Barraca','Lateral','Fila 5'),(52,'50','Barraca','Lateral','Fila 5'),(53,'51','Barraca','Lateral','Fila 5'),(54,'52','Barraca','Lateral','Fila 5'),(55,'53','Barraca','Lateral','Fila 5');
+/*!40000 ALTER TABLE `BarracasChapeus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Condominios`
+-- Table structure for table `Comentarios`
 --
 
-DROP TABLE IF EXISTS `Condominios`;
+DROP TABLE IF EXISTS `Comentarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Condominios` (
-  `id` int(1) NOT NULL AUTO_INCREMENT,
-  `fraccao` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `piso` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nome` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `genero` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `permilagem` float(6,2) DEFAULT 0.00,
-  `garagem` int(11) DEFAULT 0,
-  `semestre` int(11) DEFAULT 0,
-  `ano` int(11) DEFAULT 0,
-  `telefone` int(9) DEFAULT 912345678,
-  `email` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `fraccao` (`fraccao`),
-  UNIQUE KEY `piso` (`piso`),
-  KEY `Condominios_fk0` (`garagem`),
-  KEY `Condominios_fk1` (`semestre`),
-  KEY `Condominios_fk2` (`ano`),
-  CONSTRAINT `Condominios_fk0` FOREIGN KEY (`garagem`) REFERENCES `Valores` (`id`),
-  CONSTRAINT `Condominios_fk1` FOREIGN KEY (`semestre`) REFERENCES `Valores` (`id`),
-  CONSTRAINT `Condominios_fk2` FOREIGN KEY (`ano`) REFERENCES `Valores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Condominios`
---
-
-LOCK TABLES `Condominios` WRITE;
-/*!40000 ALTER TABLE `Condominios` DISABLE KEYS */;
-INSERT INTO `Condominios` VALUES (1,'A','GAR A','nome',NULL,0.00,4,NULL,3,912547011,''),(2,'B','GAR B','Isabel Fernandes','Feminino',17.50,4,7,6,912345678,''),(3,'C','GAR C','nome',NULL,0.00,0,0,0,912345678,'email'),(4,'D','RC ESQ','Bruno Costa','Masculino',68.75,0,0,0,912547011,'brunovasquescosta@gmail.com'),(5,'E','RC FTE','Ana Maria Lobo','Feminino',81.25,0,0,0,912345678,'email'),(6,'F','RC DIR','Alice Almeida','Feminino',68.75,0,0,0,912345678,'email'),(7,'I','1º ESQ','Elias Dinis','Masculino',81.25,0,0,0,912133541,'email'),(8,'H','1º FTE','Rui Correia','Masculino',93.75,0,0,0,968362970,'rui_simao_correia@hotmail.com'),(9,'G','1º DIR','Gracinda Jesus','Feminino',68.75,0,0,0,912345678,'email'),(10,'M','2º ESQ','Luísa Lourenço','Feminino',81.25,0,1,2,912345678,'l.ziz.lourenco@gmail.com'),(11,'L','2º FTE','Teresa Soeiro','Feminino',93.75,0,0,0,912345678,'email'),(12,'J','2º DIR','Sebastião Moita','Masculino',68.75,0,0,0,912345678,'email'),(13,'P','3º ESQ','Rui Simões','Masculino',81.25,0,0,0,912345678,'email'),(14,'O','3º FTE','Manuela Carreira','Feminino',0.00,0,0,0,912345678,'email'),(15,'N','3º DIR','João Abrunhosa','Masculino',81.25,9,8,0,962441325,'jsa.abrunhosa@gmail.com');
-/*!40000 ALTER TABLE `Condominios` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Mapa_pagamentos`
---
-
-DROP TABLE IF EXISTS `Mapa_pagamentos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Mapa_pagamentos` (
+CREATE TABLE `Comentarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `condominio` int(11) NOT NULL,
-  `pagamento` int(30) DEFAULT NULL,
-  `imputado` year(4) NOT NULL,
-  `tipoNome` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipoAbrv` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `documentoNum` int(3) NOT NULL,
-  `data` date DEFAULT NULL,
-  `reciboTipo` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `recibo` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `Mapa_pagamentos_fk0` (`condominio`),
-  KEY `Mapa_pagamentos_fk1` (`pagamento`),
-  CONSTRAINT `Mapa_pagamentos_fk0` FOREIGN KEY (`condominio`) REFERENCES `Condominios` (`id`),
-  CONSTRAINT `Mapa_pagamentos_fk1` FOREIGN KEY (`pagamento`) REFERENCES `Movimentos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Mapa_pagamentos`
---
-
-LOCK TABLES `Mapa_pagamentos` WRITE;
-/*!40000 ALTER TABLE `Mapa_pagamentos` DISABLE KEYS */;
-INSERT INTO `Mapa_pagamentos` VALUES (1,9,147,2019,'1º Semestre','sem',1,'2019-01-10','Q','bdacc67c75364cc416fb94aa2720065405b502f7dd47cbe98c2b8e4eac63cd8b'),(2,5,NULL,2019,'1º Semestre','sem',2,'2019-04-03','Q','db57c25700cb8cdd5cc66ef480181422434240fa48a31fb51a06572da22df219'),(3,7,124,2019,'1º Semestre','sem',3,'2019-04-11','Q','0e8fae397763d3fa67060de6d6d0657fd709fa278dc3c28b978e7f2507d6cfed'),(4,12,127,2019,'1º Semestre','sem',4,'2019-04-26','Q','351bba4b918b282a1616fe65f7034cd50a59f26733fa12b3dce6ef16c9762f50'),(5,6,126,2019,'Ano','ano',5,'2019-05-03','Q','fed2b79dba0229e3b3eb3aae885b826ffabe8780a194e7d3d99ee35ad4c13620'),(6,9,84,2018,'1º Semestre','sem',1,'2018-01-16','Q','a5fe0f485a8076662b12140cc054dfa81a32ee6fa90d7b64e55762e2a5637891'),(7,10,NULL,2018,'Video Porteiro','vp',1,'2018-05-07','V','48840100b8434b4be095744aedc6a99e044bfbc48b382e44ac3a248e3c6270a4'),(8,7,NULL,2018,'Video Porteiro','vp',2,'2018-05-05','V','febef7c674857f130a1225603e325f4084a9b4f710ad203af23e04e2959d11f6'),(9,5,160,2018,'1º Semestre','sem',2,'2018-03-17','Q','c497088a4cacc7358328e94e235862e2334dc0a90e159054be1bd23037bab64d'),(10,9,NULL,2018,'Video Porteiro','vp',3,'2018-05-14','V','fa47f3c22400f0f5c28e5c2269f52f1cd6faa20fa90ecae733a89384d0e04fe8'),(11,12,73,2018,'1º Semestre','sem',3,'2018-03-26','Q','e7f867fd6cceab0b709bfc66bdabfdc7f553fbd61aa46419d81c4641581e90c6'),(12,12,NULL,2018,'Video Porteiro','vp',4,'2018-05-18','V','3a3f2b76451a55832c436985fbf99a46ef581ef51647389da3591297f40874a6'),(13,6,67,2018,'1º Semestre','sem',4,'2018-05-04','Q','ff7cae4b591bad879031826c6e186668f9b593ce4f416c76b971f614fa2deba3'),(14,7,178,2018,'1º Semestre','sem',5,'2018-05-05','Q','6a59200baa2f406139f78f8ee56a47d530d03c13e4a3bacd9d313dffa1973eda'),(15,13,NULL,2018,'Video Porteiro','vp',5,'2018-05-21','Q','729f54db11426b6db5027c3e3484116c594aae61f88b097df8e29f685cb6879b'),(16,10,183,2018,'1º Semestre','sem',6,'2018-05-07','Q','43f0d6d7c911a67e3d15f1ff0d5c36c9fcb44057e684d67e6cb5b45a451fa9e7'),(17,15,NULL,2018,'Video Porteiro','vp',6,'2018-05-21','V','217c6937279dba31df1b5a0ec91e9837b3ca4d0120e1d05caf7c21e68efe47fd'),(18,15,66,2018,'1º Semestre','sem',7,'2018-05-07','Q','850acba48a2c32a6ef31a1a3d0d08982bbc136a939a9cfab6adc66216516416d'),(19,5,NULL,2018,'Video Porteiro','vp',7,'2018-05-29','V','ff2eb858bcce3c554b1b16e77ff35210fc77fe489af8d85969ee3a9afe83db82'),(20,2,61,2018,'Ano','ano',8,'2018-05-11','Q','cc86926ab993a352bf4f740241f479145f73b8e8f1df24c01a463d238d852383'),(21,6,NULL,2018,'Video Porteiro','vp',8,'2018-06-01','V','ffb16bf7296c7824fa04630a8e8a55ac718b188757d09b93f5975b1ce763e876'),(22,9,59,2018,'2º Semestre','sem',9,'2018-05-14','Q','851a06dd79177477f59f9ebf98daef5e554328913b89dfb85b5c133e1a03c87c'),(23,8,NULL,2018,'Video Porteiro','vp',9,'2018-12-06','V','f831c4174cd27fb5f807009c6b2701ab6b339991f095f38652bab96c79ef6c30'),(24,12,181,2018,'2º Semestre','sem',10,'2018-05-17','Q','aa8452e33e1e309b1cb5a677ba0992f551f002d140461ef3260080e2ffe49621'),(25,13,179,2018,'1º Semestre','sem',11,'2018-05-21','Q','c0770875a4fa8b27bde5a81996e5c8e8227f2c9a4f94cb9f01c3069792ec3d06'),(26,5,185,2018,'2º Semestre','sem',12,'2018-05-29','Q','13eefb26e62e264d02ffff8f3b37d42a296cfa861357c6de25d27e8315670f1c'),(27,6,176,2018,'2º Semestre','sem',13,'2018-06-01','Q','2407f5034e84a62e808fd271a67f3eb162171fb420e129519201cf3bed382bc2'),(28,8,64,2018,'1º Semestre','sem',14,'2018-05-08','Q','6ca5129bbe1ec4c7e6641e2d01a733fd8496194b08489bd01932d2aaa90f71a2'),(29,8,62,2018,'2º Semestre','sem',15,'2018-05-08','Q','1d7863fb6bbe8964833701e68ce99f3b357eb3dba9de280c1db023cd12baf676'),(30,15,38,2018,'2º Semestre','sem',16,'2018-07-20','Q','4cecdef6b47b8786ecb6bd397a71dc47cd6c18a927506d10285cabe56dd56bc0'),(31,7,35,2018,'2º Semestre','sem',17,'2018-09-10','Q','ba4ec26ee291c461890a2e6f37569fa6f91bcdaa2a236c36bf812e8fa5e5ff47'),(32,14,150,2018,'Ano','ano',18,'2018-12-31','Q','df9a8ef57b377a0048e61a6baa80fe42ada80618606848554c8f5fc46667c137'),(33,10,143,2018,'2º Semestre','sem',19,'2019-01-30','Q','a559e24e9f04f920913e32f882bd81d4fff6bbb872fa4f2c0c572233d95f24de'),(53,10,122,2019,'1º Semestre','sem',6,'2019-05-26','Q','a7da72116dd6a397397262bd06fc77d8853a6986d7a4b7c47571d1cbbce45566'),(54,12,NULL,2019,'2º Semestre','sem',7,'2019-07-22','Q','d05250139199f795be16da604b93aa7810ad0508ecb2c9a8eb46c49979fcf5bb'),(55,12,115,2019,'2º Semestre','sem',8,'2019-07-22','Q','a2b2e3655e609f3240854038093a8d93b5b43343acbc9ed32596f33ae188385b'),(56,9,NULL,2019,'2º Semestre','sem',9,'2019-07-22','Q','44ef873ddc27a22058acd12e4b0368b196d7f0782ef5bb08db730a6daa5dfee8'),(57,9,111,2019,'2º Semestre','sem',10,'2019-07-22','Q','b6a93796b6383b2a09e945c44d04bc9d275283df83e5027548cc42f72b882934'),(58,7,107,2019,'2º Semestre','sem',11,'2019-09-17','Q','8e40af10c270021fd4dff48ebf4f74829b389adaf2b5a93f88ea4e9293e650a3'),(59,5,NULL,2019,'2º Semestre','sem',12,'2019-09-17','Q','c8e88d100811b0140bc081ccbdbcfa9dfe3ee81f7a767048e500ccab97f7ed09'),(60,5,NULL,2019,'2º Semestre','sem',13,'2019-09-17','Q','32415f471cf72b53ba3ede728de85293e3f650963e4b2310d6553d42205a4c63'),(61,15,103,2019,'1º Semestre','sem',14,'2019-09-20','Q','b7e8ddaf0c0e2aa628c8a9246331efbe38f547852b9beb8bd31127d74984920c'),(62,13,189,2019,'Ano','ano',15,'2019-09-22','Q','0a13bb2cd645cdffd86dc8ae5d6b50f6869507e5e390bd8e945149e3a064d7b9'),(63,13,188,2018,'2º Semestre','sem',20,'2019-09-22','Q','b581aac483fc4ef3be4fc29248c4280453edb0ba6b9e0d23951ac125cd8fb5bf'),(64,2,102,2019,'Ano','ano',16,'2019-11-14','Q','4c71742c1eff8e5c0113b3b61bb4c48e1b2a626d37ca09c98b364cf493c44c96'),(65,15,96,2019,'2º Semestre','sem',17,'2019-11-19','Q','43d920ac65f68633d5e840660334cb9a0b78c98f0bd9fa5823f9560ccdfcb3c3'),(66,10,95,2019,'2º Semestre','sem',18,'2019-11-27','Q','9af4b3fbd3e99962bf4b7403be3860e8d8a93ed9129757b2b01ce496ac75d061'),(67,9,NULL,2020,'1º Semestre','sem',1,'2020-01-26','Q','c38900162de3cb4869ed730530b45559021276fd48b83483c494b0c5f35340e4'),(68,12,NULL,2020,'1º Semestre','sem',2,'2020-03-06','Q','4144afc625915da2e6d0460dc7465f0cafed6565ef5a7aeb39587df6e52acf06'),(69,14,NULL,2018,'Video Porteiro','vp',10,'2020-05-07','V','3e6c1bdad9c61c0ee61a12f67ded3338f4028a65b5f04f1c6043793a347eedc9'),(70,14,NULL,2019,'Ano','ano',19,'2020-05-07','Q','1f885d1d1b6c179e34ac488c66dc4c13547752937a44361fc5b077eb9dd72dcf'),(71,15,NULL,2020,'1º Semestre','sem',3,'2020-06-29','Q','c05155593a2aeb7407f25e969b544909308797ac5e910b006d6c42e56378fe3e'),(72,10,NULL,2020,'1º Semestre','sem',4,'2020-06-30','Q','9c9519108f3b077431857b963a04ec6fc623f4e4a026016cc2e190265b258e21'),(73,9,NULL,2020,'2º Semestre','sem',5,'2020-07-02','Q','89ad293e64bb090225824880175b3c849435c6328b41e7e90bd5b1e5fae26097'),(74,4,174,2018,'Ano','ano',21,'2018-12-27','Q','cd97ce4cf2e1fe3261ccdcce14c2cfbbe478da9fab48585f19d5fec4e85ca8c4');
-/*!40000 ALTER TABLE `Mapa_pagamentos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Movimentos`
---
-
-DROP TABLE IF EXISTS `Movimentos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Movimentos` (
-  `id` int(30) NOT NULL AUTO_INCREMENT,
-  `source` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data_mov` date NOT NULL,
-  `data_valor` date NOT NULL,
-  `descricao` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `montante` float(7,2) NOT NULL,
-  `saldo` float(7,2) NOT NULL,
-  `line_hash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `anotacaoId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `anotacaoId` (`anotacaoId`),
-  CONSTRAINT `Movimentos_fk0` FOREIGN KEY (`anotacaoId`) REFERENCES `Anotacao` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Movimentos`
---
-
-LOCK TABLES `Movimentos` WRITE;
-/*!40000 ALTER TABLE `Movimentos` DISABLE KEYS */;
-INSERT INTO `Movimentos` VALUES (1,'CGD','2017-12-18','2017-12-18','CTT   AGUA GAS ',-4.81,4187.77,'f0a37d16861b91eae36c430ba1ba6d8b',NULL),(2,'CGD','2017-12-10','2017-12-10','COM MANUTENCAO CONTA ',-5.20,4297.83,'b1be1edd104f49cf82fc6a016b30cc78',NULL),(3,'CGD','2017-12-06','2017-12-06','TRF BRUNO MIGUEL LOUR ',387.96,4109.05,'fdd4a3eb2362827739e2beee51132225',NULL),(4,'CGD','2017-12-11','2017-12-11','EDP Servico Universal ',-98.48,4199.35,'9591844121597b63f6f205a82ddb53f6',NULL),(5,'CGD','2017-11-21','2017-11-21','COMISSAO IMP SELO TRF ',-0.52,3721.09,'1ecec2eb913ab5081c3d8e6486a3010e',NULL),(6,'CGD','2017-11-21','2017-11-21','YA2B 1 0456207456 ',-955.40,3553.50,'2c04f3a17361d7385fa3b276f5b07966',NULL),(7,'CGD','2017-12-09','2017-12-09','TRF ANA CRISTINA SIMA ',193.98,4303.03,'162eaa81cd56bc4a99583f58903fff9e',4),(8,'CGD','2017-11-17','2017-11-17','CTT   AGUA GAS ',-3.63,5508.90,'b9a6bc96bdec17b7001b210cc7d14438',5),(9,'CGD','2017-12-11','2017-12-11','EDP Servico Universal ',-6.77,4192.58,'3b47e7e507f300e270825c2c5b406427',6),(10,'CGD','2017-10-19','2017-10-19','CTT   AGUA GAS ',-6.00,5364.81,'a126194eea0617f328d273deccac65c3',7),(11,'CGD','2017-10-19','2017-10-19','CTT   AGUA GAS ',-6.00,5364.81,'a126194eea0617f328d273deccac65c3',8),(12,'CGD','2017-10-19','2017-10-19','CTT   AGUA GAS ',-6.00,5364.81,'a126194eea0617f328d273deccac65c3',9),(13,'CGD','2017-10-13','2017-10-13','COM MANUTENCAO CONTA ',-3.12,5370.81,'e25f7553a4c3c34de6f1cfccc2b64550',10),(14,'CGD','2017-11-19','2017-11-19','Bruno Limpeza e outro ',-1000.00,4508.90,'64fd7f1f529e5f7fbb0dc93a11602e8f',11),(15,'CGD','2017-10-06','2017-10-06','EDP ',-6.56,5317.27,'00045d19bb7c64f6a8680766e9ac8ff4',12),(16,'CGD','2017-11-21','2017-11-20','TRF LUISA ZIZ ',168.11,3721.61,'fca37ecda84662ebdde0945aba02dbc4',13),(17,'CGD','2017-09-15','2017-09-15','CTT   AGUA GAS ',-4.81,5270.40,'496cb18472251e9f34c6bf9fd7f0fb12',14),(18,'CGD','2018-12-10','2018-12-10','TRF ANA CRISTINA SIMA ',93.75,914.48,'e922bb5122acbcce21765de4bf56afac',15),(19,'CGD','2018-12-06','2018-12-06','EDP ',-6.54,820.73,'db5ffd0b04fb41aa0b1723a8d41b50ef',17),(20,'CGD','2018-12-10','2018-12-10','COM MANUTENCAO CONTA ',-10.40,904.08,'f006f2fb53bf811781dfcd9fc670b3a2',16),(21,'CGD','2018-11-20','2018-11-20','FAC YA2B 1 0456219737 ',-955.34,908.62,'c5250cb41df7e1f7c494475036721f68',18),(22,'CGD','2018-11-16','2018-11-16','CTT   AGUA GAS ',-3.48,2863.96,'13eb0fabc757de5bae1b61051657a907',22),(23,'CGD','2018-11-20','2018-11-20','TRANSF CREDITO SEPA ',-0.52,908.10,'9cc45c54dc4af41e2581d3b48881c5e2',20),(24,'CGD','2018-11-19','2018-11-19','Limpeza e Adm ',-1000.00,1863.96,'5ca55bb054ea82c117b81fde685c0d12',21),(25,'CGD','2018-12-06','2018-12-06','EDP ',-80.83,827.27,'6d0b7e348498048a3e27df0540b43bc5',19),(26,'CGD','2018-11-05','2018-11-05','COM MANUTENCAO CONTA ',-5.20,2867.44,'0f9ac4ca6257524704751879013127d2',23),(27,'CGD','2018-10-08','2018-10-08','COM MANUTENCAO CONTA ',-5.20,2977.44,'b41b16962a70124ad40358513a6ebc37',27),(28,'CGD','2018-10-09','2018-10-09','EDP ',-6.85,2878.99,'24a186676188842811d88e889a773e31',25),(29,'CGD','2018-10-09','2018-10-09','EDP ',-91.60,2885.84,'cee41516a4dc359045bf8ec6d2a91869',26),(30,'CGD','2018-10-17','2018-10-17','CTT   AGUA GAS ',-6.35,2872.64,'4cfb96b9741c31e7f165e1d152423d14',24),(31,'CGD','2018-09-17','2018-09-17','CTT   AGUA GAS ',-5.00,2982.64,'affefa6546f857ef988f93c610f362e7',28),(32,'CGD','2018-09-10','2018-09-10','COM MANUTENCAO CONTA ',-5.20,2819.53,'8c9bcbc56e7dde8c17c1fddc201d270a',30),(33,'CGD','2018-08-17','2018-08-17','CTT   AGUA GAS ',-6.20,2824.73,'064ec5167b0c74662f652bad934ebbcb',31),(34,'CGD','2018-08-14','2018-08-14','COMISSAO IMP SELO TRF ',-0.52,2830.93,'55469dc3cb5fb4c7f7307bef0fb5de70',32),(35,'CGD','2018-09-13','2018-09-13','DEPOSITO ',168.11,2987.64,'66a8e6db81e51366f7ad1c85766f66b6',29),(36,'CGD','2018-08-14','2018-08-14','FAC 35511224 ',-330.59,2831.45,'2cfd727eaba0df2ce8446c1d03498c35',33),(37,'CGD','2018-08-06','2018-08-06','COM MANUTENCAO CONTA ',-5.20,3162.04,'d335a936f002662c0f011af48a3ec979',34),(38,'CGD','2018-07-20','2018-07-20','TRF JOAO SANTOS AFONS ',150.84,3263.84,'7443e70035f1f583778c236fd4e91eea',37),(39,'CGD','2018-08-06','2018-08-06','EDP Servico Universal ',-6.47,3167.24,'e8f8cfa1fe62b5e6c926287155691570',35),(40,'CGD','2018-08-06','2018-08-06','EDP Servico Universal ',-90.13,3173.71,'e863c28b094ab104d94512984b75ca52',36),(41,'CGD','2018-07-17','2018-07-17','CTT   AGUA GAS ',-4.84,3113.00,'16588185b40f0774c59e534e8b68df20',38),(42,'CGD','2018-06-15','2018-06-15','CTT   AGUA GAS ',-4.84,3123.04,'93b94e0be7ddbb4a3754edcc5a7a18cd',40),(43,'CGD','2018-06-12','2018-06-12','ULTIMA PARTEVIDEO POR ',-1567.02,3128.40,'20c0f314de53d30fa3095610918873c9',42),(44,'CGD','2018-07-09','2018-07-09','COM MANUTENCAO CONTA ',-5.20,3117.84,'bdf4a771c7a09de171dee3d2738a32c7',39),(45,'CGD','2018-06-12','2018-06-12','COMISSAO IMP SELO TRF ',-0.52,3127.88,'15f8d17c640c8cde4f4da3d95696756e',41),(46,'CGD','2018-06-11','2018-06-11','COM MANUTENCAO CONTA ',-5.20,4695.42,'6cae1d45e41be3997c2b1fdc999e1414',43),(47,'CGD','2018-06-07','2018-06-07','EDP Servico Universal ',-6.74,4700.62,'3513754de0007569b0fc577c69564bec',44),(48,'split-CGD','2018-06-02','2018-06-02','TRF CXDOL ',211.00,4789.23,'abe35e935f779dffbc3ee2972aa871fa',46),(49,'CGD','2018-05-31','2018-05-31','COMISSAO IMP SELO TRF ',-0.52,4578.23,'ca2e8981a3258761a219e90894ac57a8',47),(50,'CGD','2018-06-07','2018-06-07','EDP Servico Universal ',-81.87,4707.36,'7f3b7d355456667547e0769d8f981e0c',45),(51,'CGD','2018-05-31','2018-05-31','ADJUDICACAO VIDEO POR ',-1567.02,4578.75,'365888c0e9c6b6f3a96de97aefb5f1a4',48),(52,'split-CGD','2018-05-22','2018-05-22','DEPOSITO ',249.36,6155.13,'4fcce4b28aad9c86cb076f068d91a76e',50),(53,'CGD','2018-05-21','2018-05-21','TRF JOAO SANTOS AFONS ',81.25,5457.71,'2da3264fd7c943c412987f3978e017a0',52),(54,'CGD','2018-05-22','2018-05-22','TRF BEATRIZ CARREIRA ',448.06,5905.77,'6f53db1466bc1aa57463d933336d5cd1',51),(55,'CGD','2018-05-24','2018-05-24','ALTERACAO DE TITULARI ',-9.36,6145.77,'d9bd29931b21ba8961df98db00affec4',49),(56,'split-CGD','2018-05-21','2018-05-21','TRF R SIMOES ',249.36,5376.46,'5739d6ebd13ef3ece0108946ae8c8603',53),(57,'CGD','2018-05-17','2018-05-17','CTT   AGUA GAS ',-5.13,4916.10,'85c405ae8bdeeddcaccfac77e27488ff',55),(58,'split-CGD','2018-05-19','2018-05-18','TRF SEBASTIAO MOITA ',211.00,5127.10,'136d1a834aa1fd19c584267df4e7a04f',54),(59,'CGD','2018-05-14','2018-05-14','GRACINDA G1D 2SEM18 ',142.25,4852.48,'8a6f3900d25709052c81e7bf8616912c',57),(60,'CGD','2018-05-14','2018-05-14','GRACINDA G1D CONTERA ',68.75,4921.23,'9d6c450bc8a8d46e992562baa88614de',56),(61,'CGD','2018-05-14','2018-05-14','TRF MARIA ISABEL ALVA ',56.87,4710.23,'8e4f2fbd7d585183b76f8b3bbf78cc56',58),(62,'CGD','2018-05-08','2018-05-08','TRF ANA CRISTINA SIMA ',193.98,4658.56,'7b0e5395b65073f151680e7bfca5e37b',60),(63,'CGD','2018-05-09','2018-05-09','COM MANUTENCAO CONTA ',-5.20,4653.36,'6d46084ece2440d183fd2402e8bb043a',59),(64,'CGD','2018-05-08','2018-05-08','TRF ANA CRISTINA SIMA ',193.98,4464.58,'030024b7ce28c4dd3ad470eff861c35a',61),(65,'split-CGD','2018-05-08','2018-05-07','TRF LUISA ZIZ ',259.36,4270.60,'afce28a67b2e60f3c4c798c9bf0f6d48',62),(66,'CGD','2018-05-07','2018-05-07','TRF JOAO SANTOS AFONS ',183.67,4011.24,'1f67f633f2e915616937e593e5257e4b',63),(67,'CGD','2018-05-04','2018-05-04','1 Semestre2018 Rcdto ',142.25,3827.57,'792dff95e8a14892f24b6efaac2ded90',64),(68,'CGD','2018-04-16','2018-04-16','CTT   AGUA GAS ',-4.49,3685.32,'60f14fd395670b977edeee478727d0bd',65),(69,'CGD','2018-04-09','2018-04-09','COM MANUTENCAO CONTA ',-5.20,3689.81,'2462c1de3a6aa83dc7afe3de9e9d1de4',66),(70,'CGD','2018-04-06','2018-04-06','EDP Servico Universal ',-6.33,3695.01,'b3ac343d2453d7eb3ce497a74f6bc8fb',67),(71,'CGD','2018-04-06','2018-04-06','EDP Servico Universal ',-96.31,3701.34,'c23e96e5b83943151b3df5dde7502ecb',68),(72,'CGD','2018-03-19','2018-03-19','CTT   AGUA GAS ',-4.82,3986.51,'ab9c6cc26a3768b9f91e66bb342199ef',72),(73,'CGD','2018-03-27','2018-03-26','TRF SEBASTIAO MOITA ',142.25,4128.76,'2eef848d6ddd92173bfe4a839d15ed10',71),(74,'CGD','2018-04-05','2018-04-05','YA1 1 0355063896 ',-330.59,3798.17,'4da1d33b413030ca6291cf3f3260ade6',70),(75,'CGD','2018-04-05','2018-04-05','COMISSAO IMP SELO TRF ',-0.52,3797.65,'71fd188357710e8ff121d1281a1911bb',69),(76,'CGD','2018-03-12','2018-03-12','FIDELIDADE   COMPANHI ',-46.04,3991.33,'08a6c08d38f244c216a9a458788a2ef5',73),(77,'CGD','2018-02-16','2018-02-16','CTT   AGUA GAS ',-2.51,4212.84,'297c9510cf3a2d83d287532471ae6bfc',77),(78,'CGD','2018-03-05','2018-03-05','COM MANUTENCAO CONTA ',-5.20,4037.37,'5e8be426541cf4e8ce38e4c3cd4e9111',74),(79,'CGD','2018-02-26','2018-02-26','YA2H 1 047600313 MOLA ',-169.75,4043.09,'122cd6f54c5606c196358b6b8e2cd491',76),(80,'CGD','2018-02-26','2018-02-26','COMISSAO IMP SELO TRF ',-0.52,4042.57,'1cddd9a5db2893e1cba0a9b44fa4793a',75),(81,'CGD','2018-02-07','2018-02-07','EDP Servico Universal ',-6.65,4215.35,'d1a70ac81adb880f78ef9295f17d1a68',78),(82,'CGD','2018-02-05','2018-02-05','COM MANUTENCAO CONTA ',-5.20,4313.62,'77b142f887e05cd618b4f2b6a42e829f',80),(83,'CGD','2018-01-19','2018-01-19','CTT   AGUA GAS ',-6.00,4318.82,'2cdd1d59a54b60c37105e7810a469a0e',81),(84,'CGD','2018-01-16','2018-01-16','GRACINDA G 1D 1SEM18 ',142.25,4324.82,'e9aa5f93b75db2fa1b6db73ab8e1ec97',82),(85,'CGD','2018-02-07','2018-02-07','EDP Servico Universal ',-91.62,4222.00,'8cedb6827feac979d59437fe77d41252',79),(86,'CGD','2018-01-08','2018-01-08','COM MANUTENCAO CONTA ',-5.20,4182.57,'95d5b9390992596ebd22b8c08ffef1ba',83),(87,'Montário','2020-02-11','2020-02-18','Limpeza',55.00,0.00,'9733115dfa1b5d37f2cafc786e33151c',88),(88,'Montário','2020-02-11','2020-02-18','Limpeza',55.00,0.00,'9733115dfa1b5d37f2cafc786e33151c',89),(89,'Montário','2020-02-11','2020-02-18','Limpeza',55.00,0.00,'9733115dfa1b5d37f2cafc786e33151c',90),(90,'CGD','2019-12-18','2019-12-18','CTT   AGUA GAS ',-5.58,3045.71,'6ddcab861c999b41e4ece3d8e8dac0d2',94),(91,'CGD','2019-12-09','2019-12-09','COM MANUTENCAO CONTA ',-10.40,3051.29,'df62bf6588978986a08599c85b14da8c',91),(92,'CGD','2019-12-05','2019-12-05','EDP SERVICO UNIVERSAL ',-6.38,2867.71,'cf84816829aa39d831887baf337d160e',92),(93,'CGD','2019-12-05','2019-12-05','TRF ANA CRISTINA SIMA ',193.98,3061.69,'c92c7db97ade981c09d3fd377886fab7',93),(94,'CGD','2019-12-05','2019-12-05','EDP SERVICO UNIVERSAL ',-79.81,2874.09,'7412a493851bd50f6ef8fba8ba12b06e',95),(95,'CGD','2019-11-27','2019-11-27','TRF LUISA MARIA LOURE ',168.11,2953.90,'8134db13aa7c9e5d7f2b8509af4c4d53',97),(96,'CGD','2019-11-19','2019-11-19','TRF JOAO SANTOS AFONS ',150.84,2785.79,'cc68da3cf6ab9703675eef065a7a80ba',96),(97,'CGD','2019-11-15','2019-11-15','CTT   AGUA GAS ',-4.75,2634.95,'8b3c526708d8716290a6628542eefc2d',98),(98,'CGD','2019-11-11','2019-11-11','COM MANUTENCAO CONTA ',-10.40,2639.70,'8120ed50c472239da7156084efaaf3f9',99),(99,'CGD','2019-10-16','2019-10-16','CTT   AGUA GAS ',-5.08,2650.10,'a7bd00bb2bd7befb81253cbd5f25e0fc',100),(100,'CGD','2019-10-07','2019-10-07','EDP SERVICO UNIVERSAL ',-6.01,2610.46,'054b9e8947081188f08e9b1158c08de4',103),(101,'CGD','2019-10-09','2019-10-09','COM MANUTENCAO CONTA ',-10.40,2600.06,'7966e632e7a83b0e5bbf5e4a735a8c52',102),(102,'CGD','2019-10-15','2019-10-15','TRF MARIA ISABEL ALVA ',55.12,2655.18,'c8ee754752fc0599706dbb14f7e36812',101),(103,'CGD','2019-09-20','2019-09-20','TRF JOAO SANTOS AFONS ',181.92,2194.96,'288d0d82c7c7d7231f7b55ece55bcab3',106),(104,'CGD','2019-10-07','2019-10-07','EDP SERVICO UNIVERSAL ',-82.82,2616.47,'fb8f8f99aefcaf806763ef523ccef984',104),(105,'split-CGD','2019-09-22','2019-09-22','TRF CXDOL ',504.33,2699.29,'56cd3f3418ac65f72c3f95d0e31457f5',105),(106,'CGD','2019-09-17','2019-09-17','CTT   AGUA GAS ',-5.24,1855.33,'fd950608171575d803c560f85b242a28',109),(107,'CGD','2019-09-17','2019-09-17','DEPOSITO ',168.11,2023.44,'5df8455d085f1aaf8d5bdac72dea11a1',108),(108,'CGD','2019-09-19','2019-09-19','COM MANUTENCAO CONTA ',-10.40,2013.04,'f13a451ee52b0253628a63af8d7fa9a9',107),(109,'CGD','2019-08-06','2019-08-06','EDP SERVICO UNIVERSAL ',-83.05,1870.96,'79f4094afe04c19a395451f634efa763',112),(110,'CGD','2019-08-05','2019-08-05','COM MANUTENCAO CONTA ',-10.40,1954.01,'835836144430b1755b1b6f6b0eed51da',113),(111,'CGD','2019-07-22','2019-07-22','GRACINDA G1D 2SEM19 ',142.25,1964.41,'6dfe61360356869fc609a58f3ca30f26',114),(112,'CGD','2019-08-06','2019-08-06','EDP SERVICO UNIVERSAL ',-6.30,1864.66,'72f2ae442b4201ed1e2938c42d07b7b9',111),(113,'CGD','2019-08-19','2019-08-19','CTT   AGUA GAS ',-4.09,1860.57,'3294e845b1cf86f130103679dd44ddf5',110),(114,'CGD','2019-07-22','2019-07-22','CTT   AGUA GAS ',-5.75,1822.16,'90307a1bdb28a505e25f2710b06ecee4',115),(115,'CGD','2019-07-20','2019-07-20','TRF SEBASTIAO MOITA ',142.25,1827.91,'7fb9e83782f454999ea0169dd789be20',116),(116,'CGD','2019-07-08','2019-07-08','COM MANUTENCAO CONTA ',-10.40,1685.66,'b50900d2f7d4392b940ed8925580e66b',117),(117,'CGD','2019-06-19','2019-06-19','TRF ANA SIMAO CORREIA ',193.98,1696.06,'216e89c8f148e8a6b554573dec26750a',118),(118,'CGD','2019-06-18','2019-06-18','CTT   AGUA GAS ',-4.91,1502.08,'20b7566350465854599c3ac7b14f3122',119),(119,'CGD','2019-06-14','2019-06-14','COM MANUTENCAO CONTA ',-10.40,1506.99,'f409383ea42aa29f8fb90e65fd945091',120),(120,'CGD','2019-06-06','2019-06-06','EDP SERVICO UNIVERSAL ',-6.36,1517.39,'e81a515b5bdae33672723b7f4f9395bc',121),(121,'CGD','2019-06-06','2019-06-06','EDP SERVICO UNIVERSAL ',-72.04,1523.75,'888912dbdb5e15c778bcaac2b4f46239',122),(122,'CGD','2019-05-27','2019-05-27','TRF LUISA ZIZ ',168.11,1595.79,'1791d41ce0999f10939f8ee096c459f3',123),(123,'CGD','2019-05-20','2019-05-20','CTT   AGUA GAS ',-5.24,1427.68,'924ad18331196b20716f118b3c768f63',124),(124,'CGD','2019-05-15','2019-05-15','DEPOSITO ',168.11,1432.92,'bbb95bcb561388b705a2d51212c3a93f',125),(125,'CGD','2019-05-06','2019-05-06','COM MANUTENCAO CONTA ',-10.40,1264.81,'19e86c8a7e9f1a20f7d259430175d911',126),(126,'CGD','2019-05-03','2019-05-03','TRF LUIS VELOSO MARQU ',284.50,1275.21,'3d428dc2b15dae900aeb23d158eaf98e',127),(127,'CGD','2019-04-27','2019-04-27','TRF SEBASTIAO MOITA ',142.25,990.71,'3b4a3c5096ac84f7eb2a809304f90f71',128),(128,'CGD','2019-04-16','2019-04-16','CTT   AGUA GAS ',-4.60,848.46,'116ccbd919c8bf1a77b551c3afcc0483',129),(129,'CGD','2019-04-08','2019-04-08','COM MANUTENCAO CONTA ',-10.40,853.06,'9b37b176e1f89dda232cc7f110273fd0',130),(130,'CGD','2019-04-04','2019-04-04','EDP SERVICO UNIVERSAL ',-6.13,863.46,'9f0dcb24280d1e5837d77b08403f6be1',131),(131,'CGD','2019-04-04','2019-04-04','EDP SERVICO UNIVERSAL ',-89.12,869.59,'1d767abcf8723e946137a21b4f123659',132),(132,'CGD','2019-03-28','2019-03-28','TRANSF CREDITO SEPA ',-0.52,958.71,'4e5c64d7555b4e98b5bc818ed892a932',133),(133,'CGD','2019-03-28','2019-03-28','FAC YA2H 1 0476422309 ',-60.32,959.23,'1828ee92d347b43b381766395e9473c4',134),(134,'CGD','2019-03-19','2019-03-19','CTT   AGUA GAS ',-4.91,1019.55,'11ab361a7661b2d511aa7fa6004206a2',135),(135,'CGD','2019-03-11','2019-03-11','COM MANUTENCAO CONTA ',-10.40,1024.46,'57a8254f48d6c83c42fcd44197bb4e7a',136),(136,'CGD','2019-03-11','2019-03-11','FIDELIDADE   COMPANHI ',-46.04,1034.86,'6f6ec1c695f92dc1fdbb8d73dd99349a',137),(137,'CGD','2019-02-19','2019-02-19','CTT   AGUA GAS ',-3.69,1080.90,'f341c4df6a2859620e45139828e899a2',138),(138,'CGD','2019-02-12','2019-02-12','TRANSF CREDITO SEPA ',-0.52,1084.59,'c898449411b588a494441045ed236702',139),(139,'CGD','2019-02-12','2019-02-12','FAC YA1 1 0355155944 ',-347.45,1085.11,'f927cfe3cd00ee89051378ecf4e0a451',140),(140,'CGD','2019-02-11','2019-02-11','COM MANUTENCAO CONTA ',-10.40,1432.56,'685b222b801c3cd4e2a5c3addfa73963',141),(141,'CGD','2019-02-06','2019-02-06','EDP SERVICO UNIVERSAL ',-6.42,1442.96,'937e6de4257d90da0a643f2e320e883d',142),(142,'CGD','2019-02-06','2019-02-06','EDP SERVICO UNIVERSAL ',-86.66,1449.38,'bd51985e5534ce7f1e58d13b4afa6148',143),(143,'CGD','2019-01-30','2019-01-30','TRF LUISA MARIA LOURE ',168.11,1536.04,'cf82c1dc4c1963f36b92b7be80cb1cc0',144),(144,'CGD','2019-01-21','2019-01-21','CTT   AGUA GAS ',-6.20,1367.93,'01323a3df50a84f5e5551edfbb0457aa',145),(145,'CGD','2019-01-18','2019-01-18','TRANSF CREDITO SEPA ',-0.52,1374.13,'9385f717e2ed27021844d4d9db2a7292',146),(146,'CGD','2019-01-18','2019-01-18','0476419292 TEC INSP ',-104.55,1374.65,'a5bccaf7214125b68830adbec25caa29',147),(147,'CGD','2019-01-10','2019-01-10','GRACINDA G1D 1SEM19 ',142.25,1479.20,'3d6a205d617159dfc4f3a63473183abd',148),(148,'CGD','2019-01-10','2019-01-10','CTT   AGUA GAS ',-5.00,1336.95,'9956cf37e284647db34742d344f521d6',149),(149,'CGD','2019-01-07','2019-01-07','COM MANUTENCAO CONTA ',-10.40,1341.95,'237e40e87697256d5166fa5e289e4109',150),(150,'CGD','2019-01-02','2019-01-02','TRF RUI JORGE M LOPES ',448.27,1352.35,'f5350379a1603161714ace4fefc74cec',151),(155,'MONETARIO','2018-01-15','2018-01-15','Reparação contadores R/C e 2º andar',-50.00,-1275.31,'5bbb5301d5c184795274d4b478849cbf',156),(156,'MONETARIO','2018-01-30','2018-01-30','Limpeza',-55.00,-1330.31,'2743043a48a52d6e148f3d76ca326c4c',157),(157,'MONETARIO','2018-02-28','2018-02-28','Limpeza',-55.00,-1451.40,'f620da173f6509b062dda2346c3d8c1c',158),(158,'MONETARIO','2018-02-03','2018-02-03','Fecho porta sótão',-10.09,-1340.40,'693d0c91f8a84fcff1a137d88b22837f',159),(159,'MONETARIO','2018-02-09','2018-02-09','Retentor hidraulico',-56.00,-1396.40,'4f33c279b3131be181d66cc4a2551ec7',160),(160,'MONETARIO','2018-03-10','2018-03-10','RC Frente ',170.00,-1281.40,'f8d3bc19c9a7d1a6b58e3ffd4ed4c6d1',161),(161,'MONETARIO','2018-03-27','2018-03-27','Limpeza',-55.00,-1336.40,'b4240dd8f518a98ee6cb62cd934eeae2',162),(162,'MONETARIO','2018-04-03','2018-04-03','Vistoria para video porteiro',-30.00,-1366.40,'e4be158ea1cfb719fc71691f037fd495',163),(163,'split-MONETARIO','2018-05-29','2018-05-29','RC Frente 2Sem + VP',247.47,-1173.93,'e41a3f368906f3fced0f17b5f62a2fdb',164),(164,'MONETARIO','2018-04-27','2018-04-27','Limpeza',-55.00,-1421.40,'d43c637533983c06ea3eaa431827873d',165),(165,'MONETARIO','2018-06-30','2018-06-30','Limpeza',-55.00,-1215.18,'96185ad54a17fd7b7f5f2dc3bd302538',166),(166,'MONETARIO','2018-05-29','2018-05-29','Limpeza',-55.00,-1228.93,'e2bc092aa7ff205aab36c43b9945011a',168),(167,'MONETARIO','2018-05-30','2018-05-30','VP RC Esq',68.75,-1160.18,'24789082c1bc694579d562a21c6418d7',167),(168,'MONETARIO','2018-07-29','2018-07-29','Limpeza',-55.00,-1270.18,'192cbd16330f90dcd78d1325fd2436c5',169),(169,'MONETARIO','2018-08-31','2018-08-31','Limpeza',-55.00,-1325.18,'2e5b3ad159b85fe7c62e0d81fb445c29',170),(170,'MONETARIO','2018-12-27','2018-12-27','Limpeza',-55.00,-1545.18,'24bccfdcfac95b5eed931583278badfc',171),(171,'MONETARIO','2018-11-30','2018-11-30','Limpeza',-55.00,-1490.18,'5f072369207f021ba98bbf34721a61b6',172),(172,'MONETARIO','2018-10-29','2018-10-29','Limpeza',-55.00,-1435.18,'98e68314df702010ca25a589fd4db467',173),(173,'MONETARIO','2018-09-30','2018-09-30','Limpeza',-55.00,-1380.18,'ecdfd277ab29882284bc83565392d5f0',174),(174,'MONETARIO','2018-12-27','2018-12-27','Quota Ano RC esq',285.50,-1259.68,'48aeabd7c15f84f43800f0cba43110dd',175),(175,'CGD-split-#48','2018-06-02','2018-06-02','TRF CXDOL - Fracionamento P2',68.75,4789.23,'b2f14c2a39a7f019a077b6348493ee68',176),(176,'CGD-split-#48','2018-06-02','2018-06-02','TRF CXDOL - Fracionamento P1',142.25,4789.23,'ba9c53fb64315d2d6e3ee115b58ef063',177),(177,'CGD-split-#52','2018-05-22','2018-05-22','DEPOSITO - Fracionamento P2',81.25,6155.13,'45ec00908417f97c76dc60405b58b8ef',178),(178,'CGD-split-#52','2018-05-22','2018-05-22','DEPOSITO - Fracionamento P1',168.11,6155.13,'a3301fc47a1979335b5d440873d6385c',179),(179,'CGD-split-#56','2018-05-21','2018-05-21','TRF R SIMOES - Fracionamento P1',168.11,5376.46,'131e68b1c05a935c60dede28455973c6',180),(180,'CGD-split-#56','2018-05-21','2018-05-21','TRF R SIMOES - Fracionamento P2',81.25,5376.46,'b5ed18e5978fee7a2166775694a8466b',181),(181,'CGD-split-#58','2018-05-18','2018-05-18','TRF SEBASTIAO MOITA - Fracionamento P1',142.25,5127.10,'dee71ec2ebaa599d81bb3756b77fcf36',182),(182,'CGD-split-#58','2018-05-18','2018-05-18','TRF SEBASTIAO MOITA - Fracionamento P2',68.75,5127.10,'edd01f1d2b5ee3962ce3b09ff856e6bd',183),(183,'CGD-split-#65','2018-05-07','2018-05-07','TRF LUISA ZIZ - Fracionamento P1',168.11,4270.60,'2e203fa808d68b431d85a6d50dce9cba',184),(184,'CGD-split-#65','2018-05-07','2018-05-07','TRF LUISA ZIZ - Fracionamento P2',91.25,4270.60,'7cef97a79964260c8dafddd39479a074',185),(185,'MONETARIO-split-#163','2018-05-29','2018-05-29','RC Frente 2Sem + VP- Fracionamento P1',168.11,0.00,'bf1c12be2ffed8f181ac53b99f2b66ba',186),(186,'MONETARIO-split-#163','2018-05-29','2018-05-29','RC Frente 2Sem + VP- Fracionamento P2',79.36,0.00,'456b9be085907759812aeb3bed488113',187),(188,'CGD-split-#105','2019-09-22','2019-09-22','TRF CXDOL - Fracionamento P1',207.72,2699.29,'641c855f41f6289a4e74cd9bd7a40d4a',189),(189,'CGD-split-#105','2019-09-22','2019-09-22','TRF CXDOL - Fracionamento P2',296.61,2699.29,'9b7794ec34c9e8cdee2ba861cd091156',190),(190,'MONETARIO','2019-01-30','2019-01-30','Limpeza',-55.00,0.00,'09871425b84b4ff32c162ce6a3b36b82',191),(191,'MONETARIO','2019-02-28','2019-02-28','Limpeza',-55.00,0.00,'ba9a61a618f329066e6256ce101229e0',192),(192,'MONETARIO','2019-03-27','2019-03-27','Limpeza',-55.00,0.00,'9f861262b1806b07c27d023a8c42fbfa',193),(193,'MONETARIO','2019-04-04','2019-04-04','RC Frente 1ºSem 2019',170.00,0.00,'d0310f54030587d9fe0f9069e7a67701',194),(194,'MONETARIO','2019-04-30','2019-04-30','Limpeza',-55.00,0.00,'e4d94730ba65d35e9abe2c232e74aa81',195),(195,'MONETARIO','2019-05-28','2019-05-28','Limpeza',-55.00,0.00,'807b56397f1a1b87467c9079def0ef6c',196),(196,'MONETARIO','2019-06-28','2019-06-28','Limpeza',-55.00,0.00,'8db0c5a531f3559faff444bd344e0493',197),(197,'MONETARIO','2019-07-26','2019-07-26','Limpeza',-55.00,0.00,'7ff81515a6fffedf1ec5988293ecfbe0',198),(198,'MONETARIO','2019-08-30','2019-08-30','Limpeza',-55.00,0.00,'2162f0f8549cbe770d7f2e2f48dd03af',199),(199,'MONETARIO','2019-09-17','2019-09-17','RC Frente 2ºSem 2019',166.50,0.00,'9cb981af69ee2b3d4c2346da826dc038',200),(200,'MONETARIO','2019-09-27','2019-09-27','Limpeza',-55.00,0.00,'d15e534ab2d80ca307fcf4a517a27168',201);
-/*!40000 ALTER TABLE `Movimentos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Valores`
---
-
-DROP TABLE IF EXISTS `Valores`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Valores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` varchar(254) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `valor` float(7,2) NOT NULL,
+  `comentario` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Valores`
+-- Dumping data for table `Comentarios`
 --
 
-LOCK TABLES `Valores` WRITE;
-/*!40000 ALTER TABLE `Valores` DISABLE KEYS */;
-INSERT INTO `Valores` VALUES (1,'Semestre -  81,25',168.11),(2,'Ano - 81,25',234.22),(3,'Semestre - 68,75',142.25),(4,'Garagem - 2018',31.08),(5,'Ano - 68.75',284.50),(6,'ano - gar ',24.04),(7,'Sem - gar',12.02),(8,'Semestre 150.84',150.84),(9,'Garagem 2019 - 34.21',34.21);
-/*!40000 ALTER TABLE `Valores` ENABLE KEYS */;
+LOCK TABLES `Comentarios` WRITE;
+/*!40000 ALTER TABLE `Comentarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Comentarios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Pessoas`
+--
+
+DROP TABLE IF EXISTS `Pessoas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Pessoas` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `permissao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hash` varchar(65) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `createdOn` datetime DEFAULT CURRENT_TIMESTAMP,
+  `confirmationToken` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) DEFAULT '0',
+  `attempt` int(5) DEFAULT '0',
+  `ban` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Pessoas`
+--
+
+LOCK TABLES `Pessoas` WRITE;
+/*!40000 ALTER TABLE `Pessoas` DISABLE KEYS */;
+INSERT INTO `Pessoas` VALUES (1,'Bruno Costa','brunovasquescosta@gmail.com','admin','be57a929a1377a009245e9c31f287e38609822752c6dfe5f89b9f6baf4c9696f','2018-08-25 00:00:00','209ie9320ie2eopqidadi320',1,0,0);
+/*!40000 ALTER TABLE `Pessoas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Preco`
+--
+
+DROP TABLE IF EXISTS `Preco`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Preco` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `tipo` varchar(50) NOT NULL,
+  `valor` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Preco`
+--
+
+LOCK TABLES `Preco` WRITE;
+/*!40000 ALTER TABLE `Preco` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Preco` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Reservas`
+--
+
+DROP TABLE IF EXISTS `Reservas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Reservas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `barracaChapeusId` int(5) NOT NULL,
+  `nome` varchar(254) NOT NULL,
+  `dataInicio` date NOT NULL,
+  `dataFim` date NOT NULL,
+  `valor` float NOT NULL,
+  `comentarioId` int(10) DEFAULT NULL,
+  `operadorId` int(11) NOT NULL,
+  `registo` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `Reservas_fk0` (`barracaChapeusId`),
+  KEY `Reservas_fk1` (`comentarioId`),
+  KEY `Reservas_fk2` (`operadorId`),
+  CONSTRAINT `Reservas_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
+  CONSTRAINT `Reservas_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
+  CONSTRAINT `Reservas_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Reservas`
+--
+
+LOCK TABLES `Reservas` WRITE;
+/*!40000 ALTER TABLE `Reservas` DISABLE KEYS */;
+INSERT INTO `Reservas` VALUES (1,15,'','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:15:19'),(2,15,'','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:15:20'),(3,15,'','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:15:20'),(4,15,'António Pires','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:16:15'),(5,17,'António Pires','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:16:15'),(6,15,'António Pires','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:16:15'),(7,15,'António Pires','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:16:15'),(8,12,'','2018-08-13','2018-08-25',40,NULL,1,'2018-08-24 21:20:46'),(9,25,'Peta Roberto','2018-08-01','2018-08-31',75,NULL,1,'2018-08-24 21:45:15'),(10,37,'Sara Prata','2018-08-24','2018-09-02',75,NULL,1,'2018-08-24 21:45:54'),(11,35,'Monica','2018-08-25','2018-08-31',75,NULL,1,'2018-08-25 00:53:38');
+/*!40000 ALTER TABLE `Reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -188,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-07-13 18:06:12
+-- Dump completed on 2018-08-26  1:32:19
