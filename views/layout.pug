@@ -3,6 +3,7 @@ html(lang="pt",content-type="text/html;charset=UTF-8")
 
   head
     title= title
+    meta(name="viewport" content="width=500, initial-scale=1")
     meta(name="google-site-verification",content="0i5RgOYfm-_5xwIkoSfvfkhbLXd5R-ixSJ3aUP2G1D8")
     meta(name='google-signin-client_id', content='925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleusercontent.com')
     // https://favicon.io/favicon-converter/
@@ -11,7 +12,7 @@ html(lang="pt",content-type="text/html;charset=UTF-8")
     link(rel="icon", type="image/png" sizes="16x16" href="/images/favicon-16x16.png")
     link(rel="manifest", href="/images/site.webmanifest")
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+  body.p-2
     block content
     script(src='/webpack/webpack.js')
     script#actions(src="/javascripts/actions.js")
