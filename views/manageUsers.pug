@@ -19,37 +19,40 @@ block content
           td=row.name
           td=row.permission
           td
-            form(method="POST",action="/users/set/password")
-              input(id="id",name="id",type="hidden",value=row.userId)
-              //needs double input of password 
-              input(id="password",name="password",type="password",value=row.userId)
-              button.btn.btn-alert(type="submit") set password
-            a(href="/") link &nbsp;
-            input.pass(type="hidden",value="/")
-            button.copyText.btn.btn-dark(type="button") copy link
+            .row
+              form(method="POST",action="/users/set/password")
+                input(id="id",name="id",type="hidden",value=row.userId)
+                //needs double input of password
+                input.form-control(id="password",name="password",type="password",value=row.userId)
+                .d-grid
+                  button.btn.btn-dark(type="submit") set password
+            .d-grid.gap-1
+              input.pass(type="hidden",value="/")
+              button.copyText.btn.btn-dark(type="button") copy link
+              a(href="/") link &nbsp;
           td
             form(method="POST",action="/users/set/active-state")
               input(id="id",name="id",type="hidden",value=row.userId)
               input(id="active",name="active",type="hidden",value=1)
-              button.btn.btn-alert(type="submit") Activate
+              button.btn.btn-info(type="submit") Activate
             form(method="POST",action="/users/set/active-state")
               input(id="id",name="id",type="hidden",value=row.userId)
               input(id="active",name="active",type="hidden",value=0)
-              button.btn.btn-alert(type="submit") Revoke
+              button.btn.btn-dark(type="submit") &nbsp;Revoke&nbsp;
   form.card(method="POST",action="/users/create/user")
     .form-row.card-body
       .col
         label(for="name") Nome: &nbsp;
-        input(id="name",name="name",type="text",placeholder="Nome")
+        input.form-control(id="name",name="name",type="text",placeholder="Nome")
       .col
         label(for="email") Email: &nbsp;
-        input(id="email",name="email",type="email",placeholder="Email")
+        input.form-control(id="email",name="email",type="email",placeholder="Email")
       .col
         label(for="permission") Permissão: &nbsp;
-        select(id="permission",name="permission")
+        select.form-control(id="permission",name="permission")
           option(selected) user
           option admin
           option viewer
           option manager
-      .col
-        button.btn.btn-alert(type="submit") Criar novo utilizador
+      .col.d-grid
+        button.btn.btn-dark(type="submit") Criar novo utilizador

@@ -7,10 +7,10 @@ block content
         - orientacao="horizontal"
     else
         - orientacao="vertical"    
-    .fila(class=orientacao)
+    fila(class=orientacao)
         for item in dados
             if item.number.endsWith("A")
-                button.btn.btn-secondary.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
+                button.btn.btn-secondary.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
                 .collapse.annex(id="collapse"+item.id)
                     .reservar.card.card-body
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca
@@ -39,7 +39,7 @@ block content
                                         .input-group-text €
                                     .btn.btn-primary.btn-lg.otherValue(price="") Alugar
             else
-                button.btn.btn-secondary.tent(class=item.subtipo,id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-toggle="collapse",data-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
+                button.btn.btn-secondary.tent(class=item.subtipo,id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
                 .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
                     .reservar.card.card-body
                         .btn.btn-primary.btn-lg.day.frontal Reservar barraca

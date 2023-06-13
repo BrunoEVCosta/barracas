@@ -73,7 +73,7 @@ window.app=new Vue({
                         subTipo=row.tipo
                     }
                     numero=item
-                    codigo+=`INSERT INTO BarracasChapeus (numero,tipo,subTipo,localizacao) VALUE ("${numero}","${_.capitalize(tipo)}","${subTipo}","${localizacao}");<br>`
+                    codigo+=`INSERT INTO BarracasChapeus (numero,tipo,subTipo,localizacao) VALUE ("${numero}","${type}","${subTipo}","${localizacao}");<br>`
                 }
             }
             codigo+="SET FOREIGN_KEY_CHECKS = 1;"
