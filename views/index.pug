@@ -1,74 +1,96 @@
 extends layout
 block content
-  script(src="https://apis.google.com/js/platform.js", async="", defer="")  
-  h1 Gestão de Barracas e Chapéus
-  if dados
-    .card
-      .card-body
-        h5=dados.name
-        form(method="POST",action="/users/revoke/access/")
-          input(type="hidden",id="id",name="id",value=dados.accessId)
-          button.btn.btn-primary(type="submit",onclick='signOut();') Logout
-  else
-    form.card(method="POST",action="/login")
-      .card-body
-        .form-group
-          label(for="email") Email
-          input.form-control.form-control-lg(id="email",name="email",type="email",placeholder="Email")
-        .form-group
-          label(for="password") Palavra-passe
-          input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
-        .form-group
-          button.btn.btn-primary.btn-block.btn-lg(type="submit") Login
-    .card
-      .card-body
-        .container
-          .row.justify-content-md-center
-            .col.col-lg-6
-              h3 Autenticação através de outras plataformas   
-          .row.justify-content-md-center
-            .col.col-lg-2
-              .g-signin2(data-onsuccess="onSignIn")
-  if loggedin
-    .card
-      .card-title
-        h2 Barracas
-      .card-body
-        .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/1") Fila 1
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/2") Fila 2
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/3") Fila 3 (Trás)
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/4") Fila 4
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/barracas/fila/5") Fila 5
-    .card
-      .card-title
-        h2 Chapéus
-      .card-body  
-        .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/fila/1") Fila 1
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/chapeus/fila/2") Fila 2
-    .card
-      .card-title    
-        h2 Vista geral
-      .card-body
-        .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral") Vista Geral
-    .card
-      .card-title    
-        h2 Relatórios
-      .card-body    
-        .fila
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
-          - now=new Date()
-          - year=now.getFullYear()
-          - month=now.getMonth()+1
-          a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas
-    if role=="admin"
+  script(src="https://apis.google.com/js/platform.js", async="", defer="")
+  .container.card
+    .row.bg-light
+      .col-md-1
+        span.tent.ml-2.d-none.d-md-block(style="background-image:url('/images/android-chrome-512x512.png');" +
+        "background-image:center;" +
+        "background-position: center;" +
+        "background-size: cover;") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      .col-md-10
+        h1.text-center Gestão de Barracas e Chapéus
+          span.tent.ml-2.d-md-none.d-block(style="background-image:url('/images/android-chrome-512x512.png');" +
+          "background-image:center;" +
+          "background-position: center;" +
+          "background-size: cover;") &nbsp;
+  #app
+    if dados
+      .card
+        .card-body
+          .d-flex.justify-content-between
+            .jdslkjflks
+              h5=dados.name
+              form(method="POST",action="/users/revoke/access/")
+                input(type="hidden",id="id",name="id",value=dados.accessId)
+                button.btn.btn-primary(type="submit",onclick='signOut();') Logout
+            img(src="/images/profile.png" height="70px")
+    else
+      form.mt-2.card(method="POST",action="/login")
+        .card-body
+          .form-group
+            label(for="email") Email
+            input.form-control.form-control-lg(id="email",name="email",type="email",placeholder="Email")
+          .form-group
+            label(for="password") Palavra-passe
+            input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
+          .form-group
+            .d-grid.mt-2
+              button.btn.btn-primary.btn-block.btn-lg(type="submit") Login
+      .card.mt-2
+        .card-body
+          .container
+            .row.justify-content-md-center
+              .col.col-lg-6
+                h3 Autenticação através de outras plataformas
+            .row.justify-content-md-center
+              .col.col-lg-2
+                .g-signin2(data-onsuccess="onSignIn")
+    if loggedin
+      .card
+        .card-header
+          h2.text-center Barracas
+        .card-body.p-0.m-2
+          .fila.container.text-center
+            .row.align-items.start
+              .col.p-0(v-for="(row,index) of barracas")
+                .d-grid
+                  a.btn.btn-primary.btn-lg.tent.align-middle(style="min-height:140px;" role="button",:href="'/barracas/fila/'+(index+1)")
+                    p.h1.p-2 {{ row.localizacao }}
+                      span(v-if="row.subTipo=='Traseira'") &nbsp;(Trás)
+      .card.mt-2
+        .card-header
+          h2.text-center Chapéus
+        .card-body.p-0
+          .fila.container.text-center
+            .row.align-items.start
+              .col.p-0(v-for="(row,index) of chapeus")
+                .d-grid
+                  a.btn.btn-primary.btn-lg.tent.align-middle(role="button",:href="'/chapeus/fila/'+(index+1)")
+                    p.h1.p-2 {{ row.localizacao }}
+                      span(v-if="row.subTipo=='Traseira'") (Trás)
+      .card
+        .card-header
+          h2.text-center Vista Geral
+        .card-body
+          .fila.d-grid
+            a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral")
+              p.h1.p-2 Vista Geral
       .card
         .card-title
-          h2 Administração
+          h2 Relatórios
         .card-body
           .fila
-            a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
-            a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir acessos
-          
+            a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
+            - now=new Date()
+            - year=now.getFullYear()
+            - month=now.getMonth()+1
+            a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas
+      if role=="admin"
+        .card
+          .card-title
+            h2 Administração
+          .card-body
+            .fila
+              a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
+              a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir acessos

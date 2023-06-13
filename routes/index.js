@@ -7,7 +7,7 @@ var keylist=["SEKRIT2", "SEKRIT1"]; //Set a list of o keys.
 var keys = new Keygrip(keylist,'sha256','hex')
 const CLIENT_ID="925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleusercontent.com"
 const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
-
+const listRows=require("./../components/barracas/controller/listRows")
 
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
@@ -311,6 +311,12 @@ router.get('/cancelar/aluguer/:id',isLoggedIn,isAdmin,function(req, res, next){
 })
 
 
-
+router.get('/api/v1/list/rows/:tipo',(req,res)=>{
+  listRows(req.params).then(data=>{
+    res.json(data)
+  }).catch(err=>{
+    res.json(err)
+  })
+})
 
 module.exports = router;
