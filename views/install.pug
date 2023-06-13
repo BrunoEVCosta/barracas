@@ -2,9 +2,44 @@ extends layout
 block content
     h2 Installer
     #setup
-        .form-group
-            label Number of rows
-            input.form-control#rows(type="number",v-model="rows")
-        .form-group(v-for="row in rowIter")
-            label Number of rows {{row}}
-            input.form-control#rows(type="number")
+        p.d-grid
+            button.btn.btn-primary(type="button" data-bs-toggle="collapse" data-bs-target="#codigo" aria-expanded="false" aria-controls="codigo" @click="generateSchema()") Gerar código do mapa
+        #codigo.collapse
+            .card.card-body(v-html="generateSchema")
+        .container-fluid
+            .row
+                .col-6
+                    h3 Barracas
+                    .form-group
+                        label Number of rows
+                        input.form-control#barracas-rows(type="number",v-model="barracas.numRows",min=0)
+                    .card(v-for="(row,index) of rowIter('barracas')")
+                        .card-header
+                            h5 Fila {{ index+1 }} - Tamanho:{{ calculateDistinctNumbersInRow(index,"barracas") }}
+                                span.badge.bg-success {{barracas.rows[index].tipo}}
+                        .card-body
+                            .form-group
+
+                                label Tipo de fila
+                                v-select(:options="options.tipo",v-model="barracas.rows[index].tipo")
+                                label Anexo frontal?
+                                v-select(:options="options.anexoFrontal",v-model="barracas.rows[index].anexoFrontal")
+                                label Numero de elementos incluíndo a frontal e anexos {{ rowRange(index,"barracas")}}
+                                input.form-control(type="number",v-model="barracas.rows[index].elementos",min=1)
+                .col-6
+                    h3 Chapéus de Sol
+                    .form-group
+                        label Number of rows
+                        input.form-control#chapeus-rows(type="number",v-model="chapeus.numRows",min=0)
+                    .card(v-for="(row,index) of rowIter('chapeus')")
+                        .card-header
+                            h5 Fila {{ index + 1 }} - Len:{{ calculateDistinctNumbersInRow(index,"chapeus") }} - Tipo:
+                                span.badge.bg-success {{chapeus.rows[index].tipo}}
+                        .card-body
+                            .form-group
+                                label Tipo de fila
+                                v-select(:options="options.tipo",v-model="chapeus.rows[index].tipo")
+                                label Anexo frontal?
+                                v-select(:options="options.anexoFrontal",v-model="chapeus.rows[index].anexoFrontal")
+                                label Numero de elementos incluíndo a frontal e anexos {{ rowRange(index,"chapeus")}}
+                                input.form-control(type="number",v-model="chapeus.rows[index].elementos",min=1)
