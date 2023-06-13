@@ -4,6 +4,7 @@ const webpack=require("webpack")
 // Globally available examples: https://stackoverflow.com/questions/28969861/managing-jquery-plugin-dependency-in-webpack
 
 
+
 module.exports = {
     mode: 'development',
     entry: {
@@ -40,7 +41,6 @@ module.exports = {
         }
     },
     plugins: [
-
     ],
     output: {
         path: path.resolve(__dirname, 'public/webpack'),
