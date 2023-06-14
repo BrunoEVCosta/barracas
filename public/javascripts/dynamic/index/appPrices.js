@@ -38,9 +38,6 @@ window.app=new Vue({
                 target.classList.remove('bg-success')
             },3000)
         },
-        isInputBackgroundActive(type,subtype,duration,extra){
-            return this.precos[type][subtype][duration].bg
-        }
     },
     async beforeMount(){
         this.subTipos=await $.get("/api/v1/list/subTypes")
