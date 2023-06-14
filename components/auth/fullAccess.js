@@ -13,10 +13,9 @@ function isLoggedIn(req,res,next){
         if(req.cookies.accessToken === access.accessToken && access.valid)
             next()
         else
-            //if "/" this else redirect to it
-            res.render('index', { title: 'Gestão de barracas'});
+            res.render("index")
     }).catch(function(err){
-        res.render('index', { title: 'Gestão de barracas'});
+        res.redirect("/");
     })
 }
 

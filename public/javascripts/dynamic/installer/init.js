@@ -17,7 +17,7 @@ $(document).ready(function(){
     scriptName.forEach(scriptName=>{
         let url=""
         if(isName(scriptName)){
-            url="/javascripts/installer/"+scriptName+".js";
+            url="/javascripts/dynamic/installer/"+scriptName+".js";
         }else{
             url=scriptName
         }

@@ -17,8 +17,8 @@ node install.js
 ## TODO
 - Popper might not be required by using v.5 of bootstrap
 - update google auth
-- install schema layout
 - config bootstrap v5
+- 
 
 ## DB setup
 Either run config.sh if you are setting up a new AWS instance.
