@@ -4,13 +4,16 @@ var paths=pathname.split("/").splice(1)
 let url
 
 if (paths[0]==="install"){
-    url="/javascripts/installer/init.js";
+    url="/javascripts/dynamic/installer/init.js";
 }
 if (paths[0]==="admin"){
-    url="/javascripts/index/init.js";
+    url="/javascripts/dynamic/index/init.js";
 }
 if(paths[0]===""){
-    url="/javascripts/index/init.js"
+    url="/javascripts/dynamic/index/init.js"
+}
+if(paths[0]==="informacao"){
+    url="/javascripts/dynamic/info/init.js"
 }
 
 var script = document.createElement('script');

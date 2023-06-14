@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import Vue from 'vue/dist/vue.esm.browser';
 import {VueSelect} from "vue-select";
+const buildingblocks=require("@netbofia/buildingblocks")
 
 function insertScripts(names) {
     let collection=[]
@@ -19,3 +20,4 @@ insertScripts(names);
 window._ = _
 window.Vue = Vue
 window.VueSelect=VueSelect
+Object.keys(buildingblocks).forEach(key=>window[key]=buildingblocks[key])

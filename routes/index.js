@@ -8,6 +8,7 @@ var keys = new Keygrip(keylist,'sha256','hex')
 const CLIENT_ID="925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleusercontent.com"
 const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows=require("./../components/barracas/controller/listRows")
+const managePrices = require('./../components/barracas/controller/prices')
 
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
@@ -248,6 +249,9 @@ router.get('/calendar/:espaco',isLoggedIn,function(req,res){
 
 
 ///ADMINISTRATION
+router.get('/admin/prices',isLoggedIn,isAdmin,(req,res)=>{
+  res.render('admin/managePrices')
+})
 
 router.get('/users/manage/accesses',isLoggedIn,isAdmin,function(req,res){
   var attributes={}
@@ -310,13 +314,37 @@ router.get('/cancelar/aluguer/:id',isLoggedIn,isAdmin,function(req, res, next){
   })  
 })
 
-
+// API
 router.get('/api/v1/list/rows/:tipo',(req,res)=>{
   listRows(req.params).then(data=>{
     res.json(data)
   }).catch(err=>{
     res.json(err)
   })
+})
+
+router.post('/api/v1/set/price',isLoggedIn,isAdmin,(req,res)=>{
+  managePrices.setPrice(req.body).then(data=>{
+    res.json(data)
+  }).catch(err=>{
+    res.json(err)
+  })
+})
+router.get('/api/v1/list/prices',(req,res)=>{
+  managePrices.listPrices().then(data=>{
+    res.json(data)
+  }).catch(err=>{
+    res.json(err)
+  })
+})
+
+router.get('/api/v1/list/subTypes',(req,res)=>{
+  let subtypes = managePrices.listSubTypes()
+  res.json(subtypes)
+})
+router.get('/api/v1/list/durations',(req,res)=>{
+  let durations = managePrices.listDurations()
+  res.json(durations)
 })
 
 module.exports = router;

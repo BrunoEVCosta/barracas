@@ -13,7 +13,13 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       unique: true,
     },
-    tipo: DataTypes.STRING(50),
+    tipo: DataTypes.ENUM('Barraca','Chapeu'),
+    subTipo: DataTypes.ENUM('Frontal','Lateral','Traseira'),
+    extra: {
+      type:DataTypes.STRING(254),
+      allowNull:true,
+    },
+    duracao: DataTypes.ENUM('Manhã','Tarde','Dia','Semana','Quinzena','Mês'),
     valor: DataTypes.FLOAT,
   }, {
     tableName: 'Preco',

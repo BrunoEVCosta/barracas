@@ -19,12 +19,23 @@ block content
       .card
         .card-body
           .d-flex.justify-content-between
-            .jdslkjflks
+            .name
               h5=dados.name
               form(method="POST",action="/users/revoke/access/")
                 input(type="hidden",id="id",name="id",value=dados.accessId)
                 button.btn.btn-primary(type="submit",onclick='signOut();') Logout
-            img(src="/images/profile.png" height="70px")
+            if role == "admin"
+              .admin-actions
+                .mobile.d-block.d-md-none
+                  a.btn.btn-primary.btn-sm(role="button",href="/users/manage/users") utilizadores
+                  a.btn.btn-primary.btn-sm(role="button",href="/users/manage/accesses") Acessos
+                  a.btn.btn-primary.btn-sm(role="button",href="/admin/prices") Preços
+                .pc.d-none.d-md-block
+                  a.btn.btn-primary.btn-lg(role="button",href="/users/manage/users") Gerir utilizadores
+                  a.btn.btn-primary.btn-lg(role="button",href="/users/manage/accesses") Gerir acessos
+                  a.btn.btn-primary.btn-lg(role="button",href="/admin/prices") Preços
+            .profile-pic
+              img(src="/images/profile.png" height="70px")
     else
       form.mt-2.card(method="POST",action="/login")
         .card-body
@@ -86,11 +97,3 @@ block content
             - year=now.getFullYear()
             - month=now.getMonth()+1
             a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas
-      if role=="admin"
-        .card
-          .card-title
-            h2 Administração
-          .card-body
-            .fila
-              a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/users") Gerir utilizadores
-              a.btn.btn-primary.btn-lg.tent(role="button",href="/users/manage/accesses") Gerir acessos

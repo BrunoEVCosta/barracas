@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+    H2 Gestão de Preços
+
+    .container-fluid#app
+        .row
+            .col-md-6.col-sm-12
+                .card
+                    .card-header
+                        h2.text-center Barraca
+                        .d-flex.justify-content-center
+                            img.rounded.border.border-dark-subtle(src="/images/barraca.jpg",width='60%', style="max-height:200px")
+                    .card-body
+                        .sub-type(v-for="sub in subTipos")
+                            .card
+                                .card-header
+                                    h4.text-center {{ sub }}
+                                .duration(v-for="periodo in duracoes")
+                                    .input-group.input-group-lg
+                                        span.input-group-text {{ periodo }}
+                                        input.form-control(type="number",min=0,v-model="precos['Barraca'][sub][periodo].valor" @change="updatePrice",tipo="Barraca",:subtipo="sub",:periodo="periodo")
+                                        span.input-group-text €
+
+            .col-md-6.col-sm-12
+                .card
+                    .card-header
+                        h2.text-center Chapéu
+                        .d-flex.justify-content-center
+                            img.rounded.border.border-dark-subtle(src="/images/android-chrome-512x512.png",width='40%',style="max-height:200px")
+                    .card-body
+                        .sub-type(v-for="sub in subTipos")
+                            .card
+                                .card-header
+                                    h4.text-center {{ sub }}
+                                .duration(v-for="periodo in duracoes")
+                                    .input-group.input-group-lg
+                                        span.input-group-text {{ periodo }}
+                                        input.form-control(type="number",min=0,v-model="precos['Chapeu'][sub][periodo].valor" @change="updatePrice",tipo="Chapeu",:subtipo="sub",:periodo="periodo")
+                                        span.input-group-text €

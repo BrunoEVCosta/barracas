@@ -11,13 +11,17 @@ $(document).ready(function(){
             "main"
         ]
     }
-
+    if(paths[1]=="prices"){
+        scriptName=[
+            "appPrices"
+        ]
+    }
 
     scriptTarget = $('script#actions')[0];
     scriptName.forEach(scriptName=>{
         let url=""
         if(isName(scriptName)){
-            url="/javascripts/index/"+scriptName+".js";
+            url="/javascripts/dynamic/index/"+scriptName+".js";
         }else{
             url=scriptName
         }
