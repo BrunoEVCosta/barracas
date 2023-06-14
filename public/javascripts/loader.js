@@ -15,6 +15,10 @@ if(paths[0]===""){
 if(paths[0]==="informacao"){
     url="/javascripts/dynamic/info/init.js"
 }
+if(paths[0]==="chapeus" || paths[0]==="barracas"){
+    url="/javascripts/dynamic/fila/init.js"
+}
+
 
 var script = document.createElement('script');
 if(url !== undefined){

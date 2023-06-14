@@ -18,7 +18,7 @@ node install.js
 - Popper might not be required by using v.5 of bootstrap
 - update google auth
 - config bootstrap v5
-- 
+- add notification of information request
 
 ## DB setup
 Either run config.sh if you are setting up a new AWS instance.
