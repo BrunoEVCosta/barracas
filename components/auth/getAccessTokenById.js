@@ -1,7 +1,7 @@
-var models= require('./../models');
+var models= require('../barracas/models');
 
 module.exports = function(options){
-	var call="revokeAccessToken";
+	var call="getAccessToken";
  	var attributes=options || {};
  	attributes.where={id: attributes.id} 	
 	return models[call](attributes)

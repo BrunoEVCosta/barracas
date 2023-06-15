@@ -1,4 +1,4 @@
-var models= require('./../models');
+var models= require('../barracas/models');
 var rand = require('csprng')
 
 module.exports = function(options){

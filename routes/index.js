@@ -1,17 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var tpAuth=require('./../components/barracas/controller/manageThirdPartyAuth')
-var Cookies = require('cookies');
-var Keygrip = require("keygrip");
-var keylist=["SEKRIT2", "SEKRIT1"]; //Set a list of o keys.
-var keys = new Keygrip(keylist,'sha256','hex')
-const CLIENT_ID="925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleusercontent.com"
+
+
 const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows=require("./../components/barracas/controller/listRows")
 const managePrices = require('./../components/barracas/controller/prices')
 const filaBarracas=require('./../components/barracas/controller/filaBarracas')
 const filaChapeus=require('./../components/barracas/controller/filaChapeus')
 const alugarBarracaDia=require('./../components/barracas/controller/alugarBarracaDia')
+const login=require('../components/auth/login')
+const {extractMetadataFromLogin}=require('.././components/auth/procedures')
 
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
@@ -25,18 +23,12 @@ function getCookieData(req){
 
 // USER LAND
 
-/* GET home page. */
-router.get('/admin', isLoggedIn, isAdmin, function(req, res, next) {
-  res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin",loggedin: true });
-});
+
 
 router.get('/', isLoggedIn, function(req, res, next) {
   res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req), loggedin: true });
 });
 
-router.get('/signedout',function(req,res){
-  res.render('signedout',{title: 'Gestão de barracas'})
-})
 
 router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
@@ -58,11 +50,8 @@ router.get('/chapeus/fila/:numero',isLoggedIn,function(req, res, next){
   })
 })
 
-router.get('/vista-geral',isLoggedIn, function(req, res, next){
-  res.render('vistaGeral',{title: "Vista Geral"})
-})
 
-//API
+
 
 router.post('/alterar/reserva/datas',isLoggedIn, function(req, res, next){
   var options=req.body;
@@ -99,6 +88,9 @@ router.get('/alterar/aluguer/:id',isLoggedIn,function(req, res, next){
 })
 
 
+/*
+Relatórios
+ */
 router.get('/relatorios/aluguer/hoje',isLoggedIn,function(req, res, next){
   require('./../components/barracas/controller/relatorioAluguers')().then(function(dados){
     res.render("relatorioAluguers",{title:"Relatório aluguers ao dia" ,dados:dados})
@@ -125,82 +117,24 @@ router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,re
   })  
 })
 
+
+
 router.get('/informacao',function(req,res){
   res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus"})
 })
 
-
-router.post('/login',function(req, res, next){
-  var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
-  var options=req.body
-  options.ip=req.connection.remoteAddress.split(":").pop()
-  options.platform=req.headers['user-agent']
-
-  function callBack(name,accessId,userId,token){
-    cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId).set( "accessToken", token, { signed: true, maxAge: (1000 * 60 * 60 * 30 * 12) } );
-  }
-
-  require('./../components/barracas/controller/login')(options,callBack).then(function(dados){
-    res.redirect("/")
-  }).catch(function(err){
-    res.status(404).json(err)
-  })
+router.get('/vista-geral',isLoggedIn, function(req, res, next){
+  res.render('vistaGeral',{title: "Vista Geral"})
+})
+// Reserve layout
+router.get('/calendar/:espaco',isLoggedIn,function(req,res){
+  let espaco = req.params.espaco
+  res.render('calendar/layout',{title:"Layout", espaco })
 })
 
-router.post('/login/redirect/google',function(req,res){
-  console.log(req.body)
-})
-router.get('/login/redirect/google',function(req,res){
-  console.log(req.query)
-})
 
-router.post('/login/verify/google-token',function(req,res){
-  const {OAuth2Client} = require('google-auth-library');
-  const client = new OAuth2Client(CLIENT_ID);
-  async function verify() {
-    const ticket = await client.verifyIdToken({
-      idToken: req.body.client_id,
-      audience: CLIENT_ID
-    });
-    const payload = ticket.getPayload();
-    const userid = payload['sub'];
-    var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
-    var options={}
-    let ipv4=null
-    let ipv6 = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    if (ipv6.substr(0, 7) == "::ffff:") {
-      ipv4 = ipv6.substr(7)
-    }
-    options.ip=ipv4
-    options.platform=req.headers['user-agent']
 
-    function callBack(error,name,accessId,userId,token){
-      if(error){
-        let msg = error.message
-        res.json(msg)
-      }else{
-        cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId).set( "accessToken", token, { signed: true, maxAge: (1000 * 60 * 60 * 30 * 12) } );
-        res.json("Logged in! Reload page!")
-      }
-    }
 
-    const active= await tpAuth.lookUpPersonByEmailAuthentication(payload,options,callBack)
-    // If request specified a G Suite domain:
-    // const domain = payload['hd'];
-  }
-  verify().catch(console.error);
-})
-//LOGOUT
-router.post('/users/revoke/access/',isLoggedIn,function(req,res){
-  var attributes=req.body
-  require('./../components/barracas/controller/revokeAccessToken')(attributes).then(function(data){
-    res.redirect('/signedout')
-  }).catch(function(err){
-    res.redirect('/')
-  })
-})
-
-//Change to post add time security and limit access to this.
 router.post('/alugar/barraca/:id',isLoggedIn,function(req,res, next){
   var id=req.params.id
   var price=req.body.price
@@ -244,71 +178,16 @@ router.get('/reservar/barraca/:id',isLoggedIn,function(req,res, next){
   })  
 })
 
-// Reserve layout
-router.get('/calendar/:espaco',isLoggedIn,function(req,res){
-  let espaco = req.params.espaco
-  res.render('calendar/layout',{title:"Layout", espaco })
-})
+
 
 
 
 ///ADMINISTRATION
-router.get('/admin/prices',isLoggedIn,isAdmin,(req,res)=>{
-  res.render('admin/managePrices')
-})
 
-router.get('/users/manage/accesses',isLoggedIn,isAdmin,function(req,res){
-  var attributes={}
-  require('./../components/barracas/controller/manageAccesses')(attributes).then(function(data){
-    res.render('manageAccesses',{
-      title:"Acessos",
-      dados: data
-    })
-  }).catch(function(err){
-      res.status(404).json(err)
 
-  })
-})
 
-router.get('/users/manage/users',isLoggedIn,isAdmin,function(req,res){
-  var attributes={}
-  require('./../components/barracas/controller/manageUsers')(attributes).then(function(data){
-    res.render('manageUsers',{
-      title:"Users",
-      dados: data
-    })
-  }).catch(function(err){
-      res.status(404).json(err)
-  })
-})
 
-router.post('/users/set/password',isLoggedIn,isAdmin,function(req,res){
-  var options=req.body
-  require('./../components/barracas/controller/setPassword')(options).then(function(dados){
-    res.redirect('/users/manage/users');
-  }).catch(function(err){
-    res.status(404).json(err)
-  })
-})
-
-router.post('/users/set/active-state',isLoggedIn,isAdmin,function(req,res){
-  var options=req.body
-  require('./../components/barracas/controller/setUserActiveState')(options).then(function(dados){
-    res.redirect('/users/manage/users');
-  }).catch(function(err){
-    res.status(404).json(err)
-  })
-})
-
-router.post('/users/create/user/',isLoggedIn,isAdmin,function(req,res){
-  var options=req.body
-  require('./../components/barracas/controller/createUser')(options).then(function(dados){
-    res.redirect('/users/manage/users');
-  }).catch(function(err){
-    res.status(404).json(err)
-  })    
-})
-
+//API
 router.get('/cancelar/aluguer/:id',isLoggedIn,isAdmin,function(req, res, next){
   var options=req.params;
   require('./../components/barracas/controller/cancelRent')(options).then(function(dados){
@@ -318,61 +197,7 @@ router.get('/cancelar/aluguer/:id',isLoggedIn,isAdmin,function(req, res, next){
   })  
 })
 
-// API
-router.get('/api/v1/list/rows/:tipo',(req,res)=>{
-  listRows(req.params).then(data=>{
-    res.json(data)
-  }).catch(err=>{
-    res.json(err)
-  })
-})
 
-router.post('/api/v1/set/price',isLoggedIn,isAdmin,(req,res)=>{
-  managePrices.setPrice(req.body).then(data=>{
-    res.json(data)
-  }).catch(err=>{
-    res.json(err)
-  })
-})
-router.get('/api/v1/list/prices',(req,res)=>{
-  managePrices.listPrices().then(data=>{
-    res.json(data)
-  }).catch(err=>{
-    res.json(err)
-  })
-})
 
-router.get('/api/v1/list/subTypes',(req,res)=>{
-  let subtypes = managePrices.listSubTypes()
-  res.json(subtypes)
-})
-router.get('/api/v1/list/durations',(req,res)=>{
-  let durations = managePrices.listDurations()
-  res.json(durations)
-})
-
-router.get('/api/v1/fila/:tipo/:filaNumero',isLoggedIn,async (req,res)=>{
-  let tipo=req.params.tipo
-  let fila=req.params.filaNumero
-  let metaFila
-  try{
-    if(tipo=="barracas"){
-      metaFila= await filaBarracas(fila)
-      res.json(metaFila)
-    }else if(tipo=="chapeus"){
-      metaFila= await filaChapeus(fila)
-      res.json(metaFila)
-    }else{
-      throw new Error("IncorrectTipInURL")
-    }
-  }catch(e){
-    res.json(e)
-  }
-})
-
-//Factory
-router.get('/factory/vue/collapse',(req,res)=>{
-  res.render("factory/vue/collapse")
-})
 
 module.exports = router;

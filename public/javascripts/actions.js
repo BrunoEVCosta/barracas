@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+	//Deprecated
 	$('.alugar .btn').click(function(){
 		var tent=$(this).closest('.collapse').prev('button.tent')
 		var tentId=tent.attr('id');
@@ -17,11 +18,13 @@ $(document).ready(function(){
 		}
 	})
 
+	//deprecated
 	$('.alugar input#otherValue').change(function(){
 		var price = $(this).val()
 		$(this).next().next().attr('price',price);
 	})
 
+	//deprecated
 	$('.reservar .btn').click(function(){
 
 		var now=nowDate();
@@ -50,12 +53,13 @@ $(document).ready(function(){
 
 	})
 
+	//deprecated
 	$('.modal .predefined-values .btn').click(function(){
 		var price=$(this).attr('price');
 		$(this).closest('.form-group').prev().prev().find('input#price').val(price)
 	})
 
-
+	//moved
 	function nowDate(){
 	  let d=new Date();
 	  let yyyy=d.getFullYear()
@@ -64,6 +68,7 @@ $(document).ready(function(){
 	  return yyyy+"-"+mm+"-"+dd
 	}
 
+	//moved
 	function pad(num, size) {
 	    var s = num+"";
 	    while (s.length < size) s = "0" + s;

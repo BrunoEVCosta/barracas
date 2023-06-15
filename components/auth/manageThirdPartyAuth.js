@@ -1,6 +1,6 @@
 var rand = require('csprng')
-var db=require('./../../sqldb')
-var models= require('./../models');
+var db=require('../sqldb')
+var models= require('../barracas/models');
 
 function addUserFromThirdParty(attributes){
   let newPerson={

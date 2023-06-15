@@ -19,6 +19,8 @@ module.exports = function(sequelize, DataTypes) {
     platform: DataTypes.STRING(150),
     accessToken: DataTypes.STRING(72),
     valid: DataTypes.BOOLEAN(1),
+    //TODO  add county
+    //TODO add city
     revokedOn: DataTypes.DATE,
   }, {
     tableName: 'Acesso',

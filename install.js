@@ -1,4 +1,4 @@
-const setPassword = require('./components/barracas/controller/setPassword')
+const setPassword = require('./components/auth/setPassword')
 const prompt = require('password-prompt')
 
 let password = prompt('password: ')

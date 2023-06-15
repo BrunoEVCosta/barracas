@@ -23,7 +23,7 @@ function onSignIn(googleUser) {
 
   function verifyGoogleUser(clientId){
     $.ajax({
-      url:"/login/verify/google-token",
+      url:"/admin/login/verify/google-token",
       method:"POST",
       data:clientId,
       success:function(data,textStatus,jqXHR){

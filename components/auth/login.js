@@ -1,6 +1,6 @@
-var models= require('./../models');
+var models= require('../barracas/models');
 const crypto = require('crypto');
-const seed = require('./../../../config_barracas.js').seed
+const seed = require('../../config_barracas.js').seed
 var rand = require('csprng')
 
 module.exports = function(options,callBack){
