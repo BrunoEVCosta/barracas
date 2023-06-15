@@ -18,17 +18,21 @@ Vue.component("collapse",(resolve,reject)=>{
             methods:{
                 async alugar(el){
                     let price=el.target.attributes.price.value
+                    let duracao=el.target.attributes.duracao.value
                     var dialog=confirm("Quer alugar a barraca "+this.item.number+" por "+price+"€?")
                     if (dialog == true) {
-                        let result = await $.post("/alugar/barraca/" + this.item.id, {price})
-                        //this.vm
+                        let result = await $.post("/alugar/barraca/" + this.item.id, {price,nome:duracao})
+
                         this.$el.classList.remove("show")
                         this.item.rented=true
                         this.item.rentId=result.id
                         let now=this.nowDate();
+                        //TODO Set duration
                         //now only has the granularity of a day
+                        this.item.duration=duracao
                         this.item.startDate=now
                         this.item.endDate=now
+
                     }
                 },
                 reservar(){
@@ -84,8 +88,10 @@ window.app=new Vue({
         precos:[{}],
         barracaChapeu:[{}],
         tipo:"",
+        tipoPresentation:"",
         numFila:"",
         orientation:"",
+        barracasFrontais:{},
         valorReserva:undefined,
     },
     computed:{
@@ -96,11 +102,14 @@ window.app=new Vue({
     },
     async beforeMount(){
         this.tipo=location.pathname.split("/")[1]
+        this.tipoPresentation=_.trimEnd(_.capitalize(this.tipo),"s")
         this.numFila=location.pathname.split("/")[3]
         this.subTipos=await $.get("/api/v1/list/subTypes")
         this.duracoes=await $.get("/api/v1/list/durations")
         this.precos=await $.get("/api/v1/list/prices")
         this.barracaChapeu=await $.get(`/api/v1/fila/${this.tipo}/${this.numFila}`)
+        this.barracasFrontais.normal=this.barracaChapeu.filter(el=>el.frontal==true && !el.annex)
+        this.barracasFrontais.anexo=this.barracaChapeu.filter(el=>el.frontal==true && el.annex)
         //Gets first match
         this.orientation=this.barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
     }

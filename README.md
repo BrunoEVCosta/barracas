@@ -21,6 +21,8 @@ node install.js
 - add notification of information request
 - Implement Pago
 - Implement Comments
+- Correct ip for reverse proxy
+- Add method to change rent to another tent
 
 ## DB setup
 Either run config.sh if you are setting up a new AWS instance.

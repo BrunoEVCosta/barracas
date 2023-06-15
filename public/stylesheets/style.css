@@ -61,9 +61,10 @@ a {
 	border: 1px solid black;
 	text-align: center;
     vertical-align: middle;
-    font-weight: bold;
+    font-weight: bolder;
     font-size: xx-large;
-    margin: 1px;
+	margin: 1px;
+	text-transform:uppercase;
 }
 .tent.annex{
 	grid-column: 2;
@@ -104,3 +105,11 @@ a {
 
 }
 
+.tent.manha {
+	background:#5c636a;
+	background: linear-gradient(to right bottom, green 50%, #5c636a 50%);
+}
+.tent.tarde {
+	background:#5c636a;
+	background: linear-gradient(to right bottom, #5c636a 50%, green 50%);
+}

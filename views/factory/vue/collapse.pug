@@ -1,22 +1,23 @@
 .collapse(:id="'collapse'+item.id")
     .reservar.card.card-body
-        .btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar barraca
+        .btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar {{ tipo }}
     .reservas.card.card-body
         a.btn.btn-primary.btn-lg(:href='/calendar/+"item.id"') Reservas
     .info.card.card-body(v-if="item.reserved || item.rented")
         //TODO add array with multiple rent info
-        h5 Informacao {{item.rentId}}
-        p Alugada desde:
-            strong {{item.startDate}}
-        p até:
-            strong {{item.endDate}}
+        h5.text-center.text-decoration-underline(v-if="item.rented==true") {{ item.duration }}
+        h5.fw-bold Informacao {{item.rentId}}
+        span Alugada desde:
+        strong.text-center {{item.startDate}}
+        span.text-center até:
+        strong.text-center.mt-0.mb-2 {{item.endDate}}
         .d-grid
             button.btn.btn-warning Mudar aluguer
     //Allows re-rent
     .alugar.card.card-body
-        .btn.btn-primary.btn-lg.day.frontal(:price="precos[tipo][item.subtipo]['Dia'].valor",@click="alugar") Dia ({{precos[tipo][item.subtipo]["Dia"].valor}}€)
-        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Manhã'].valor",@click="alugar") Manhã ({{precos[tipo][item.subtipo]["Manhã"].valor}}€)
-        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Tarde'].valor",@click="alugar") Tarde ({{precos[tipo][item.subtipo]["Tarde"].valor}}€)
+        .btn.btn-primary.btn-lg.day.frontal(:price="precos[tipo][item.subtipo]['Dia'].valor",duracao="Dia",@click="alugar") Dia ({{precos[tipo][item.subtipo]["Dia"].valor}}€)
+        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Manhã'].valor",duracao="Manhã",@click="alugar") Manhã ({{precos[tipo][item.subtipo]["Manhã"].valor}}€)
+        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Tarde'].valor",duracao="Tarde",@click="alugar") Tarde ({{precos[tipo][item.subtipo]["Tarde"].valor}}€)
         .card.mt-2
             .card-header.text-center
                 h5 Outro Valor

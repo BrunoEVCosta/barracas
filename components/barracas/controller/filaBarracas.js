@@ -1,4 +1,5 @@
-
+const Op=require("sequelize")
+const db=require('../../sqldb')
 var models= require('./../models');
 
 //must come ordered by number (see problems with annexes ex: 1 1A)
@@ -6,17 +7,20 @@ var data=[]
 
 
 module.exports = function(row){
-
- return new Promise(function(resolve,reject){
- 	var call='getRow'
- 	var attributes={}
- 	attributes.where={
-    "localizacao":"Fila "+row,
-    "tipo": "Barraca"
- }
+    let currentYear=getYear(new Date())
+     return new Promise(function(resolve,reject){
+        var call='getRow'
+        var attributes={}
+        attributes.where={
+            "localizacao":"Fila "+row,
+            "tipo": "Barraca",
+            //TODO add where condition for this year
+            //Works but filters out non rented. Needs or Reserva, and allow all the tents to appear.
+            //[Op.and]:Op.where(db.sequelize.fn('YEAR', db.sequelize.col('Aluguer.data')), currentYear)
+        }
 
     models[call](attributes).then(function(res){
-    
+
       if(res instanceof Error){
           //Send the error in the status send rejection to promise
           //Args:queryData,pagination,code,message
@@ -25,7 +29,7 @@ module.exports = function(row){
       	var data={}
       	var result=[]
         var vertical=1
-
+        //TODO itrated
       	for ( i in res.rows){
       	    let row=res.rows[i]
             let rented=false
@@ -34,11 +38,22 @@ module.exports = function(row){
             let startDate=""
             let endDate=""
             let rentId=""
+            let duration=""
             let annex=row.dataValues.numero.endsWith("A")
       		try{
+                //Doesn't iterate values in aluguer. Should join with diferent key so it got an array
       		    rented=res.rows[i].dataValues.Aluguer.dataValues.data
-      			rented=isDateToday(rented	)
-            rentId=res.rows[i].dataValues.Aluguer.dataValues.id
+      			rented=isDateToday(rented)
+                rentId=res.rows[i].dataValues.Aluguer.dataValues.id
+                if(rented === true){
+                    //Rented is based on today's date
+                    let now=new Date()
+                    let todayDate=getDatePart(now)
+                    startDate=todayDate
+                    endDate=todayDate
+                    duration=res.rows[i].dataValues.Aluguer.dataValues.nome
+
+                }
       		}catch(err){
       			rented=false
       		}
@@ -48,10 +63,10 @@ module.exports = function(row){
                 reserved=isReserved(startDate,endDate)
                 startDate=getDatePart(startDate)
                 endDate=getDatePart(endDate)
-                //rented=isDateToday(rented )
             }catch(err){
                 reserved=false
             }
+
       		data[id]={ 
       			id,
       			number: row.dataValues.numero,
@@ -64,7 +79,8 @@ module.exports = function(row){
                 endDate: endDate,
       			pago: false,
                 rentId: rentId,
-                annex
+                annex,
+                duration
       		}
       	}
       	for (i in data){
@@ -104,6 +120,11 @@ function getDatePart(date){
   return yyyy+"-"+mm+"-"+dd
 }
 
+function getYear(date){
+    let d=new Date(date)
+    let yyyy=d.getFullYear()
+    return yyyy
+}
 function pad(num, size) {
   var s = num+"";
   while (s.length < size) s = "0" + s;

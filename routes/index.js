@@ -10,6 +10,7 @@ const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows=require("./../components/barracas/controller/listRows")
 const managePrices = require('./../components/barracas/controller/prices')
 const filaBarracas=require('./../components/barracas/controller/filaBarracas')
+const filaChapeus=require('./../components/barracas/controller/filaChapeus')
 const alugarBarracaDia=require('./../components/barracas/controller/alugarBarracaDia')
 
 //TODO used by 2 methods below should be packaged elsewere
@@ -49,7 +50,7 @@ router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
 
 router.get('/chapeus/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
-  require('./../components/barracas/controller/filaChapeus')(fila).then(function(dados){
+  filaChapeus(fila).then(function(dados){
     var title="Fila "+fila
     res.render('esquemaFilaChapeus',{title: title,dados:dados})
   }).catch(function(err){
@@ -203,11 +204,13 @@ router.post('/users/revoke/access/',isLoggedIn,function(req,res){
 router.post('/alugar/barraca/:id',isLoggedIn,function(req,res, next){
   var id=req.params.id
   var price=req.body.price
+  var nome=req.body.nome
   var userId=req.cookies.userId
   payload={
-    id:id,
-    price:price,
-    userId: userId
+    id,
+    price,
+    userId,
+    nome
   }
   alugarBarracaDia(payload).then(function(id){
     console.log(id)

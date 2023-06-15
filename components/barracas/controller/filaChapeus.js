@@ -26,41 +26,43 @@ module.exports = function(row){
       	var result=[]
 
       	for ( i in res.rows){
-      		let row=res.rows[i]
-          let rented=false
+      	    let row=res.rows[i]
+            let rented=false
       		let reserved=false
       		let id=row.dataValues.id
-          let startDate=""
-          let endDate=""
-          let rentId=""
+            let startDate=""
+            let endDate=""
+            let rentId=""
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
       			rented=isDateToday(rented	)
-            rentId=res.rows[i].dataValues.Aluguer.dataValues.id
+                rentId=res.rows[i].dataValues.Aluguer.dataValues.id
       		}catch(err){
       			rented=false
       		}
-          try{
-            startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
-            endDate=res.rows[i].dataValues.Reserva.dataValues.fim
-            reserved=isReserved(startDate,endDate)
-            startDate=getDatePart(startDate)
-            endDate=getDatePart(endDate)
-            //rented=isDateToday(rented )
-          }catch(err){
+            try{
+                startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
+                endDate=res.rows[i].dataValues.Reserva.dataValues.fim
+                reserved=isReserved(startDate,endDate)
+                startDate=getDatePart(startDate)
+                endDate=getDatePart(endDate)
+                //rented=isDateToday(rented )
+            }catch(err){
             reserved=false
-          }          
-
-      		data[id]={ 
+            }
+      		data[id]={
       			id:	id,
       			number: row.dataValues.numero,
       			rented: rented,
       			reserved: reserved,
+                //They all are
       			frontal: row.dataValues.subTipo=="Frontal"? true : false,
-            startDate: startDate,
-            endDate: endDate,
+                //Chapeus não tem orientção
+                subtipo: "Traseira",
+                startDate: startDate,
+                endDate: endDate,
       			pago: false,
-            rentId: rentId,
+                rentId: rentId,
       		}
       	}
       	for (i in data){

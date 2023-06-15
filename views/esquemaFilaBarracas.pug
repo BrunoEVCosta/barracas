@@ -4,27 +4,34 @@ block content
     a(href="/") 
         h1=title
     #app
-        .container
+        .container(v-if="orientation=='Lateral' && Object.keys(barracaChapeu[0]).length>0")
             .row
                 .col-md-4
-                    .container(v-if="orientation=='Lateral'")
-                        .d-flex.flex-row-reverse
-                            .fila(v-for="item in barracaChapeu",v-if="item.subtipo=='Frontal'")
-                                button.btn.btn-secondary.tent(:class="{ annex:item.annex}",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
-                                collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
-                        .d-flex.flex-row-reverse
+                    .container
+                        .d-flex.flex-row
+                            .fila(v-for="item in barracasFrontais.normal",v-if="barracasFrontais.normal.length>0")
+                                button.btn.btn-secondary.tent(:class="{ annex:item.annex, manha:item.duration=='Manhã', tarde:item.duration=='Tarde' }",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                                collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="tipoPresentation")
+                            .fila(v-else="")
+                                .tent.border.border-0
+                            .fila(v-for="item in barracasFrontais.anexo",v-if="barracasFrontais.anexo.length>0")
+                                button.btn.btn-secondary.tent(:class="{ annex:item.annex, manha:item.duration=='Manhã', tarde:item.duration=='Tarde'}",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                                collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="tipoPresentation")
+                            .fila(v-else="")
+                                .tent.border.border-0
+                        .d-flex.flex-row
                             .d-flex.flex-column
                                 .fila(v-for="item in barracaChapeu",v-if="item.subtipo=='Lateral'")
                                     .d-flex.flex-row
-                                        button.btn.btn-secondary.tent(:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                                        button.btn.btn-secondary.tent(:class="{ manha:item.duration=='Manhã', tarde:item.duration=='Tarde'}" :id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
                                         collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
                                         .tent.border.border-0
         //TODO Traseira
-        .conainer-fluid.text-center(v-if="orientation=='Traseira'")
+        .conainer-fluid.text-center(v-if="orientation=='Traseira' && Object.keys(barracaChapeu[0]).length>0")
             .fila
                 .d-flex.flex-row
                     div(v-for="item in barracaChapeu")
-                        button.btn.btn-secondary.tent(:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                        button.btn.btn-secondary.tent(:class="{ manha:item.duration=='Manhã', tarde:item.duration=='Tarde'}" :id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
                         collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
         .modal.fade(id="reserveTent",tabindex="-1",role="dialog",aria-labelledby="reserveTentLabel",aria-hidden="true",style="display:none")
             .modal-dialog(role="document")

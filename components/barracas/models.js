@@ -49,7 +49,7 @@ m.rentTent=function(attributes){
 	return db.Aluguer
 	.create({
 		barracaChapeusId: attributes.id,
-		nome: '',
+		nome: attributes.nome,
 		valor: attributes.price,
 		senha: '999999',
 		lote: '999999',
