@@ -3,107 +3,132 @@ extends layout
 block content
     a(href="/") 
         h1=title
-    if(dados[0].subtipo=="Traseira")
-        - orientacao="horizontal"
-    else
-        - orientacao="vertical"    
-    fila(class=orientacao)
-        for item in dados
-            if item.number.endsWith("A")
-                button.btn.btn-secondary.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
-                .collapse.annex(id="collapse"+item.id)
-                    .reservar.card.card-body
-                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca
-                    .reservas.card.card-body    
-                        a.btn.btn-primary.btn-lg(href=`/calendar/${item.id}`) Reservas   
-                    if item.reserved || item.rented
-                        .info.card.card-body
-                            h5 Informacao #{item.rentId}
-                            p Alugada desde: 
-                                strong #{item.startDate} 
-                            p até: 
-                                strong #{item.endDate}
-                    else
-                        .alugar.card.card-body
-                            if item.frontal
-                                .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
-                            else
-                                .btn.btn-primary.btn-lg.day.side(price="8.00") Dia (8€)
-                            .btn.btn-primary.btn-lg(price="5.00") Manhã (5€)
-                            .btn.btn-primary.btn-lg(price="5.00") Tarde (5€)
-                            .form-inline
-                                .form-group
-                                    label(for="otherValue") Outro valor: &nbsp; 
-                                    input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+    #app
+        .container
+            .row
+                .col-md-4
+                    .container(v-if="orientation=='Lateral'")
+                        .d-flex.flex-row-reverse
+                            .fila(v-for="item in barracaChapeu",v-if="item.subtipo=='Frontal'")
+                                button.btn.btn-secondary.tent(:class="{ annex:item.annex}",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                                collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
+                        .d-flex.flex-row-reverse
+                            .d-flex.flex-column
+                                .fila(v-for="item in barracaChapeu",v-if="item.subtipo=='Lateral'")
+                                    .d-flex.flex-row
+                                        button.btn.btn-secondary.tent(:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                                        collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
+                                        .tent.border.border-0
+        //TODO Traseira
+        .conainer-fluid.text-center(v-if="orientation=='Traseira'")
+            .fila
+                .d-flex.flex-row
+                    div(v-for="item in barracaChapeu")
+                        button.btn.btn-secondary.tent(:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                        collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
+        .modal.fade(id="reserveTent",tabindex="-1",role="dialog",aria-labelledby="reserveTentLabel",aria-hidden="true",style="display:none")
+            .modal-dialog(role="document")
+                .modal-content
+                    .modal-header
+                        h5.modal-title(id="reserveTentLabel") Reservar barraca para vário dias
+                        button(type="button",class="close",data-bs-dismiss="modal",aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    .modal-body
+                        form
+                            input.form-control.id(type="hidden",value="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="name") Nome
+                                .col-sm-8
+                                    input.form-control(type="input",id="name",placeholder="Anónimo")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="startDate") Data de ínicio
+                                .col-sm-8
+                                    input.form-control.date(type="date",id="startDate",min="",placeholder="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="endDate") Data de fim
+                                .col-sm-8
+                                    input.form-control.date(type="date",id="endDate",min="",placeholder="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="price") Valor
+                                .col-sm-8.input-group.mb-2
+                                    input.form-control(type="number",id="price",min="0",step="0.50",placeholder="",v-model="valorReserva" )
                                     .input-group-prepend
                                         .input-group-text €
-                                    .btn.btn-primary.btn-lg.otherValue(price="") Alugar
-            else
-                button.btn.btn-secondary.tent(class=item.subtipo,id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
-                .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
-                    .reservar.card.card-body
-                        .btn.btn-primary.btn-lg.day.frontal Reservar barraca
-                    .reservas.card.card-body  
-                        a.btn.btn-primary.btn-lg(href=`/calendar/${item.id}`) Reservas
-                    if item.reserved || item.rented
-                        .info.card.card-body
-                            h5 Informacao #{item.rentId}
-                            p Alugada desde: 
-                                strong #{item.startDate} 
-                            p até: 
-                                strong #{item.endDate}
-                    else
-                        .alugar.card.card-body
-                            if item.frontal
-                                .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
-                            else
-                                .btn.btn-primary.btn-lg.day.side(price="8.00") Dia (8€)
-                            .btn.btn-primary.btn-lg(price="5.00") Manhã (5€)
-                            .btn.btn-primary.btn-lg(price="5.00") Tarde (5€)
-                            .form-inline
-                                .form-group
-                                    label(for="otherValue") Outro valor: &nbsp; 
-                                    input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
-                                    .input-group-prepend
-                                        .input-group-text €
-                                    .btn.btn-primary.btn-lg.otherValue(price="") Alugar
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="pago") Pago
+                                .col-sm-8
+                                    input.form-check-input(type="checkbox",id="pago")
+                            .form-group.row.predefined-values
+                                .btn.btn-primary.semana(:price="precos.Barraca.Lateral.Quinzena.valor" @click="valorReserva=precos.Barraca.Lateral.Semana.valor") Semana
+                                .btn.btn-primary.quinzena(:price="precos['Barraca']['Lateral']['Quinzena'].valor",@click="valorReserva=precos.Barraca.Lateral.Quinzena.valor") Quinzena
+                                .btn.btn-primary.mes(:price="precos['Barraca']['Lateral']['Mês'].valor",@click="valorReserva=precos.Barraca.Lateral['Mês'].valor") Mês
+                    .modal-footer
+                        button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
+                        button.btn.btn-primary.reservar(type="button") Reservar
+    .d-none
+        if(dados[0].subtipo=="Traseira")
+            - orientacao="horizontal"
+        else
+            - orientacao="vertical"
+        fila(class=orientacao)
+            for item in dados
+                if item.number.endsWith("A")
+                    button.btn.btn-secondary.tent.annex(id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse",style="grid-column: 2 / 2;")=item.number
+                    .collapse.annex(id="collapse"+item.id)
+                        .reservar.card.card-body
+                            .btn.btn-primary.btn-lg.day.frontal Reservar barraca
+                        .reservas.card.card-body
+                            a.btn.btn-primary.btn-lg(href=`/calendar/${item.id}`) Reservas
+                        if item.reserved || item.rented
+                            .info.card.card-body
+                                h5 Informacao #{item.rentId}
+                                p Alugada desde:
+                                    strong #{item.startDate}
+                                p até:
+                                    strong #{item.endDate}
+                        else
+                            .alugar.card.card-body
+                                if item.frontal
+                                    .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                                else
+                                    .btn.btn-primary.btn-lg.day.side(price="8.00") Dia (8€)
+                                .btn.btn-primary.btn-lg(price="5.00") Manhã (5€)
+                                .btn.btn-primary.btn-lg(price="5.00") Tarde (5€)
+                                .form-inline
+                                    .form-group
+                                        label(for="otherValue") Outro valor: &nbsp;
+                                        input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                        .input-group-prepend
+                                            .input-group-text €
+                                        .btn.btn-primary.btn-lg.otherValue(price="") Alugar
+                else
+                    button.btn.btn-secondary.tent(class=item.subtipo,id=item.id,rented=item.rented,reserved=item.reserved,pago=item.pago,frontal=item.frontal,startDate=item.startDate,endDate=item.endDate,type="button",data-bs-toggle="collapse",data-bs-target="#collapse"+item.id,aria-expanded="false",aria-controls="collapse")=item.number
+                    .collapse.multi-collapse(id="collapse"+item.id,style="grid-column: 1 / 2;")
+                        .reservar.card.card-body
+                            .btn.btn-primary.btn-lg.day.frontal Reservar barraca
+                        .reservas.card.card-body
+                            a.btn.btn-primary.btn-lg(href=`/calendar/${item.id}`) Reservas
+                        if item.reserved || item.rented
+                            .info.card.card-body
+                                h5 Informacao #{item.rentId}
+                                p Alugada desde:
+                                    strong #{item.startDate}
+                                p até:
+                                    strong #{item.endDate}
+                        else
+                            .alugar.card.card-body
+                                if item.frontal
+                                    .btn.btn-primary.btn-lg.day.frontal(price="8.00") Dia (8€)
+                                else
+                                    .btn.btn-primary.btn-lg.day.side(price="8.00") Dia (8€)
+                                .btn.btn-primary.btn-lg(price="5.00") Manhã (5€)
+                                .btn.btn-primary.btn-lg(price="5.00") Tarde (5€)
+                                .form-inline
+                                    .form-group
+                                        label(for="otherValue") Outro valor: &nbsp;
+                                        input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3")
+                                        .input-group-prepend
+                                            .input-group-text €
+                                        .btn.btn-primary.btn-lg.otherValue(price="") Alugar
 
-    .modal.fade(id="reserveTent",tabindex="-1",role="dialog",aria-labelledby="reserveTentLabel",aria-hidden="true",style="display:none")  
-        .modal-dialog(role="document")
-            .modal-content
-                .modal-header
-                    h5.modal-title(id="reserveTentLabel") Reservar barraca para vário dias
-                    button(type="button",class="close",data-dismiss="modal",aria-label="Close")
-                        span(aria-hidden="true") &times;
-                .modal-body
-                    form
-                        input.form-control.id(type="hidden",value="")
-                        .form-group.row
-                            label.col-sm-4.col-form-label(for="name") Nome
-                            .col-sm-8
-                                input.form-control(type="input",id="name",placeholder="Anónimo")
-                        .form-group.row
-                            label.col-sm-4.col-form-label(for="startDate") Data de ínicio
-                            .col-sm-8
-                                input.form-control.date(type="date",id="startDate",min="",placeholder="")
-                        .form-group.row
-                            label.col-sm-4.col-form-label(for="endDate") Data de fim
-                            .col-sm-8
-                                input.form-control.date(type="date",id="endDate",min="",placeholder="")
-                        .form-group.row
-                            label.col-sm-4.col-form-label(for="price") Valor
-                            .col-sm-8.input-group.mb-2
-                                input.form-control(type="number",id="price",min="0",step="0.50",placeholder="")
-                                .input-group-prepend
-                                    .input-group-text €
-                        .form-group.row
-                            label.col-sm-4.col-form-label(for="pago") Pago
-                            .col-sm-8
-                                input.form-control(type="checkbox",id="pago")
-                        .form-group.row.predefined-values
-                            .btn.btn-primary.semana(price="42") Semana
-                            .btn.btn-primary.quinzena(price="65") Quinzena
-                            .btn.btn-primary.mes(price="100") Mês
-                .modal-footer
-                    button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
-                    button.btn.btn-primary.reservar(type="button") Reservar
+

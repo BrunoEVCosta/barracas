@@ -72,6 +72,10 @@ a {
 	width:13%;
 	grid-row:3;
 }
+
+.fila .tent{
+	width: 100px;
+}
 .collapse{
 	grid-column: 1 / 2;
 }

@@ -62,7 +62,7 @@ block content
         .card-header
           h2.text-center Barracas
         .card-body.p-0.m-2
-          .fila.container.text-center
+          .container.text-center
             .row.align-items.start
               .col.p-0(v-for="(row,index) of barracas")
                 .d-grid
@@ -73,7 +73,7 @@ block content
         .card-header
           h2.text-center Chapéus
         .card-body.p-0
-          .fila.container.text-center
+          .container.text-center
             .row.align-items.start
               .col.p-0(v-for="(row,index) of chapeus")
                 .d-grid
@@ -84,14 +84,13 @@ block content
         .card-header
           h2.text-center Vista Geral
         .card-body
-          .fila.d-grid
+          .d-grid
             a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral")
               p.h1.p-2 Vista Geral
       .card
         .card-title
           h2 Relatórios
         .card-body
-          .fila
             a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
             - now=new Date()
             - year=now.getFullYear()

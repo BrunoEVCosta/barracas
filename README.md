@@ -19,6 +19,8 @@ node install.js
 - update google auth
 - config bootstrap v5
 - add notification of information request
+- Implement Pago
+- Implement Comments
 
 ## DB setup
 Either run config.sh if you are setting up a new AWS instance.

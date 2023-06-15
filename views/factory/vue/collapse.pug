@@ -1,0 +1,28 @@
+.collapse(:id="'collapse'+item.id")
+    .reservar.card.card-body
+        .btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar barraca
+    .reservas.card.card-body
+        a.btn.btn-primary.btn-lg(:href='/calendar/+"item.id"') Reservas
+    .info.card.card-body(v-if="item.reserved || item.rented")
+        //TODO add array with multiple rent info
+        h5 Informacao {{item.rentId}}
+        p Alugada desde:
+            strong {{item.startDate}}
+        p até:
+            strong {{item.endDate}}
+        .d-grid
+            button.btn.btn-warning Mudar aluguer
+    //Allows re-rent
+    .alugar.card.card-body
+        .btn.btn-primary.btn-lg.day.frontal(:price="precos[tipo][item.subtipo]['Dia'].valor",@click="alugar") Dia ({{precos[tipo][item.subtipo]["Dia"].valor}}€)
+        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Manhã'].valor",@click="alugar") Manhã ({{precos[tipo][item.subtipo]["Manhã"].valor}}€)
+        .btn.btn-primary.btn-lg(:price="precos[tipo][item.subtipo]['Tarde'].valor",@click="alugar") Tarde ({{precos[tipo][item.subtipo]["Tarde"].valor}}€)
+        .card.mt-2
+            .card-header.text-center
+                h5 Outro Valor
+            .form-group
+                .input-group
+                    input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3",v-model="outroPreco" )
+                    .input-group-text €
+                .d-grid
+                    .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",@click="alugar") Alugar

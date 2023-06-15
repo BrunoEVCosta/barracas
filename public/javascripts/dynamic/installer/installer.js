@@ -63,7 +63,6 @@ window.app=new Vue({
                     numero=rowRange[0]+"A"
                     subTipo="Frontal"
                     if(row.tipo=="Traseira") subTipo="Traseira"
-
                     codigo+=`INSERT INTO BarracasChapeus (numero,tipo,subTipo,localizacao) VALUE ("${numero}","${type}","${subTipo}","${localizacao}");<br>`
                 }
                 for (let item of _.range(parseInt(rowRange[0]),parseInt(rowRange[1])+1)){

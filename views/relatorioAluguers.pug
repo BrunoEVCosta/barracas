@@ -5,13 +5,17 @@ block content
     h1=title
   table.table.table-hover
     thead
+      th Quantidade
       th Valor
       th Total
     tbody
       for row in dados.rows
         tr
+          //TODO add qt
+          td TODO add QT
           td=row.valor
           td=row.sum
       tr
+        th
         th Valor Total
         th=dados.total

@@ -27,43 +27,44 @@ module.exports = function(row){
         var vertical=1
 
       	for ( i in res.rows){
-      		let row=res.rows[i]
-          let rented=false
+      	    let row=res.rows[i]
+            let rented=false
       		let reserved=false
       		let id=row.dataValues.id
-          let startDate=""
-          let endDate=""
-          let rentId=""
+            let startDate=""
+            let endDate=""
+            let rentId=""
+            let annex=row.dataValues.numero.endsWith("A")
       		try{
-      			rented=res.rows[i].dataValues.Aluguer.dataValues.data
+      		    rented=res.rows[i].dataValues.Aluguer.dataValues.data
       			rented=isDateToday(rented	)
             rentId=res.rows[i].dataValues.Aluguer.dataValues.id
       		}catch(err){
       			rented=false
       		}
-          try{
-            startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
-            endDate=res.rows[i].dataValues.Reserva.dataValues.fim
-            reserved=isReserved(startDate,endDate)
-            startDate=getDatePart(startDate)
-            endDate=getDatePart(endDate)
-            //rented=isDateToday(rented )
-          }catch(err){
-            reserved=false
-          }          
-
+            try{
+                startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
+                endDate=res.rows[i].dataValues.Reserva.dataValues.fim
+                reserved=isReserved(startDate,endDate)
+                startDate=getDatePart(startDate)
+                endDate=getDatePart(endDate)
+                //rented=isDateToday(rented )
+            }catch(err){
+                reserved=false
+            }
       		data[id]={ 
-      			id:	id,
+      			id,
       			number: row.dataValues.numero,
-      			rented: rented,
-      			reserved: reserved,
+      			rented,
+      			reserved,
       			frontal: row.dataValues.subTipo=="Frontal"? true : false,
-            traseira: row.dataValues.subTipo=="Traseira" ? true : false,
-            subtipo: row.dataValues.subTipo,
-            startDate: startDate,
-            endDate: endDate,
+                traseira: row.dataValues.subTipo=="Traseira" ? true : false,
+                subtipo: row.dataValues.subTipo,
+                startDate: startDate,
+                endDate: endDate,
       			pago: false,
-            rentId: rentId,
+                rentId: rentId,
+                annex
       		}
       	}
       	for (i in data){

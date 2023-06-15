@@ -9,6 +9,8 @@ const CLIENT_ID="925812534339-sf6kqg166hfuvliktmmfqejc8dmdo4bd.apps.googleuserco
 const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows=require("./../components/barracas/controller/listRows")
 const managePrices = require('./../components/barracas/controller/prices')
+const filaBarracas=require('./../components/barracas/controller/filaBarracas')
+const alugarBarracaDia=require('./../components/barracas/controller/alugarBarracaDia')
 
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
@@ -37,7 +39,7 @@ router.get('/signedout',function(req,res){
 
 router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
-  require('./../components/barracas/controller/filaBarracas')(fila).then(function(dados){
+  filaBarracas(fila).then(function(dados){
     var title="Fila "+fila
     res.render('esquemaFilaBarracas',{title: title,dados:dados})
   }).catch(function(err){
@@ -198,17 +200,16 @@ router.post('/users/revoke/access/',isLoggedIn,function(req,res){
 })
 
 //Change to post add time security and limit access to this.
-router.get('/alugar/barraca/:id',isLoggedIn,function(req,res, next){
+router.post('/alugar/barraca/:id',isLoggedIn,function(req,res, next){
   var id=req.params.id
-  var price=req.query.price
+  var price=req.body.price
   var userId=req.cookies.userId
-  transporter={
+  payload={
     id:id,
     price:price,
     userId: userId
   }
-  console.log(transporter)
-  require('./../components/barracas/controller/alugarBarracaDia')(transporter).then(function(id){
+  alugarBarracaDia(payload).then(function(id){
     console.log(id)
     var fila="Fila 1"
     res.status(200).json({id:id})
@@ -345,6 +346,30 @@ router.get('/api/v1/list/subTypes',(req,res)=>{
 router.get('/api/v1/list/durations',(req,res)=>{
   let durations = managePrices.listDurations()
   res.json(durations)
+})
+
+router.get('/api/v1/fila/:tipo/:filaNumero',isLoggedIn,async (req,res)=>{
+  let tipo=req.params.tipo
+  let fila=req.params.filaNumero
+  let metaFila
+  try{
+    if(tipo=="barracas"){
+      metaFila= await filaBarracas(fila)
+      res.json(metaFila)
+    }else if(tipo=="chapeus"){
+      metaFila= await filaChapeus(fila)
+      res.json(metaFila)
+    }else{
+      throw new Error("IncorrectTipInURL")
+    }
+  }catch(e){
+    res.json(e)
+  }
+})
+
+//Factory
+router.get('/factory/vue/collapse',(req,res)=>{
+  res.render("factory/vue/collapse")
 })
 
 module.exports = router;
