@@ -8,6 +8,8 @@ block content
       th ID
       th Nome
       th IP
+      th Cidade
+      th ISP
       th Plataforma
       th Revoke
     tbody
@@ -15,8 +17,10 @@ block content
         tr(accessId=row.accessId)
           td=row.accessId
           td=row.name 
-          td=row.ip 
-          td=row.platform 
+          td=row.ip
+          td=row.city
+          td=row.isp
+          td=row.platform
           td
             form(method="POST",action="/users/revoke/access/")
               input(id="id",name="id",type="hidden",value=row.accessId)

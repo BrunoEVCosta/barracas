@@ -13,6 +13,8 @@ module.exports = function(options){
 					data.push({
 						name:row.Pessoa.dataValues.nome,
 						ip:row.ip,
+						city:row.city,
+						isp:row.isp,
 						platform:row.platform,
 						accessId: row.id
 					})

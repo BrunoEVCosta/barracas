@@ -30,6 +30,7 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 
+
 router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
   filaBarracas(fila).then(function(dados){

@@ -1,8 +1,8 @@
-var express = require('express');
+const express = require('express');
 const {isLoggedIn, isAdmin} = require("./../components/auth/fullAccess");
 const revokeAccessToken = require("../components/auth/revokeAccessToken");
-var router = express.Router();
-
+const router = express.Router();
+const manageAccesses=require('../components/auth/manageAccesses')
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/revoke/access/',isLoggedIn,function(req,res){
   var attributes=req.body
   revokeAccessToken(attributes).then(function(data){
-    res.redirect('/signedout')
+    res.redirect('/admin/signedout')
   }).catch(function(err){
     res.redirect('/')
   })
@@ -20,7 +20,7 @@ router.post('/revoke/access/',isLoggedIn,function(req,res){
 
 router.get('/manage/accesses',isLoggedIn,isAdmin,function(req,res){
   var attributes={}
-  require('../components/auth/manageAccesses')(attributes).then(function(data){
+  manageAccesses(attributes).then(function(data){
     res.render('manageAccesses',{
       title:"Acessos",
       dados: data

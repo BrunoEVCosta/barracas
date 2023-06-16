@@ -37,7 +37,7 @@ app.use('/users', usersRouter);
 app.use('/install', installRouter);
 app.use('/admin', adminRouter);
 app.use('/api/v1', apiRouter);
-app.use('factory',factoryRouter);
+app.use('/factory',factoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

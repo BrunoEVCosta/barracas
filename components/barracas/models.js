@@ -242,6 +242,9 @@ m.createAccess=function(attributes){
 		ip: attributes.ip,
 		platform: attributes.platform,
 		valid: attributes.valid,
+		country:attributes.country,
+		city:attributes.city,
+		isp:attributes.isp,
 		accessToken: attributes.accessToken
 	}).then(function(res){
 		return res.dataValues.id

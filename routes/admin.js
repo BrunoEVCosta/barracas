@@ -13,7 +13,15 @@ const {OAuth2Client} = require("google-auth-library");
 const revokeAccessToken=require('../components/auth/revokeAccessToken')
 
 /* GET home page. */
-router.get('/admin', isLoggedIn, isAdmin, function(req, res, next) {
+function getCookieData(req){
+    var cookies=req.cookies
+    var result={
+        name: cookies.name,
+        accessId: cookies.accessId
+    }
+    return result;
+}
+router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
     res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin",loggedin: true });
 });
 

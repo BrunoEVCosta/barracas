@@ -12,7 +12,7 @@ async function extractMetadataFromLogin(req){
     let valid=1
     let location=await getCityAndCountry(ipv4)
     let platform=req.headers['user-agent']
-    return {ipv4,ipv6,valid,location,platform}
+    return {ip:ipv4,ipv4,ipv6,valid,location,platform,country:location.country,city:location.city,isp:location.isp}
 }
 
 
