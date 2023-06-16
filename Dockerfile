@@ -14,5 +14,8 @@ RUN npm install --production
 COPY . .
 
 EXPOSE 3000
+#Used to change server
+#ENV PORT=3035
+
 
 CMD [ "node", "bin/www" ]
