@@ -13,11 +13,13 @@ const {OAuth2Client} = require("google-auth-library");
 const revokeAccessToken=require('../components/auth/revokeAccessToken')
 
 /* GET home page. */
-function getCookieData(req){
-    var cookies=req.cookies
+function getCookieData(req,res){
+    var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
+
+    //var cookies=req.cookies
     var result={
-        name: cookies.name,
-        accessId: cookies.accessId
+        name: cookies.get('name',{signed:true}),
+        id: cookies.get('accessId',{signed:true})
     }
     return result;
 }
@@ -42,7 +44,9 @@ router.post('/login',async function(req, res, next){
     }
 
     function callBack(name,accessId,userId,token){
-        cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId).set( "accessToken", token, { signed: true, maxAge: (1000 * 60 * 60 * 30 * 12) } );
+        const maxAge=(1000 * 60 * 60 * 30 * 12)
+        cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId)
+        cookies.set( "name", name, { signed: true } ).set( "accessId", accessId, { signed: true,  } ).set("userId", userId, { signed: true  }).set( "accessToken", token, { signed: true } );
     }
 })
 
@@ -80,7 +84,8 @@ router.post('/login/verify/google-token',function(req,res){
                 let msg = error.message
                 res.json(msg)
             }else{
-                cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId).set( "accessToken", token, { signed: true, maxAge: (1000 * 60 * 60 * 30 * 12) } );
+                cookies.set( "name", name ).set( "accessId", accessId ).set("userId", userId)
+                cookies.set( "name", name, { signed: true } ).set( "accessId", accessId, { signed: true,  } ).set("userId", userId, { signed: true  }).set( "accessToken", token, { signed: true } );
                 res.json("Logged in! Reload page!")
             }
         }
@@ -94,6 +99,8 @@ router.post('/login/verify/google-token',function(req,res){
 
 //LOGOUT
 router.get('/signedout',function(req,res){
+    let cookieData=getCookieData(req)
+    revokeAccessToken({id:cookieData.accessId})
     res.render('signedout',{title: 'Gestão de barracas'})
 })
 

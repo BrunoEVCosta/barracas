@@ -7,15 +7,15 @@ const getAccessTokenById=require('./getAccessTokenById')
 function isLoggedIn(req,res,next){
     var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
     var attributes={}
-    attributes.id=req.cookies.accessId
+    attributes.id=cookies.get('accessId',{signed:true})
+    let accessToken=cookies.get('accessToken',{signed:true})
     getAccessTokenById(attributes).then(function(access){
-        //verify sig
-        if(req.cookies.accessToken === access.accessToken && access.valid)
+        if(accessToken === access.accessToken && access.valid)
             next()
         else
             res.render("index")
     }).catch(function(err){
-        res.redirect("/");
+        res.render("index");
     })
 }
 
@@ -36,7 +36,7 @@ function isAdmin(req,res,next){
 function getScope(req,res){
     var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
     var attributes={}
-    attributes.id=req.cookies.accessId
+    attributes.id=cookies.get( "accessId",{signed:true})
     return new Promise(function(res,rej){
         getAccessTokenById(attributes).then(function(access){
             res(access.Pessoa.dataValues.permissao)

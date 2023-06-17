@@ -1,3 +1,35 @@
+const bcrypt = require("bcrypt");
+const {validate} = require("google-auth-library/build/src/options");
+const {seed} = require("../../config_barracas.js");
+
+function hashPassword(preSaltedPassword){
+    return new Promise((res,rej)=>{
+        bcrypt.genSalt(10,function(err, salt){
+            bcrypt.hash(preSaltedPassword,salt,function(err,hash){
+                if(err) rej(err)
+                res(hash)
+            })
+        })
+    })
+}
+
+function preSalt(sentPassword,options){
+    const {seed, createdOn} = options
+    let preSaltedPassword = seed + sentPassword + createdOn.valueOf()
+    return preSaltedPassword
+}
+
+async function validatePassword(sentPassword,options){
+    try {
+        let {storedHash}=options
+        let preSaltedPassword = preSalt(sentPassword,options)
+        return bcrypt.compareSync(preSaltedPassword, storedHash)
+    }catch (e) {
+        console.log(e)
+        return false
+    }
+}
+
 async function extractMetadataFromLogin(req){
     let ipv4=req.headers['x-real-ip']
     let ipv6 = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -46,5 +78,5 @@ function getCityAndCountry(ipv4){
 }
 
 module.exports = {
-    extractMetadataFromLogin
+    extractMetadataFromLogin,hashPassword,validatePassword,preSalt
 }

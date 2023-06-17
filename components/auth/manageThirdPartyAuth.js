@@ -2,6 +2,7 @@ var rand = require('csprng')
 var db=require('../sqldb')
 var models= require('../barracas/models');
 
+
 function addUserFromThirdParty(attributes){
   let newPerson={
     nome:`${attributes.given_name} ${attributes.family_name}`,
@@ -60,19 +61,22 @@ function createAccessSession(data,options,callback){
       id,
       ip:options.ip,
       platform: options.platform,
+      country:options.country,
+      city:options.city,
+      isp:options.isp,
       valid: 1,
       accessToken:rand(160,36)+rand(160,36),
     }
 
-  models['createAccess'](attributes).then(function(accessId){
-    if(accessId instanceof Error){
-      let error=accessId
-      callback(error)  
-    }else{
-      callback(error=null,name,accessId,id,attributes.accessToken)
-      return {accessId}      
-    }
-  })
+    models['createAccess'](attributes).then(function(accessId){
+        if(accessId instanceof Error){
+            let error=accessId
+            callback(error)
+        }else{
+            callback(error=null,name,accessId,id,attributes.accessToken)
+            return {accessId}
+        }
+    })
       
 }
 

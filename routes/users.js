@@ -26,7 +26,7 @@ router.get('/manage/accesses',isLoggedIn,isAdmin,function(req,res){
       dados: data
     })
   }).catch(function(err){
-    res.status(404).json(err)
+    res.status(404).json({err: {msg: err.message}})
 
   })
 })
@@ -39,7 +39,7 @@ router.get('/manage/users',isLoggedIn,isAdmin,function(req,res){
       dados: data
     })
   }).catch(function(err){
-    res.status(404).json(err)
+    res.status(404).json({err: {msg: err.message}})
   })
 })
 
@@ -48,7 +48,7 @@ router.post('/set/password',isLoggedIn,isAdmin,function(req,res){
   require('../components/auth/setPassword')(options).then(function(dados){
     res.redirect('/users/manage/users');
   }).catch(function(err){
-    res.status(404).json(err)
+    res.status(404).json({err: {msg: err.message}})
   })
 })
 
@@ -57,7 +57,7 @@ router.post('/set/active-state',isLoggedIn,isAdmin,function(req,res){
   require('../components/auth/setUserActiveState')(options).then(function(dados){
     res.redirect('/users/manage/users');
   }).catch(function(err){
-    res.status(404).json(err)
+    res.status(404).json({err: {msg: err.message}})
   })
 })
 
@@ -66,7 +66,7 @@ router.post('/create/user/',isLoggedIn,isAdmin,function(req,res){
   require('../components/auth/createUser')(options).then(function(dados){
     res.redirect('/users/manage/users');
   }).catch(function(err){
-    res.status(404).json(err)
+    res.status(404).json({err: {msg: err.message}})
   })
 })
 

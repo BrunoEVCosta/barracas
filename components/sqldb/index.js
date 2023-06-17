@@ -10,9 +10,10 @@ var Sequelize = require('sequelize');
 var glob = require('glob');
 var path = require('path');
 var debug = require('debug')
+const {DataTypes} = require("sequelize");
 //var debug_std = debug
 //DB credentials
-var db = {
+let db = {
   sequelize: new Sequelize(
     config_barracas.sql.database,
     config_barracas.sql.username,
@@ -29,7 +30,7 @@ var db = {
 var tables=glob.sync(__dirname+'/'+'!([a-z]*.js|*.[^j][^s]*|.gitignore)')
 for( index in tables){
 	var table=path.basename(tables[index],'.js');
-	db[table]=db.sequelize.import('./'+table);
+	db[table]=require('./'+table)(db.sequelize,DataTypes);
 }
 
 Object.keys(db).forEach(function(modelName) {
