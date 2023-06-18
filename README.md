@@ -21,7 +21,6 @@ node install.js
 - Implement Pago
 - Implement Comments
 - Add method to change rent to another tent
-- Make dockerized version 
 - Rent online (MBWay/paypal/receipt - verification) Some tents are already setup and an inspector comes and checks only the rented are ocuppied. A receipt is generated to verify purchuse if necessary //https://docs.adyen.com/online-payments https://docs.adyen.com/payment-methods?countries=pt
    https://developer.sibsapimarket.com/sandbox/node/3088
 
