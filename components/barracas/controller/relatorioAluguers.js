@@ -1,10 +1,11 @@
 var models= require('./../models');
+const {Op} = require('sequelize')
 
 module.exports = function(transporter){
 	var call="reportRents";
  	var attributes={};
  	attributes.where={data: {
- 		"$between": getSurroundingDates()
+ 		[Op.between]: getSurroundingDates()
  		}
  	} 	
 	return new Promise(function(res,rej){

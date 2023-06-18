@@ -113,7 +113,11 @@ m.reserveEdit=function(attributes){
 m.reportRents=function(attributes){
 	return db.Aluguer
 	.findAndCountAll({
-		attributes:['valor',[Sequelize.fn('SUM', Sequelize.col('valor')),"sum"]],
+		attributes:[
+			'valor',
+			[Sequelize.fn('SUM', Sequelize.col('valor')), "sum"],
+			[Sequelize.fn('COUNT', Sequelize.col('valor')), "quantidade"]
+		],
 		group: 'valor',
 		where: attributes.where
 	}).then(function(res){
@@ -145,7 +149,7 @@ m.reportReserves=function(attributes){
 
 m.getUser=function(attributes){
 	return db.Pessoas
-	.find({
+	.findOne({
 		where: attributes.where
 	}).then(function(res){
 		return res
@@ -157,7 +161,7 @@ m.getUser=function(attributes){
 
 m.getAccessToken=function(attributes){
 	return db.Acesso
-	.find({
+	.findOne({
 		attributes: ['accessToken','valid'],
 		include: [{model: db.Pessoas }],
 		where: attributes.where
@@ -171,7 +175,7 @@ m.getAccessToken=function(attributes){
 
 m.incrementLoginAttempt=function(attributes){
 	return db.Pessoas
-	.findById(attributes.id).then(function(pessoas){
+	.findByPk(attributes.id).then(function(pessoas){
 		return pessoas.increment('attempt', {by:1})
 	}).then(function(res){
 		return res
@@ -183,7 +187,7 @@ m.incrementLoginAttempt=function(attributes){
 
 m.resetLoginAttempt=function(attributes){
 	return db.Pessoas
-	.findById(attributes.id).then(function(pessoas){
+	.findByPk(attributes.id).then(function(pessoas){
 		return pessoas.update({attempt:0})
 	}).then(function(res){
 		return res
@@ -195,7 +199,7 @@ m.resetLoginAttempt=function(attributes){
 
 m.setNewPassword=function(attributes){
 	return db.Pessoas
-	.findById(attributes.id).then(function(pessoas){
+	.findByPk(attributes.id).then(function(pessoas){
 		return pessoas.update({hash:attributes.hash})
 	}).then(function(res){
 		return res
@@ -207,7 +211,7 @@ m.setNewPassword=function(attributes){
 
 m.setUserActiveState=function(attributes){
 	return db.Pessoas
-	.findById(attributes.id).then(function(pessoas){
+	.findByPk(attributes.id).then(function(pessoas){
 		return pessoas.update({active:attributes.active})
 	}).then(function(res){
 		return res
@@ -224,7 +228,8 @@ m.createUser=function(attributes){
 		email: attributes.email,
 		permissao: attributes.permission,
 		confirmationToken: attributes.confirmationToken,
-		active: attributes.active,
+		active: false,
+		//Password starter must be changed, plus user is not active on create
 		hash: "jkljlkjkljljljlkjlkjlkj"
 
 	}).then(function(res){
@@ -280,15 +285,32 @@ m.getUsers=function(attributes){
 }
 
 m.revokeAccessToken=function(attributes){	
-	return db.Acesso
-	.findById(attributes.id).then(function(acesso){
-		return acesso.update({valid:0})
-	}).then(function(res){
-		return res
-	}).catch(function(err){
-		console.log('Revoke Access - Err: '+ err);
-		return err;
-	})
+	if(attributes.id){
+		return db.Acesso
+			.findByPk(attributes.id).then(function(acesso){
+				return acesso.update({valid:0})
+			}).then(function(res){
+				return res
+			}).catch(function(err){
+				console.log('Revoke Access - Err: '+ err);
+				return err;
+			})
+	}else if(attributes.accessToken){
+		return db.Acesso
+			.findOne({where:{accessToken:attributes.accessToken}}).then(function(acesso){
+				return acesso.update({valid:0})
+			}).then(function(res){
+				return res
+			}).catch(function(err){
+				console.log('Revoke Access - Err: '+ err);
+				return err;
+			})
+	}else{
+		return new Promise((res,rej)=>{
+			rej(new Error("NoInformationSent"))
+		})
+	}
+
 }
 
 module.exports=m
