@@ -113,7 +113,11 @@ m.reserveEdit=function(attributes){
 m.reportRents=function(attributes){
 	return db.Aluguer
 	.findAndCountAll({
-		attributes:['valor',[Sequelize.fn('SUM', Sequelize.col('valor')),"sum"]],
+		attributes:[
+			'valor',
+			[Sequelize.fn('SUM', Sequelize.col('valor')), "sum"],
+			[Sequelize.fn('COUNT', Sequelize.col('valor')), "quantidade"]
+		],
 		group: 'valor',
 		where: attributes.where
 	}).then(function(res){
