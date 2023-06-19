@@ -1,4 +1,6 @@
 var models= require('./../models');
+const {Op}=require('sequelize')
+
 module.exports = function(transporter){
 	var call="reportReserves";
  	var attributes={};
@@ -9,10 +11,10 @@ module.exports = function(transporter){
  	queryMonth=="00" ? queryMonth="01" : null
  	attributes.where={
  		inicio: {
- 			"$lte": `${year}-${nextMonthSTR}-01`
+ 			[Op.lte]: `${year}-${nextMonthSTR}-01`
  		},
  		fim: {
- 			"$gte": `${year}-${queryMonth}-01`
+ 			[Op.gte]: `${year}-${queryMonth}-01`
  		}
  	} 	
  	transporter.espacoId != null ? attributes.where.barracaChapeusId = transporter.espacoId : null
