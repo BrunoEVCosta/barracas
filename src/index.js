@@ -10,12 +10,14 @@ function insertScripts(names) {
     for(let name of names) {
         let element = document.createElement('script');
         element.src = "/webpack/"+name+".js"
-        element.setAttribute("defer",true)
+        element.setAttribute("defer","true")
         document.body.appendChild(element)
     }
 }
 //let names=webpack.entry.map(pkg=>pkg.filename)
-let names=["popper","bootstrap","vue","canvas-datagrid",'cookieconsent']
+let names=["popper","bootstrap","vue",
+    //"canvas-datagrid",
+    'cookieconsent']
 insertScripts(names);
 
 window._ = _

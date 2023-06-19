@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
-
 const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows=require("./../components/barracas/controller/listRows")
 const managePrices = require('./../components/barracas/controller/prices')
@@ -10,6 +8,7 @@ const filaChapeus=require('./../components/barracas/controller/filaChapeus')
 const alugarBarracaDia=require('./../components/barracas/controller/alugarBarracaDia')
 const login=require('../components/auth/login')
 const {extractMetadataFromLogin}=require('.././components/auth/procedures')
+const apiKey = require("../config_barracas.js").google.api.key
 
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
@@ -127,7 +126,7 @@ router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,re
 
 
 router.get('/informacao',function(req,res){
-  res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus"})
+  res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus",apiKey})
 })
 
 router.get('/vista-geral',isLoggedIn, function(req, res, next){

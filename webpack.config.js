@@ -6,7 +6,7 @@ const webpack=require("webpack")
 
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: {
         shared:{
             import: ["./src/index.js","jquery"],

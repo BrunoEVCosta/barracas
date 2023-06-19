@@ -1,6 +1,6 @@
 const Cookies = require('cookies');
 const Keygrip = require("keygrip");
-const keylist=["SEKRIT2", "SEKRIT1"]; //Set a list of o keys.
+const keylist=require("../.././config_barracas").cookies.keylist
 const keys = new Keygrip(keylist,'sha256','hex')
 const getAccessTokenById=require('./getAccessTokenById')
 

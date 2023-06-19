@@ -88,7 +88,8 @@ window.app=new Vue({
         subTipos:[],
         duracoes:[],
         precos:[{}],
-        barracas:"",
+        barracas:[],
+        chapeus:[],
         barracaChapeu:[{}],
         tipo:"",
         tipoPresentation:"",
@@ -108,13 +109,14 @@ window.app=new Vue({
         this.tipoPresentation=_.trimEnd(_.capitalize(this.tipo),"s")
         this.numFila=location.pathname.split("/")[3]
         this.barracas=await $.get("/api/v1/list/rows/Barraca")
+        this.chapeus=await $.get("/api/v1/list/rows/Chapeu")
         if( this.numFila==1 ){
             this.previous = -1
         }else{
             this.previous = parseInt(this.numFila)-1
         }
         //Get a way to figure out the limits. //Index menus api call.
-        if( this.numFila>=this.barracas.length ){
+        if( this.numFila>=this[this.tipo].length ){
             this.next = -1
         }else{
             this.next = parseInt(this.numFila)+1
