@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 # Update the docker image running the server
 
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 ssh-add ~/.ssh/github
+cd $DIR/..
+
 git pull origin master
 docker stop barracas-webserver
 docker rmi barracas:v1

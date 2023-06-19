@@ -1,11 +1,19 @@
 extends layout
 
 block content
-    a(href="") <
-    a(href="/") 
-        h1=title
-    a(href="/") >
     #app
+        .d-flex.justify-content-center
+            nav(aria-label="...")
+                ul.pagination.pagination-lg
+                    li.m-1.page-item.active(aria-current="page",v-if="previous!=-1")
+                        a.page-link(:href="'/barracas/fila/'+previous")
+                            h1 <
+                    li.m-1.page-item.active(aria-current="page")
+                        a.page-link(href="/")
+                            h1=title
+                    li.m-1.page-item.active(aria-current="page",v-if="next!=-1")
+                        a.page-link(:href="'/barracas/fila/'+next")
+                            h1 >
         .container(v-if="orientation=='Lateral' && Object.keys(barracaChapeu[0]).length>0")
             .row
                 .col-md-4

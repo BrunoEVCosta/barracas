@@ -41,10 +41,10 @@ block content
         .card-body
           .form-group
             label(for="email") Email
-            input.form-control.form-control-lg(id="email",name="email",type="email",placeholder="Email")
+            input.form-control.form-control-lg(id="email",name="email",autocomplete="off",type="email",placeholder="Email")
           .form-group
             label(for="password") Palavra-passe
-            input.form-control.form-control-lg(id="password",name="password",type="password",placeholder="Palavra-passe")
+            input.form-control.form-control-lg(id="password",name="password",autocomplete="current-password",type="password",placeholder="Palavra-passe")
           .form-group
             .d-grid.mt-2
               button.btn.btn-primary.btn-block.btn-lg(type="submit") Login

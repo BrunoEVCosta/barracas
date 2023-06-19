@@ -83,9 +83,12 @@ Vue.component("collapse",(resolve,reject)=>{
 window.app=new Vue({
     el:"#app",
     data:{
+        previous:-1,
+        next:-1,
         subTipos:[],
         duracoes:[],
         precos:[{}],
+        barracas:"",
         barracaChapeu:[{}],
         tipo:"",
         tipoPresentation:"",
@@ -104,6 +107,18 @@ window.app=new Vue({
         this.tipo=location.pathname.split("/")[1]
         this.tipoPresentation=_.trimEnd(_.capitalize(this.tipo),"s")
         this.numFila=location.pathname.split("/")[3]
+        this.barracas=await $.get("/api/v1/list/rows/Barraca")
+        if( this.numFila==1 ){
+            this.previous = -1
+        }else{
+            this.previous = parseInt(this.numFila)-1
+        }
+        //Get a way to figure out the limits. //Index menus api call.
+        if( this.numFila>=this.barracas.length ){
+            this.next = -1
+        }else{
+            this.next = parseInt(this.numFila)+1
+        }
         this.subTipos=await $.get("/api/v1/list/subTypes")
         this.duracoes=await $.get("/api/v1/list/durations")
         this.precos=await $.get("/api/v1/list/prices")
