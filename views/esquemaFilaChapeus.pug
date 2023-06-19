@@ -5,6 +5,18 @@ block content
         h1=title
     //Can be replaced by a common version. Barracas is more complete
     #app
+        .d-flex.justify-content-center
+            nav(aria-label="...")
+                ul.pagination.pagination-lg
+                    li.m-1.page-item.active(aria-current="page",v-if="previous!=-1")
+                        a.page-link(:href="'/barracas/'++'/'+previous")
+                            h1 <
+                    li.m-1.page-item.active(aria-current="page")
+                        a.page-link(href="/")
+                            h1=title
+                    li.m-1.page-item.active(aria-current="page",v-if="next!=-1")
+                        a.page-link(:href="'/barracas/fila/'+next")
+                            h1 >
         .container
             .row
                 .col-md-4

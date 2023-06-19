@@ -10,6 +10,7 @@ function insertScripts(names) {
     for(let name of names) {
         let element = document.createElement('script');
         element.src = "/webpack/"+name+".js"
+        element.setAttribute("defer",true)
         document.body.appendChild(element)
     }
 }

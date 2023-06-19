@@ -15,13 +15,13 @@ html(lang="pt",content-type="text/html;charset=UTF-8")
   body.p-2
     block content
     script(src='/webpack/webpack.js')
-    script#actions(src="/javascripts/actions.js")
-    script(src="/javascripts/loader.js")
-    script(src="/javascripts/vistaGeral.js")
-    script(src="/javascripts/reserves.js")
+    script#actions(defer src="/javascripts/actions.js")
+    script(defer src="/javascripts/loader.js")
+    script(defer src="/javascripts/vistaGeral.js")
+    script(defer src="/javascripts/reserves.js")
     //script(src="/javascripts/login.js")
     script(async src="https://www.googletagmanager.com/gtag/js?id=G-4MLRZXC1EG")
-    script(src="/javascripts/gdpr.js")
+    script(defer src="/javascripts/gdpr.js")
     //Google Analytics
     script
       != "window.dataLayer = window.dataLayer || [];"

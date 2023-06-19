@@ -2,15 +2,15 @@ extends layout
 
 block content
   a(href="/")
-    h1=title
-  .fila.horizontal
-    a.btn(href="06")
+    h1.text-center=title
+  .text-center
+    a.btn.btn-light(href="06")
       h4 Junho
-    a.btn(href="07")
+    a.btn.btn-light(href="07")
       h4 Julho
-    a.btn(href="08")
+    a.btn.btn-light(href="08")
       h4 Agosto
-    a.btn(href="09")      
+    a.btn.btn-light(href="09")
       h4 Setembro
   if (dados.rows.length>0)
     table.table.table-hover.reserves.report
