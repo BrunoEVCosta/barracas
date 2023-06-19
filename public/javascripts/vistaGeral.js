@@ -8,7 +8,7 @@ $(document).ready(function(){
 		function loadFilaBarracas(fila){
 			$.get(`/barracas/fila/${fila}`,function(data){
 				let filaBarracas=$.parseHTML(data)
-				filaBarracas=filaBarracas[6]
+				filaBarracas=filaBarracas.find(el=>el.id=="app")
 				$(`.barracas[fila|="${fila}"`).append(filaBarracas)
 			},"html")			
 		}

@@ -9,9 +9,12 @@ WORKDIR /usr/src/barracas
 
 COPY package*.json ./
 
-RUN npm install --production
-
+#RUN NPM install --production
+RUN npm install
+## THIS copies the build as well
 COPY . .
+
+RUN npm run build
 
 EXPOSE 3000
 
