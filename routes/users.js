@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/revoke/access/',isLoggedIn,function(req,res){
   var attributes=req.body
   revokeAccessToken(attributes).then(function(data){
-    res.redirect('/admin/signedout')
+    res.redirect('/signedout')
   }).catch(function(err){
     res.redirect('/')
   })

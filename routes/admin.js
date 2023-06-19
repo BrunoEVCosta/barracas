@@ -97,12 +97,6 @@ router.post('/login/verify/google-token',function(req,res){
     verify().catch(console.error);
 })
 
-//LOGOUT
-router.get('/signedout',function(req,res){
-    let cookieData=getCookieData(req)
-    revokeAccessToken({id:cookieData.accessId})
-    res.render('signedout',{title: 'Gestão de barracas'})
-})
 
 
 

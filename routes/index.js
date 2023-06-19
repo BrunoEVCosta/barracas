@@ -30,6 +30,12 @@ router.get('/', isLoggedIn, function(req, res, next) {
 });
 
 
+//LOGOUT
+router.get('/signedout',async function(req,res){
+  //Gets redirected here once eveything went right
+  res.render('signedout',{title: 'Gestão de barracas'})
+})
+
 
 router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;

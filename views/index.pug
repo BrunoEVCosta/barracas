@@ -23,7 +23,8 @@ block content
               h5=dados.name
               form(method="POST",action="/users/revoke/access/")
                 input(type="hidden",id="id",name="id",value=dados.accessId)
-                button.btn.btn-primary(type="submit",onclick='signOut();') Logout
+                button.btn.btn-primary(type="submit") Logout
+                //button.btn.btn-primary(type="submit",onclick='signOut();') Logout
             if role == "admin"
               .admin-actions
                 .mobile.d-block.d-md-none
@@ -56,7 +57,7 @@ block content
                 h3 Autenticação através de outras plataformas
             .row.justify-content-md-center
               .col.col-lg-2
-                .g-signin2(data-onsuccess="onSignIn")
+                .g-signin2(data-onsuccess="onSignIn") Disabled for now
     if loggedin
       .card
         .card-header

@@ -288,7 +288,7 @@ m.revokeAccessToken=function(attributes){
 	if(attributes.id){
 		return db.Acesso
 			.findByPk(attributes.id).then(function(acesso){
-				return acesso.update({valid:0})
+				return acesso.update({valid:0,revokedOn:new Date()})
 			}).then(function(res){
 				return res
 			}).catch(function(err){
