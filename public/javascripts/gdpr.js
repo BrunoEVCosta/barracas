@@ -44,7 +44,7 @@ window.cookieconsent.initialise({
       "border": "#f1d600"
     }
   },
-  "position": "top",
+  "position": "bottom",
   "static": true,
   "type": "opt-in",
   "content": {

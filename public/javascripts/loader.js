@@ -18,7 +18,9 @@ if(paths[0]==="informacao"){
 if(paths[0]==="chapeus" || paths[0]==="barracas"){
     url="/javascripts/dynamic/fila/init.js"
 }
-
+if(paths[0]==="vista-geral"){
+    url="/javascripts/dynamic/vistaGeral/init.js"
+}
 
 var script = document.createElement('script');
 if(url !== undefined){

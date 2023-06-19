@@ -1,8 +1,10 @@
 extends layout
 
 block content
+    a(href="") <
     a(href="/") 
         h1=title
+    a(href="/") >
     #app
         .container(v-if="orientation=='Lateral' && Object.keys(barracaChapeu[0]).length>0")
             .row
