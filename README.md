@@ -20,6 +20,7 @@ node install.js
 - add notification of information request
 - Implement Pago
 - Implement Comments
+- Fix logout /redirect messes up revoke in access
 - Add method to change rent to another tent
 - Rent online (MBWay/paypal/receipt - verification) Some tents are already setup and an inspector comes and checks only the rented are ocuppied. A receipt is generated to verify purchuse if necessary //https://docs.adyen.com/online-payments https://docs.adyen.com/payment-methods?countries=pt
    https://developer.sibsapimarket.com/sandbox/node/3088

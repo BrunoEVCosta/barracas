@@ -80,37 +80,105 @@ Vue.component("collapse",(resolve,reject)=>{
         })
     })
 })
+Vue.component("fila",(resolve,reject)=> {
+    $.get('/factory/vue/fila', (data, textStatus, jqXHR) => {
+        resolve({
+            template:data,
+            props:{
+                fila:Array,
+                mini:Boolean,
+                excludeType:String,
+                orientacao:String,
+            },
+            data:function(){
+                return {}
+            },
+            computed:{},
+            methods:{}
+        })
+    })
+})
 window.app=new Vue({
     el:"#app",
     data:{
         subTipos:[],
         duracoes:[],
         precos:[{}],
-        barracaChapeu:[{}],
-        tipo:"",
-        tipoPresentation:"",
-        numFila:"",
-        orientation:"",
-        barracasFrontais:{},
-        valorReserva:undefined,
+
+        fila: {
+            barracas: [],
+            chapeus: [],
+        },
+        geral:{
+            barracas:{},
+            chapeus:{}
+        },
     },
     computed:{
+        test(a){
+            return console.log(a)
+        },
 
     },
     methods:{
+        elementosFrontais(tipo,fila){
+            try {
+                return this.geral[tipo][fila].frontais
+            }catch (e) {
+                return []
+            }
 
+        },
+        elementosDaFila(tipo,fila){
+            if (this.geral[tipo][fila] == undefined){
+                return {}
+            }else{
+                return this.geral[tipo][fila]
+            }
+        }
     },
     async beforeMount(){
-        this.tipo=location.pathname.split("/")[1]
-        this.tipoPresentation=_.trimEnd(_.capitalize(this.tipo),"s")
-        this.numFila=location.pathname.split("/")[3]
+        this.fila.barracas=await $.get("/api/v1/list/rows/Barraca")
+        this.fila.chapeus=await $.get("/api/v1/list/rows/Chapeu")
+
+        //Not used yet
         this.subTipos=await $.get("/api/v1/list/subTypes")
         this.duracoes=await $.get("/api/v1/list/durations")
         this.precos=await $.get("/api/v1/list/prices")
-        this.barracaChapeu=await $.get(`/api/v1/fila/${this.tipo}/${this.numFila}`)
-        this.barracasFrontais.normal=this.barracaChapeu.filter(el=>el.frontal==true && !el.annex)
-        this.barracasFrontais.anexo=this.barracaChapeu.filter(el=>el.frontal==true && el.annex)
-        //Gets first match
-        this.orientation=this.barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+
+        for (let [index,fila] of this.fila.barracas.entries()){
+            let tipo="barracas"
+            let numFila=index+1  //Human numbers
+            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+
+            let frontais={
+                normal:barracaChapeu.filter(el=>el.frontal==true && !el.annex),
+                anexo:barracaChapeu.filter(el=>el.frontal==true && el.annex),
+            }
+            this.$set(this.geral[tipo],fila.localizacao,{
+                orientacao, //String
+                frontais, //Array
+                elementos:barracaChapeu //Array
+            })
+
+        }
+        for (let [index,fila] of this.fila.chapeus.entries()){
+            let tipo="chapeus"
+            let numFila=index+1  //Human numbers
+            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+
+            let frontais={
+                normal:barracaChapeu.filter(el=>el.frontal==true && !el.annex),
+                anexo:barracaChapeu.filter(el=>el.frontal==true && el.annex),
+            }
+            this.$set(this.geral[tipo],fila.localizacao,{
+                orientacao, //String
+                frontais, //Array
+                elementos:barracaChapeu //Array
+            })
+
+        }
     }
 })

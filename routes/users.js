@@ -12,6 +12,8 @@ router.get('/', function(req, res, next) {
 router.post('/revoke/access/',isLoggedIn,function(req,res){
   var attributes=req.body
   revokeAccessToken(attributes).then(function(data){
+    //TODO
+    //Get referer or implent this some otherway
     res.redirect('/signedout')
   }).catch(function(err){
     res.redirect('/')

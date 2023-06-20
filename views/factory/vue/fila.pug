@@ -1,0 +1,42 @@
+.fila
+    div(v-for="item in fila",v-if="fila.length>0 && orientacao=='Lateral'",:class="{'d-none':item.subtipo==excludeType, }")
+        .d-flex.flex-row
+            .btn.btn-secondary.tent(
+                :class="{ " +
+                    "mini:mini==true, " +
+                    "annex:item.annex, " +
+                    "manha:item.duration=='Manhã', " +
+                    "tarde:item.duration=='Tarde', " +
+
+                "}",
+                :id="item.id",
+                :rented="item.rented",
+                :reserved="item.reserved",
+                :pago="item.pago",
+                :frontal="item.frontal",
+                :startDate="item.startDate",
+                :endDate="item.endDate",
+                type="button")
+                | {{ item.number }}
+            .tent.mini.border.border-0(v-if="excludeType=='Frontal' && orientacao=='Lateral'")
+    div(v-else="")
+        .tent.mini.border.border-0(v-if="orientacao=='Lateral'")
+    .d-flex.flex-row(v-if="orientacao=='Traseira'")
+        .btn.btn-secondary.tent(
+            v-for="item in fila",
+            :class="{ " +
+            "mini:mini==true, " +
+            "annex:item.annex, " +
+            "manha:item.duration=='Manhã', " +
+            "tarde:item.duration=='Tarde', " +
+
+            "}",
+            :id="item.id",
+            :rented="item.rented",
+            :reserved="item.reserved",
+            :pago="item.pago",
+            :frontal="item.frontal",
+            :startDate="item.startDate",
+            :endDate="item.endDate",
+            type="button")
+            | {{ item.number }}
