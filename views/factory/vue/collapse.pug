@@ -2,7 +2,7 @@
     .reservar.card.card-body
         .btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar {{ tipo }}
     .reservas.card.card-body
-        a.btn.btn-primary.btn-lg(:href='/calendar/+"item.id"') Reservas
+        a.btn.btn-primary.btn-lg(:href='"/calendar/"+item.id') Reservas
     .info.card.card-body(v-if="item.reserved || item.rented")
         //TODO add array with multiple rent info
         h5.text-center.text-decoration-underline(v-if="item.rented==true") {{ item.duration }}
