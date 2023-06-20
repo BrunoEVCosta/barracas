@@ -57,8 +57,6 @@ router.get('/chapeus/fila/:numero',isLoggedIn,function(req, res, next){
 })
 
 
-
-
 router.post('/alterar/reserva/datas',isLoggedIn, function(req, res, next){
   var options=req.body;
   options.userId=req.cookies.userId
@@ -81,7 +79,6 @@ router.get('/alterar/reserva/:id',isLoggedIn, function(req, res, next){
     res.status(404).json(err)
   })  
 })
-
 
 
 router.get('/alterar/aluguer/:id',isLoggedIn,function(req, res, next){
@@ -135,11 +132,8 @@ router.get('/vista-geral',isLoggedIn, function(req, res, next){
 // Reserve layout
 router.get('/calendar/:espaco',isLoggedIn,function(req,res){
   let espaco = req.params.espaco
-  res.render('calendar/layout',{title:"Layout", espaco })
+  res.render('calendar/layout',{title:"Calendário Reservas", espaco })
 })
-
-
-
 
 router.post('/alugar/barraca/:id',isLoggedIn,function(req,res, next){
   var id=req.params.id
