@@ -21,6 +21,9 @@ if(paths[0]==="chapeus" || paths[0]==="barracas"){
 if(paths[0]==="vista-geral"){
     url="/javascripts/dynamic/vistaGeral/init.js"
 }
+if(paths[0]==="client"){
+    url="/javascripts/dynamic/client/init.js"
+}
 
 var script = document.createElement('script');
 if(url !== undefined){

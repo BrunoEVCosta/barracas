@@ -1,0 +1,142 @@
+extends layout
+
+block content
+    p pfdskjfksjdkf
+    #app
+        .d-flex.justify-content-center
+            nav(aria-label="...")
+                ul.pagination.pagination-lg
+                    //li.m-1.page-item.active(aria-current="page",v-if="previous!=-1")
+                        //TODO fix this for rows
+                        a.page-link(:href="'/client/rent/'+tipo+'/'+previous")
+                            h1 <
+                    li.m-1.page-item.active(aria-current="page")
+                        a.page-link(href="/")
+                            h1=title
+                    li.m-1.page-item.active(aria-current="page",v-if="next!=-1")
+                        //TODO fix this for rows
+                        // Last plus 1?
+                        a.page-link(:href="'/client/rent/'+tipo+'/'+next" title="Go to next row")
+                            h1 >
+        .d-flex.flex-row.justify-content-start
+            .fila(v-if="Object.keys(barracaChapeu[0]).length>0" )
+                #laterais.m-4(v-if="orientacao=='Lateral'")
+                    a(href="/")
+                        .btn.btn-primary.h2 {{ itemInfo.localizacao }}
+                    #frontais.d-flex.flex-row
+                        fila(:mini="true",:fila="barracasFrontais.normal",:orientacao='"Lateral"',:selected="numero" @goto="goto")
+                        fila(:mini="true",:fila="barracasFrontais.anexo",v-if="barracasFrontais.anexo.length>0",:orientacao="'Lateral'", :selected="numero" @goto="goto")
+                    #resto-de-fila-laterais.d-flex.flex-row
+                        .d-flex.flex-column
+                            fila(:mini="true", :exclude-type="'Frontal'" :fila="barracaChapeu",:orientacao="'Lateral'", :selected="numero" @goto="goto")
+                #traseira.container.text-center(v-if="orientacao=='Traseira'")
+                    //TODO chapeus
+                    //#chapeus.mb-4.chapeus(v-if="elementosDaFila('barracas',filaBarraca.localizacao).orientacao=='Traseira'")
+                        h1 Chapeús
+                        .col(v-for="filaChapeus,indexC of fila.chapeus",v-if="geral['chapeus'][filaChapeus.localizacao]" )
+                            .d-flex.justify-content-center
+                                a(:href="'/'")
+                                    .btn.btn-primary.h2 {{ itemInfo.localizacao  }}
+                                fila(:mini='true',:orientacao="'Traseira'", :fila="elementosDaFila('chapeus',filaChapeus.localizacao).elementos")
+                    a(:href="'/'")
+                        .btn.btn-primary.h2 {{ itemInfo.localizacao  }} (Traseira)
+                    fila(:mini='true',:orientacao="'Traseira'", :fila="barracaChapeu", :selected="numero" @goto="goto")
+            .menu
+                .reservar.card.card-body
+                    //.btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar {{ tipo }}
+                .reservas.card.card-body
+                    //View cannot contain names
+                    a.btn.btn-primary.btn-lg(:href='"/calendar/"+itemInfo.id') Reservas
+                //TODO delete this Dev only
+                p {{itemInfo}}
+                .info.card.card-body(v-if="itemInfo.reserved || itemInfo.rented")
+                    //TODO add array with multiple rent info
+                    h5.text-center.text-decoration-underline(v-if="itemInfo.rented==true") {{ itemInfo.duration }}
+                    h5.fw-bold Informacao {{itemInfo.rentId}}
+                    span Alugada desde:
+                    strong.text-center {{itemInfo.startDate}}
+                    span.text-center até:
+                    strong.text-center.mt-0.mb-2 {{itemInfo.endDate}}
+                    .d-grid
+                        button.btn.btn-warning Mudar aluguer
+                //TODO disable re-rent here (Allows re-rent)
+                .alugar.card.card-body(v-if="Object.keys(precos).length>0")
+                    .btn.btn-primary.btn-lg.day.frontal(:price="precos[tipoPresentation][itemInfo.subTipo]['Dia'].valor",duracao="Dia",@click="alugar") Dia ({{precos[tipoPresentation][itemInfo.subTipo]["Dia"].valor}}€)
+                    .btn.btn-primary.btn-lg(:price="precos[tipoPresentation][itemInfo.subTipo]['Manhã'].valor",duracao="Manhã",@click="alugar") Manhã ({{precos[tipoPresentation][itemInfo.subTipo]["Manhã"].valor}}€)
+                    .btn.btn-primary.btn-lg(:price="precos[tipoPresentation][itemInfo.subTipo]['Tarde'].valor",duracao="Tarde",@click="alugar") Tarde ({{precos[tipoPresentation][itemInfo.subTipo]["Tarde"].valor}}€)
+                    //.card.mt-2
+                        .card-header.text-center
+                            h5 Outro Valor
+                        .form-group
+                            .input-group
+                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3",v-model="outroPreco" )
+                                .input-group-text €
+                            .d-grid
+                                .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar
+
+        //.container-fluid(v-if="orientation=='Lateral' && Object.keys(barracaChapeu[0]).length>0")
+            .row
+                .col
+                    .container
+                        .d-flex.flex-row
+                            .fila(v-for="item in barracasFrontais.normal",v-if="barracasFrontais.normal.length>0")
+                                //Click got to tent add caption for this highlight selected tent
+                                button.btn.btn-secondary.tent.mini(:class="{ annex:item.annex, manha:item.duration=='Manhã', tarde:item.duration=='Tarde', border:numero==item.number, 'border-4':numero==item.number, 'border-danger':numero==item.number }",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button" @click="goto(item.number)") {{ item.number }}
+                            .fila(v-else="")
+                                .tent.mini.border.border-0
+                            .fila(v-for="item in barracasFrontais.anexo",v-if="barracasFrontais.anexo.length>0")
+                                button.btn.btn-secondary.tent.mini(:class="{ annex:item.annex, manha:item.duration=='Manhã', tarde:item.duration=='Tarde', border:numero==item.number, 'border-4':numero==item.number, 'border-danger':numero==item.number}",:id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button" @click="goto(item.number)") {{ item.number }}
+                            .fila(v-else="")
+                                .tent.mini.border.border-0
+                        .d-flex.flex-row
+                            .d-flex.flex-column
+                                .fila(v-for="item in barracaChapeu",v-if="item.subtipo=='Lateral'")
+                                    .d-flex.flex-row
+                                        button.btn.btn-secondary.tent.mini(:class="{ manha:item.duration=='Manhã', tarde:item.duration=='Tarde', border:numero==item.number, 'border-4':numero==item.number, 'border-danger':numero==item.number}" :id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",@click="goto(item.number)") {{ item.number }}
+                                        .tent.mini.border.border-0
+        //TODO Traseira
+        //.conainer-fluid.text-center(v-if="orientation=='Traseira' && Object.keys(barracaChapeu[0]).length>0")
+            .fila
+                .d-flex.flex-row
+                    div(v-for="item in barracaChapeu")
+                        button.btn.btn-secondary.tent.mini(:class="{ manha:item.duration=='Manhã', tarde:item.duration=='Tarde'}" :id="item.id",:rented="item.rented",:reserved="item.reserved",:pago="item.pago",:frontal="item.frontal",:startDate="item.startDate",:endDate="item.endDate",type="button",data-bs-toggle="collapse",:data-bs-target="'#collapse'+item.id",aria-expanded="false",aria-controls="collapse") {{ item.number }}
+                        collapse(:id="'collapse'+item.id",:item="item",:precos="precos",:tipo="'Barraca'")
+        //.modal.fade(id="reserveTent",tabindex="-1",role="dialog",aria-labelledby="reserveTentLabel",aria-hidden="true",style="display:none")
+            .modal-dialog(role="document")
+                .modal-content
+                    .modal-header
+                        h5.modal-title(id="reserveTentLabel") Reservar barraca para vário dias
+                        button(type="button",class="close",data-bs-dismiss="modal",aria-label="Close")
+                            span(aria-hidden="true") &times;
+                    .modal-body
+                        form
+                            input.form-control.id(type="hidden",value="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="name") Nome
+                                .col-sm-8
+                                    input.form-control(type="input",id="name",placeholder="Anónimo")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="startDate") Data de ínicio
+                                .col-sm-8
+                                    input.form-control.date(type="date",id="startDate",min="",placeholder="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="endDate") Data de fim
+                                .col-sm-8
+                                    input.form-control.date(type="date",id="endDate",min="",placeholder="")
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="price") Valor
+                                .col-sm-8.input-group.mb-2
+                                    input.form-control(type="number",id="price",min="0",step="0.50",placeholder="",v-model="valorReserva" )
+                                    .input-group-prepend
+                                        .input-group-text €
+                            .form-group.row
+                                label.col-sm-4.col-form-label(for="pago") Pago
+                                .col-sm-8
+                                    input.form-check-input(type="checkbox",id="pago")
+                            .form-group.row.predefined-values
+                                .btn.btn-primary.semana(:price="precos.Barraca.Lateral.Quinzena.valor" @click="valorReserva=precos.Barraca.Lateral.Semana.valor") Semana
+                                .btn.btn-primary.quinzena(:price="precos['Barraca']['Lateral']['Quinzena'].valor",@click="valorReserva=precos.Barraca.Lateral.Quinzena.valor") Quinzena
+                                .btn.btn-primary.mes(:price="precos['Barraca']['Lateral']['Mês'].valor",@click="valorReserva=precos.Barraca.Lateral['Mês'].valor") Mês
+                    .modal-footer
+                        button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
+                        button.btn.btn-primary.reservar(type="button") Reservar

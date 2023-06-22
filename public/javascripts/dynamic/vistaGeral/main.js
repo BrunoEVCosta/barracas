@@ -89,6 +89,7 @@ Vue.component("fila",(resolve,reject)=> {
                 mini:Boolean,
                 excludeType:String,
                 orientacao:String,
+                selected:String,
             },
             data:function(){
                 return {}

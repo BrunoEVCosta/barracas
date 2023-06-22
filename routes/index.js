@@ -10,6 +10,7 @@ const login=require('../components/auth/login')
 const {extractMetadataFromLogin}=require('.././components/auth/procedures')
 const apiKey = require("../config_barracas.js").google.api.key
 
+
 //TODO used by 2 methods below should be packaged elsewere
 function getCookieData(req){
   var cookies=req.cookies
@@ -36,8 +37,14 @@ router.get('/signedout',async function(req,res){
 })
 
 
+router.get('/client/rent/:tipo/:numero',async (req,res)=>{
+  let {tipo,numero}=req.params
+  tipo=tipo.replace(/s$/,"")
+  res.render("directRent",{title:`Alugar ${tipo} ${numero}`})
+})
+
 router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
-  var fila = req.params.numero;
+  let fila = req.params.numero;
   filaBarracas(fila).then(function(dados){
     var title="Fila "+fila
     res.render('esquemaFilaBarracas',{title: title,dados:dados})

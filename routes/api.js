@@ -5,6 +5,7 @@ const listRows = require("./../components/barracas/controller/listRows");
 const managePrices = require("./../components/barracas/controller/prices");
 const filaBarracas = require("./../components/barracas/controller/filaBarracas");
 const filaChapeus = require("./../components/barracas/controller/filaChapeus");
+const getRow=require("./../components/barracas/controller/getRow")
 
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
@@ -39,7 +40,10 @@ router.get('/list/durations',(req,res)=>{
     res.json(durations)
 })
 
-router.get('/fila/:tipo/:filaNumero',isLoggedIn,async (req,res)=>{
+//TODO
+// Check request origin Allow internal only? or certain links
+// Is public now
+router.get('/fila/:tipo/:filaNumero',async (req,res)=>{
     let tipo=req.params.tipo
     let fila=req.params.filaNumero
     let metaFila
@@ -55,6 +59,17 @@ router.get('/fila/:tipo/:filaNumero',isLoggedIn,async (req,res)=>{
         }
     }catch(e){
         res.json(e)
+    }
+})
+
+router.get('/get-row/:tipo/:numero',async (req,res)=>{
+    try{
+        const {tipo,numero} =req.params
+        let rowInfo=await getRow(tipo,numero)
+        if(rowInfo instanceof Error) throw rowInfo
+        res.json(rowInfo)
+    }catch (e) {
+        res.json({error:{msg:e.message,stack:e.stack}})
     }
 })
 

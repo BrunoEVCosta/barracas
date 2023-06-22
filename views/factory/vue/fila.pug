@@ -7,7 +7,9 @@
                     "annex:item.annex, " +
                     "manha:item.duration=='Manhã', " +
                     "tarde:item.duration=='Tarde', " +
-
+                    "border:selected==item.number, " +
+                    "'border-4':selected==item.number," +
+                    "'border-danger':selected==item.number" +
                 "}",
                 :id="item.id",
                 :rented="item.rented",
@@ -16,7 +18,9 @@
                 :frontal="item.frontal",
                 :startDate="item.startDate",
                 :endDate="item.endDate",
-                type="button")
+                type="button",
+                @click="$emit('goto',item.number)",
+                )
                 | {{ item.number }}
             .tent.mini.border.border-0(v-if="excludeType=='Frontal' && orientacao=='Lateral'")
     div(v-else="")
@@ -29,7 +33,9 @@
             "annex:item.annex, " +
             "manha:item.duration=='Manhã', " +
             "tarde:item.duration=='Tarde', " +
-
+            "border:selected==item.number, " +
+            "'border-4':selected==item.number," +
+            "'border-danger':selected==item.number" +
             "}",
             :id="item.id",
             :rented="item.rented",
@@ -38,5 +44,6 @@
             :frontal="item.frontal",
             :startDate="item.startDate",
             :endDate="item.endDate",
+            @click="$emit('goto',item.number)",
             type="button")
             | {{ item.number }}
