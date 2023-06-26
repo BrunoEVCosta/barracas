@@ -138,6 +138,7 @@ m.reportReserves=function(attributes){
 		},{
 			model:db.ReservasEdicoes
 		}],
+		order:[['BarracaChapeusId','DESC']],
 		where: attributes.where
 	}).then(function(res){
 		return res
