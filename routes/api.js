@@ -73,4 +73,7 @@ router.get('/get-row/:tipo/:numero',async (req,res)=>{
     }
 })
 
+router.post('/check/availability',async (req,res)=>{
+    const {id,startDate,endDate}=req.body
+})
 module.exports = router

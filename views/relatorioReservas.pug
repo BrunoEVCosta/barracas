@@ -1,40 +1,49 @@
 extends layout
 
 block content
+
   a(href="/")
     h1.text-center=title
-  .text-center
-    a.btn.btn-light(href="06")
-      h4 Junho
-    a.btn.btn-light(href="07")
-      h4 Julho
-    a.btn.btn-light(href="08")
-      h4 Agosto
-    a.btn.btn-light(href="09")
-      h4 Setembro
-  if (dados.rows.length>0)
-    table.table.table-hover.reserves.report
-      thead
-        each key in Object.keys(dados.rows[0])
-          if (key=="fimLong" || key == "inicioLong" || key=="id")  
-            td.d-none
-          else  
-            td=key
-      tbody
-        for row in dados.rows
-          tr(editing=false)
-            for value,index in row
-              if (index=="fimLong" || index == "inicioLong" || index=="id")  
-                td.d-none(id=index)=value
-              else
-                td(id=index)
-                  if (index=="fim" || index=="inicio")
-                    input.form-control.date(name=index,type="date",readonly,value=value)
-                  else
-                    | #{value}
-            td.funcoes.d-none 
-              button.btn.btn-primary.editar editar
-              a.btn.btn-primary(href=`/calendar/${row.espacoId}`) calendário
-      .alert.alert-warning.alert-dismissible.fade.show.d-none.erro(role="alert") Erro algo correu mal! 
-        button.close(type="button",data-dismiss="alert",aria-label="Close")
-          span(aria-hidden="true") &times;
+  #app
+    .d-flex.justify-content-center
+      nav(aria-label="...")
+        ul.pagination.pagination-lg
+          //TODO isActive location.pathname.split[4]==06
+          li.m-1.page-item(:class="{ active:isActive('06') }", aria-current="link")
+            a.page-link(href="06")
+              h4 Junho
+          li.m-1.page-item(:class="{ active:isActive('07') }", aria-current="link")
+            a.page-link(href="07")
+              h4 Julho
+          li.m-1.page-item(:class="{ active:isActive('08') }", aria-current="link")
+            a.page-link(href="08")
+              h4 Agosto
+          li.m-1.page-item(:class="{ active:isActive('09') }", aria-current="link")
+            a.page-link(href="09")
+              h4 Setembro
+    if (dados.rows.length>0)
+      table.table.table-hover.reserves.report
+        thead
+          each key in Object.keys(dados.rows[0])
+            if (key=="fimLong" || key == "inicioLong" || key=="id")
+              td.d-none
+            else
+              td=key
+        tbody
+          for row in dados.rows
+            tr(editing=false,@click="showFunctions")
+              for value,index in row
+                if (index=="fimLong" || index == "inicioLong" || index=="id")
+                  td.d-none(id=index)=value
+                else
+                  td(id=index)
+                    if (index=="fim" || index=="inicio")
+                      input.form-control.date(name=index,type="date",readonly,value=value)
+                    else
+                      | #{value}
+              td.funcoes.d-none
+                button.btn.btn-primary.editar editar
+                a.btn.btn-primary(href=`/calendar/${row.espacoId}`) calendário
+        .alert.alert-warning.alert-dismissible.fade.show.d-none.erro(role="alert") Erro algo correu mal!
+          button.close(type="button",data-dismiss="alert",aria-label="Close")
+            span(aria-hidden="true") &times;

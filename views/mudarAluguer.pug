@@ -1,0 +1,89 @@
+extends layout
+
+block content
+    #app
+        .d-flex.justify-content-center
+            nav(aria-label="...")
+                ul.pagination.pagination-lg
+                    //li.m-1.page-item.active(aria-current="page",v-if="previous!=-1")
+                        //TODO fix this for rows
+                        a.page-link(:href="'/client/rent/'+tipo+'/'+previous")
+                            h1 <
+                    li.m-1.page-item.active(aria-current="page")
+                        a.page-link(href="/")
+                            h1=title
+                    li.m-1.page-item.active(aria-current="page",v-if="next!=-1")
+                        //TODO fix this for rows
+                        // Last plus 1?
+                        a.page-link(:href="'/client/rent/'+tipo+'/'+next" title="Go to next row")
+                            h1 >
+        .d-flex.flex-row.justify-content-start
+            .fila(v-if="Object.keys(barracaChapeu[0]).length>0" )
+                #laterais.m-4(v-if="orientacao=='Lateral'")
+                    nav(aria-label="...")
+                        ul.pagination.pagination-sm
+                            //li.m-1.page-item.active(aria-current="page",v-if="previous!=-1")
+                                //TODO fix this for rows
+                                a.page-link(:href="'/client/rent/'+tipo+'/'+previous")
+                                    h1 <
+                            li.m-1.page-item.active(aria-current="page")
+                                a.page-link(href="/")
+                                    .btn.btn-primary.h2 {{ itemInfo.localizacao }}
+                            li.m-1.page-item.active(aria-current="page",v-if="next!=-1")
+                                //TODO fix this for rows
+                                // Last plus 1?
+                                a.page-link(:href="'/client/rent/'+tipo+'/'+next" title="Go to next row")
+                                    h1 >
+                    a(href="/")
+                        .btn.btn-primary.h2 {{ itemInfo.localizacao }}
+                    #frontais.d-flex.flex-row
+                        fila(:mini="true",:fila="barracasFrontais.normal",:orientacao='"Lateral"',:selected="numero" @goto="goto")
+                        fila(:mini="true",:fila="barracasFrontais.anexo",v-if="barracasFrontais.anexo.length>0",:orientacao="'Lateral'", :selected="numero" @goto="goto")
+                    #resto-de-fila-laterais.d-flex.flex-row
+                        .d-flex.flex-column
+                            fila(:mini="true", :exclude-type="'Frontal'" :fila="barracaChapeu",:orientacao="'Lateral'", :selected="numero" @goto="goto")
+                #traseira.container.text-center(v-if="orientacao=='Traseira'")
+                    //TODO chapeus
+                    //#chapeus.mb-4.chapeus(v-if="elementosDaFila('barracas',filaBarraca.localizacao).orientacao=='Traseira'")
+                        h1 Chapeús
+                        .col(v-for="filaChapeus,indexC of fila.chapeus",v-if="geral['chapeus'][filaChapeus.localizacao]" )
+                            .d-flex.justify-content-center
+                                a(:href="'/'")
+                                    .btn.btn-primary.h2 {{ itemInfo.localizacao  }}
+                                fila(:mini='true',:orientacao="'Traseira'", :fila="elementosDaFila('chapeus',filaChapeus.localizacao).elementos")
+                    a(:href="'/'")
+                        .btn.btn-primary.h2 {{ itemInfo.localizacao  }} (Traseira)
+                    fila(:mini='true',:orientacao="'Traseira'", :fila="barracaChapeu", :selected="numero" @goto="goto")
+            .menu
+                .reservar.card.card-body
+                    //.btn.btn-primary.btn-lg.day.frontal(@click="reservar") Reservar {{ tipo }}
+                .reservas.card.card-body
+                    //View cannot contain names
+                    a.btn.btn-primary.btn-lg(:href='"/calendar/"+itemInfo.id') Reservas
+                //TODO delete this Dev only
+                p {{itemInfo}}
+                .info.card.card-body(v-if="itemInfo.reserved || itemInfo.rented")
+                    //TODO add array with multiple rent info
+                    h5.text-center.text-decoration-underline(v-if="itemInfo.rented==true") {{ itemInfo.duration }}
+                    h5.fw-bold Informacao {{itemInfo.rentId}}
+                    span Alugada desde:
+                    strong.text-center {{itemInfo.startDate}}
+                    span.text-center até:
+                    strong.text-center.mt-0.mb-2 {{itemInfo.endDate}}
+                    .d-grid
+                        button.btn.btn-warning Mudar aluguer
+                //TODO disable re-rent here (Allows re-rent)
+                .alugar.card.card-body(v-if="Object.keys(precos).length>0")
+                    .btn.btn-primary.btn-lg.day.frontal(:price="precos[tipoPresentation][itemInfo.subTipo]['Dia'].valor",duracao="Dia",@click="alugar") Dia ({{precos[tipoPresentation][itemInfo.subTipo]["Dia"].valor}}€)
+                    .btn.btn-primary.btn-lg(:price="precos[tipoPresentation][itemInfo.subTipo]['Manhã'].valor",duracao="Manhã",@click="alugar") Manhã ({{precos[tipoPresentation][itemInfo.subTipo]["Manhã"].valor}}€)
+                    .btn.btn-primary.btn-lg(:price="precos[tipoPresentation][itemInfo.subTipo]['Tarde'].valor",duracao="Tarde",@click="alugar") Tarde ({{precos[tipoPresentation][itemInfo.subTipo]["Tarde"].valor}}€)
+                    //.card.mt-2
+                        .card-header.text-center
+                            h5 Outro Valor
+                        .form-group
+                            .input-group
+                                input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3",v-model="outroPreco" )
+                                .input-group-text €
+                            .d-grid
+                                .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar
+

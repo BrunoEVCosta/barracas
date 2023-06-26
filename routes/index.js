@@ -53,6 +53,10 @@ router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   })
 })
 
+router.get('/barracas/fila/:numero/mudar', isLoggedIn,(req,res)=>{
+  res.render('mudarAluguer',{title:"Mudar Aluguer"})
+})
+
 router.get('/chapeus/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
   filaChapeus(fila).then(function(dados){

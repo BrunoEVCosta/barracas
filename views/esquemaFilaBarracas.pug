@@ -58,13 +58,9 @@ block content
                                 .col-sm-8
                                     input.form-control(type="input",id="name",placeholder="Anónimo")
                             .form-group.row
-                                label.col-sm-4.col-form-label(for="startDate") Data de ínicio
+                                label.col-sm-4.col-form-label(for="datepicker") Data
                                 .col-sm-8
-                                    input.form-control.date(type="date",id="startDate",min="",placeholder="")
-                            .form-group.row
-                                label.col-sm-4.col-form-label(for="endDate") Data de fim
-                                .col-sm-8
-                                    input.form-control.date(type="date",id="endDate",min="",placeholder="")
+                                    input.form-control.date(type="text",id="datepicker",min="",placeholder="")
                             .form-group.row
                                 label.col-sm-4.col-form-label(for="price") Valor
                                 .col-sm-8.input-group.mb-2
@@ -75,12 +71,17 @@ block content
                                 label.col-sm-4.col-form-label(for="pago") Pago
                                 .col-sm-8
                                     input.form-check-input(type="checkbox",id="pago")
-                            .form-group.row.predefined-values
-                                .btn.btn-primary.semana(:price="precos.Barraca.Lateral.Quinzena.valor" @click="valorReserva=precos.Barraca.Lateral.Semana.valor") Semana
-                                .btn.btn-primary.quinzena(:price="precos['Barraca']['Lateral']['Quinzena'].valor",@click="valorReserva=precos.Barraca.Lateral.Quinzena.valor") Quinzena
-                                .btn.btn-primary.mes(:price="precos['Barraca']['Lateral']['Mês'].valor",@click="valorReserva=precos.Barraca.Lateral['Mês'].valor") Mês
+                            .card
+                                .card-header
+                                    | Usar valores predefinidos
+                                .card-body
+                                    .form-group.row.predefined-values(v-if="Object.keys(precos).length>0")
+                                        .btn.btn-primary.semana(:price="precos['Barraca'].Lateral['Dia'].valor" @click="valorReserva=precos.Barraca.Lateral.Dia.valor") Dia {{precos['Barraca'].Lateral['Dia'].valor}}€
+                                        .btn.btn-primary.semana(:price="precos['Barraca'].Lateral['Semana'].valor" @click="valorReserva=precos.Barraca.Lateral.Semana.valor") Semana {{precos['Barraca'].Lateral['Semana'].valor}}€
+                                        .btn.btn-primary.quinzena(:price="precos['Barraca']['Lateral']['Quinzena'].valor",@click="valorReserva=precos.Barraca.Lateral.Quinzena.valor") Quinzena {{precos['Barraca'].Lateral['Quinzena'].valor}}€
+                                        .btn.btn-primary.mes(:price="precos['Barraca']['Lateral']['Mês'].valor",@click="valorReserva=precos.Barraca.Lateral['Mês'].valor") Mês {{precos['Barraca'].Lateral['Mês'].valor}}€
                     .modal-footer
-                        button.btn.btn-secondary(type="button",data-dismiss="modal") Fechar
+                        button.btn.btn-secondary(type="button",data-bs-dismiss="modal") Fechar
                         button.btn.btn-primary.reservar(type="button") Reservar
 
 

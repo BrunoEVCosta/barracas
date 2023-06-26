@@ -6,15 +6,9 @@ $(document).ready(function(){
     scriptName=[]
 
 
-    if(paths[1]=="fila"){
+    if(paths[1]=="reservas"){
         scriptName=[
-            "main"
-        ]
-    }
-    //Should overwrite fila
-    if(paths[3]=="mudar"){
-        scriptName=[
-            'mudar'
+            "appReservas"
         ]
     }
 
@@ -23,7 +17,7 @@ $(document).ready(function(){
     scriptName.forEach(scriptName=>{
         let url=""
         if(isName(scriptName)){
-            url="/javascripts/dynamic/fila/"+scriptName+".js";
+            url="/javascripts/dynamic/relatorios/"+scriptName+".js";
         }else{
             url=scriptName
         }
