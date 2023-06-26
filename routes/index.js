@@ -133,6 +133,7 @@ router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,re
 
 
 
+
 router.get('/informacao',function(req,res){
   res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus",apiKey})
 })

@@ -6,7 +6,7 @@ const managePrices = require("./../components/barracas/controller/prices");
 const filaBarracas = require("./../components/barracas/controller/filaBarracas");
 const filaChapeus = require("./../components/barracas/controller/filaChapeus");
 const getRow=require("./../components/barracas/controller/getRow")
-
+const reservasAno=require('./../components/barracas/controller/relatorioReservasAno')
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
     listRows(req.params).then(data=>{
@@ -71,6 +71,15 @@ router.get('/get-row/:tipo/:numero',async (req,res)=>{
     }catch (e) {
         res.json({error:{msg:e.message,stack:e.stack}})
     }
+})
+
+router.get('/reservas/:ano/:espacoId',isLoggedIn,function(req,res,next){
+    var options=req.params;
+    reservasAno(options).then(dados=>{
+        res.json(dados)
+    }).catch(function(err){
+        res.status(404).json(err)
+    })
 })
 
 router.post('/check/availability',async (req,res)=>{

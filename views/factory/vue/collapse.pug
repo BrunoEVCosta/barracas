@@ -11,7 +11,8 @@
         strong.text-center {{item.startDate}}
         span.text-center até:
         strong.text-center.mt-0.mb-2 {{item.endDate}}
-        .d-grid
+        //TODO make a view for this button
+        //.d-grid
             button.btn.btn-warning(@click="mudarAluguer") Mudar aluguer
     //Allows re-rent
     .alugar.card.card-body(v-if="Object.keys(precos).length>0")
