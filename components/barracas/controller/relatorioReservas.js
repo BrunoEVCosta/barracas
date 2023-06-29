@@ -28,10 +28,17 @@ module.exports = function(transporter){
 				row.dataValues.reservaId=row.dataValues.id
 				Object.assign(row.dataValues, row.dataValues.BarracasChapeu.dataValues)
 				let espacoId=row.dataValues.id
-				if ( row.dataValues.ReservasEdico != null) Object.assign(row.dataValues, row.dataValues.ReservasEdico.dataValues)
-				delete row.dataValues.barracaChapeusId
-				row.dataValues.operadorId=row.dataValues.Pessoa.nome
+				row.dataValues.pessoa=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
+				if ( row.dataValues.ReservasEdico != null) {
+					//This is unnecessary
+					Object.assign(row.dataValues, row.dataValues.ReservasEdico.dataValues)
+					row.dataValues.numero=row.dataValues.ReservasEdico.dataValues.BarracasChapeu.dataValues.numero
+					row.dataValues.localizacao=row.dataValues.ReservasEdico.dataValues.BarracasChapeu.dataValues.localizacao
+					espacoId=row.dataValues.ReservasEdico.dataValues.BarracasChapeu.dataValues.id
+					row.dataValues.pessoa=row.dataValues.ReservasEdico.dataValues.Pessoa.nome
+				}
+				delete row.dataValues.barracaChapeusId
 				delete row.dataValues.BarracasChapeu
 				row.dataValues.inicio= new Date(row.dataValues.inicio).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
 				row.dataValues.fim= new Date(row.dataValues.fim).toLocaleDateString("ko-KR",{ year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/. /g,"-").replace(".","")
@@ -46,12 +53,14 @@ module.exports = function(transporter){
 					inicio:getDatePart(row.dataValues.inicio),
 					fimLong:row.dataValues.fim,
 					fim:getDatePart(row.dataValues.fim),
+					"Inicio-Fim":getDatePart(row.dataValues.inicio)+" - "+getDatePart(row.dataValues.fim),
 					valor:row.dataValues.valor,
 					pago:row.dataValues.pago,
-					operador:row.dataValues.operadorId,
+					Responsavel:row.dataValues.pessoa,
+					operadorId:row.dataValues.operadorId,
 					registo: row.dataValues.registo.toUTCString() ,
 					reservaId:row.dataValues.reservaId,
-					espacoId:espacoId
+					espacoId
 				}
 			})
 			Object.keys(data).forEach(function(key){

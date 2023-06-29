@@ -1,0 +1,25 @@
+tr
+  td(v-for="(value,key) of reserva" @click="showFunctions" :class="{'d-none':hideColumn(key)}" )
+    p(:class="{'fw-bold':key=='nome','d-none':editing}") {{ value }}
+    v-select(:options="rowOptions[reserva.tipo.toLowerCase()]"
+      label="localizacao" ,
+      v-if="key=='#' && rowOptions[reserva.tipo.toLowerCase()] && editing",
+      v-model="fila",
+      :placeholder="reserva.fila"
+    )
+    v-select(
+      @open='loadRowOptions',
+      :options="itemsDaFila",
+      v-if="key=='#' && Object.keys(fila).length>0 && editing",
+      label="number",
+      v-model="newItem",
+      :placeholder="reserva.number"
+    )
+    input(type="text", v-if="key=='nome' && editing",v-model="nome",:placeholder='reserva.nome')
+    input(type="text", v-if="key=='Inicio-Fim' && editing ",v-model="inicioFim", :id="'datepicker'+reserva.reservaId" )
+    input(type="number", v-if="key=='valor' && editing",v-model="valor", :placeholder="reserva.valor")
+  td(v-if="functions==true")
+    button.btn.btn-primary(@click="toggleEditing",v-if="editing==false") Editar
+    button.btn.btn-success(@click="salvarModificacao",v-if="editing==true") Salvar
+    button.btn.btn-danger(@click="cancelarReserva") Cancelar Reserva
+    a.btn.btn-primary(:href="'/calendar/'+reserva.espacoId") Calendário

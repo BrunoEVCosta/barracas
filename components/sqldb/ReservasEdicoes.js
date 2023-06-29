@@ -13,6 +13,7 @@
         allowNull: false,
         unique: true,
       },
+    barracaChapeu: DataTypes.INTEGER(11),
     nome: DataTypes.STRING(254),
     inicio: DataTypes.DATE,
     fim: DataTypes.DATE,
@@ -39,7 +40,11 @@
           ReservasEdicoes.belongsTo(models.Pessoas, {
             foreignKey: 'operadorId',              //on ReservasEdicoes
             targetKey: 'id',  //foreign key  
-          }); 
+          });
+          ReservasEdicoes.belongsTo(models.BarracasChapeus, {
+            foreignKey: 'barracaChapeu',              //on ReservasEdicoes
+            targetKey: 'id',  //foreign key
+          });
         }
       },
     });

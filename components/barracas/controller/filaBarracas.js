@@ -29,8 +29,8 @@ module.exports = function(row){
       	var data={}
       	var result=[]
         var vertical=1
-        //TODO itrated
-      	for ( i in res.rows){
+        //TODO iterated
+      	for ( let i in res.rows){
       	    let row=res.rows[i]
             let rented=false
       		let reserved=false
@@ -57,12 +57,36 @@ module.exports = function(row){
       		}catch(err){
       			rented=false
       		}
+              //Reservas
             try{
-                startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
-                endDate=res.rows[i].dataValues.Reserva.dataValues.fim
-                reserved=isReserved(startDate,endDate)
-                startDate=getDatePart(startDate)
-                endDate=getDatePart(endDate)
+                console.log(i)
+                let reservas=res.rows[i].dataValues.Reservas
+                if(reservas.length>0) {
+                    for (let [index, reserva] of reservas.entries()){
+                        if (reserva.dataValues.ReservasEdico) {
+                            //todo Since this isn't an array it should only get the last value. Or convert it to an array.
+                            //Reservas also uses edicão
+                            let edicao=reserva.dataValues.ReservasEdico
+                            let tempStartDate = edicao.dataValues.inicio
+                            let tempEndDate = edicao.dataValues.fim
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            reserved = reserved === true || tempIsReserved
+                            if(tempIsReserved == true) {
+                                startDate = getDatePart(tempStartDate)
+                                endDate = getDatePart(tempEndDate)
+                            }
+                        } else {
+                            let tempStartDate = reserva.dataValues.inicio
+                            let tempEndDate = reserva.dataValues.fim
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            reserved = reserved === true || tempIsReserved
+                            if(tempIsReserved == true) {
+                                startDate = getDatePart(tempStartDate)
+                                endDate = getDatePart(tempEndDate)
+                            }
+                        }
+                    }
+                }
             }catch(err){
                 reserved=false
             }

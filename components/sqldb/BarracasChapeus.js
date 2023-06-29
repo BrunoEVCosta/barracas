@@ -28,9 +28,9 @@ module.exports = function(sequelize, DataTypes) {
           foreignKey: 'id',              //on BarracasChapeus
           targetKey: 'barracaChapeusId',  //foreign key  
         });
-        BarracasChapeus.belongsTo(models.Reservas, {
-          foreignKey: 'id',              //on BarracasChapeus
-          targetKey: 'barracaChapeusId',  //foreign key  
+        BarracasChapeus.hasMany(models.Reservas, {
+          foreignKey: 'barracaChapeusId',              //on BarracasChapeus
+          targetKey: 'id',  //foreign key
         }); 
       }
     },

@@ -115,11 +115,7 @@ router.get('/relatorios/aluguer/hoje',isLoggedIn,function(req, res, next){
 
 router.get('/relatorios/reservas/:ano/:mes/',isLoggedIn,function(req,res,next){
   var options=req.params;
-  require('./../components/barracas/controller/relatorioReservas')(options).then(function(dados){
-    res.render("relatorioReservas",{title:"Relatório reservas mês",dados:dados})
-  }).catch(function(err){
-    res.status(404).json(err)
-  })  
+  res.render("relatorioReservas",{title:"Relatório reservas mês"})
 })
 
 router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,res,next){

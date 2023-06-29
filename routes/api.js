@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
+const {getUserId, isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows = require("./../components/barracas/controller/listRows");
 const managePrices = require("./../components/barracas/controller/prices");
 const filaBarracas = require("./../components/barracas/controller/filaBarracas");
 const filaChapeus = require("./../components/barracas/controller/filaChapeus");
 const getRow=require("./../components/barracas/controller/getRow")
 const reservasAno=require('./../components/barracas/controller/relatorioReservasAno')
+const relatorioReservas = require('./../components/barracas/controller/relatorioReservas')
+
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
     listRows(req.params).then(data=>{
@@ -82,7 +84,24 @@ router.get('/reservas/:ano/:espacoId',isLoggedIn,function(req,res,next){
     })
 })
 
+router.get('/relatorios/reservas/:ano/:mes',async (req,res)=>{
+    let options=req.params
+    try{
+        let results=await relatorioReservas(options)
+        res.json(results)
+    }catch (e) {
+        res.json({error:{msg:e.message}})
+    }
+
+})
+
 router.post('/check/availability',async (req,res)=>{
     const {id,startDate,endDate}=req.body
 })
+
+router.get('/get/userId',isLoggedIn,(req,res)=>{
+    let userId=getUserId(req,res)
+    res.json({userId})
+})
+
 module.exports = router

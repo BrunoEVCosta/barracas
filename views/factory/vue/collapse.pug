@@ -27,4 +27,4 @@
                     input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3",v-model="outroPreco" )
                     .input-group-text €
                 .d-grid
-                    .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar Por Este Valor
+                    .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar por {{outroPreco}}€

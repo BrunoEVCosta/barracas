@@ -9,7 +9,13 @@ m.getRow=function(attributes){
 		include: [{
 			model: db.Aluguer
 		},{
-			model: db.Reservas
+			model: db.Reservas,
+			include:[{
+				model:db.ReservasEdicoes,
+				include:[{
+					model:db.BarracasChapeus
+				}]
+			}]
 		}],
 		where: attributes.where
 
@@ -94,6 +100,7 @@ m.reserveTent=function(attributes){
 m.reserveEdit=function(attributes){
 	return db.ReservasEdicoes
 	.create({
+		barracaChapeu:attributes.barracaChapeuId,
 		nome: attributes.nome,
 		reservaId: attributes.id,
 		inicio: attributes.inicio,
@@ -136,7 +143,12 @@ m.reportReserves=function(attributes){
 		},{
 			model:db.Pessoas
 		},{
-			model:db.ReservasEdicoes
+			model:db.ReservasEdicoes,
+			include:[{
+				model:db.BarracasChapeus
+			},{
+				model: db.Pessoas
+			}]
 		}],
 		order:[['BarracaChapeusId','DESC']],
 		where: attributes.where
