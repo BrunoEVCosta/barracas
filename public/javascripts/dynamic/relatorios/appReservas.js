@@ -7,6 +7,7 @@ Vue.component("reserva",(resolve,reject)=>{
                 hiddenColumns:Array,
                 rowOptions:Object,
                 userId:String,
+                removeCancelled: Boolean,
             },
             data:function(){
                 return {
@@ -261,6 +262,7 @@ window.app=new Vue({
             chapeu:[{localizacao:"Fila Chapeu 1"}]
         },
         userId:-1,
+        removeCancelled:true
     },
     computed:{
 

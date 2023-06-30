@@ -1,12 +1,11 @@
-tr(:class="{'table-danger': reserva.Cancelado==true}")
+tr(:class="{'table-danger': reserva.Cancelado==true, 'd-none':removeCancelled==true && reserva.Cancelado==true}")
   //TODO function to remove deleted from view
   //TODO if Cancelado show all edits function
   td(v-for="(value,key) of reserva" @click="showFunctions" :class="{'d-none':hideColumn(key)}" )
     p(:class="{" +
       "'fw-bold':key=='nome'," +
       "'d-none':editing," +
-      "'d-none':key=='Cancelado'," +
-      "'d-none':key=='Pago'}"
+      "'d-none':(key=='Cancelado' || key=='Pago')}"
     ) {{ value }}
     div.form-check(v-if="key=='Pago'")
       input.form-check-input(type="checkbox" v-model="reserva.Pago.pago" id="pago" disabled,:title="reserva.Pago.em")

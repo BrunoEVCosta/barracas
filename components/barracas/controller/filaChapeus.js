@@ -33,20 +33,56 @@ module.exports = function(row){
             let startDate=""
             let endDate=""
             let rentId=""
+            let duration=""
+            let annex=row.dataValues.numero.endsWith("A")
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
       			rented=isDateToday(rented	)
                 rentId=res.rows[i].dataValues.Aluguer.dataValues.id
+                if(rented === true){
+                    //Rented is based on today's date
+                    let now=new Date()
+                    let todayDate=getDatePart(now)
+                    startDate=todayDate
+                    endDate=todayDate
+                    duration=res.rows[i].dataValues.Aluguer.dataValues.nome
+                }
       		}catch(err){
       			rented=false
       		}
-            try{
-                startDate=res.rows[i].dataValues.Reserva.dataValues.inicio
-                endDate=res.rows[i].dataValues.Reserva.dataValues.fim
-                reserved=isReserved(startDate,endDate)
-                startDate=getDatePart(startDate)
-                endDate=getDatePart(endDate)
-                //rented=isDateToday(rented )
+            try{ //Reservas
+                let reservas=res.rows[i].dataValues.Reservas
+                if(reservas.length>0) {
+                    for (let [index, reserva] of reservas.entries()){
+                        if (reserva.dataValues.ReservasEdico) {
+                            //Gets last record from editions, which is actually what is desired so it's OK.
+                            //Reservas also uses edicão
+                            let edicao=reserva.dataValues.ReservasEdico
+                            let tempStartDate = edicao.dataValues.inicio
+                            let tempEndDate = edicao.dataValues.fim
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            if(tempIsReserved == true && edicao.dataValues.del==false) {
+                                reserved = reserved === true || tempIsReserved
+                                startDate = getDatePart(tempStartDate)
+                                endDate = getDatePart(tempEndDate)
+                                //TODO get new location if necessary
+                                //Deal with change in location.
+                                //How to know if the change in location was from another row?
+                                //New query to get reserved withing time period that include the metioned item.
+                                //Affects reserves as well
+                            }
+                        } else {
+                            let tempStartDate = reserva.dataValues.inicio
+                            let tempEndDate = reserva.dataValues.fim
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            if(tempIsReserved == true && reserva.dataValues.del==false) {
+                                reserved = reserved === true || tempIsReserved
+                                startDate = getDatePart(tempStartDate)
+                                endDate = getDatePart(tempEndDate)
+                            }
+                        }
+                    }
+                }
             }catch(err){
             reserved=false
             }
