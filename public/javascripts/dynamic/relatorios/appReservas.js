@@ -26,12 +26,37 @@ Vue.component("reserva",(resolve,reject)=>{
 
             },
             methods:{
+                async definirComoPago(){
+                    let data={
+                      reservaId:this.reserva.reservaId,
+                      valor:this.reserva.valor,
+                      pago:true,
+                      operadorId:this.userId
+                    }
+                    let artigoIndefinido= this.reserva.tipo=="Barraca"? "a" : "o"
+                    let dialog=confirm(`Definir ${artigoIndefinido} ${this.reserva.tipo} ${this.reserva['#']} como pago?`)
+                    if (dialog == true) {
+                        let result = await $.ajax({
+                            url: "/api/v1/set/pago",
+                            type: "POST",
+                            dataType: "json",
+                            data,
+                            success: function (data, textStatus, jqXHR) {
+                                if(data.pago){
+                                    if(data.pago==true) location.reload()
+                                }else{
+                                    displayToast("Erro ao definir como pago!",data)
+                                }
+                            }
+                        })
+                    }
+                },
                 async activatePickDate(){
                     $('.cc-revoke').removeClass("cc-bottom")
                     $('.cc-revoke').addClass("cc-top")
                     const DateTime=easepick.DateTime
                     let that=this
-                    let reservas=await this.reservas(this.newItem.espacoId)
+                    let reservas=await this.reservas(this.newItem.id)
                     reservas=reservas.map(d=>{
                         const start = new DateTime(d.inicio, 'YYYY-MM-DD');
                         const end = new DateTime(d.fim, 'YYYY-MM-DD');
@@ -94,7 +119,31 @@ Vue.component("reserva",(resolve,reject)=>{
                     let preposicao= this.reserva.tipo=="Barraca"? "da" : "do"
                     var dialog=confirm(`Tem a certeza que quer cancelar a reserva ${preposicao} ${this.reserva.tipo} ${this.reserva['#']}?`)
                     if (dialog == true) {
-                        //TODO
+                        data={
+                            barracaChapeuId:this.newItem.id,
+                            nome:this.nome,
+                            id:this.reserva.reservaId,  //reserva
+                            inicio:this.inicio,
+                            fim:this.fim,
+                            valor:this.valor,
+                            userId:this.userId,
+                            del:1
+                        }
+                        let that=this
+                        $.ajax({
+                            type:"POST",
+                            url:"/alterar/reserva/datas",
+                            data:data,
+                            dataType:'json',
+                            success: function(data,textStatus,jqXHR){
+                                that.editing=false
+                                location.reload()
+                            },
+                            error: function(err){
+                                let resJSON=err.responseJSON
+                                displayToast(`Erro ${resJSON.name} ao atualizar informação: `,resJSON.original.sqlMessage)
+                            }
+                        })
 
                     }
                 },
@@ -103,32 +152,63 @@ Vue.component("reserva",(resolve,reject)=>{
                     let anoCorrente=now.getFullYear()
                     return await $.get(`/api/v1/reservas/${anoCorrente}/${id}`)
                 },
-                salvarModificacao(){
-
-                    data={
-                        barracaChapeuId:this.newItem.id,
-                        nome:this.nome,
-                        id:this.reserva.reservaId,  //reserva
-                        inicio:this.inicio,
-                        fim:this.fim,
-                        valor:this.valor,
-                        userId:this.userId
-                    }
+                async salvarModificacao(){
                     let that=this
-                    $.ajax({
-                        type:"POST",
-                        url:"/alterar/reserva/datas",
-                        data:data,
-                        dataType:'json',
-                        success: function(data,textStatus,jqXHR){
-                            that.editing=false
-                            location.reload()
-                        },
-                        error: function(err){
-                            let resJSON=err.responseJSON
-                            displayToast(`Erro ${resJSON.name} ao atualizar informação: `,resJSON.original.sqlMessage)
-                        }
-                    })
+                    let reservedNewLocation={created:false}
+                    let editReserve=false
+                    data = {
+                        barracaChapeuId: this.newItem.id,
+                        nome: this.nome,
+                        id: this.reserva.reservaId,  //reserva
+                        inicio: this.inicio,
+                        fim: this.fim,
+                        valor: this.valor,
+                        userId: this.userId
+                    }
+                    if(this.reserva.espacoId != this.newItem.id) {
+
+                        reservedNewLocation=await $.ajax({
+                            type:'POST',
+                            url:"/api/v1/reserve/item",
+                            data:{
+                                barracaChapeusId:data.barracaChapeuId,
+                                nome:data.nome,
+                                inicio:data.inicio,
+                                fim:data.fim,
+                                valor:data.valor,
+                                operadorId:data.userId
+                            },
+                            dataType:'json',
+                            success:function(data,textStatus,jqXHR){
+                                if(data.created){
+                                    return data.created
+                                }else{
+                                    return {created:false}
+                                }
+
+                            },
+                        })
+                        data.del=1
+                    }else{
+                        editReserve=true
+                    }
+                    if(reservedNewLocation.created==true || editReserve==true){
+                        $.ajax({
+                            type:"POST",
+                            url:"/alterar/reserva/datas",
+                            data:data,
+                            dataType:'json',
+                            success: function(data,textStatus,jqXHR){
+                                that.editing=false
+                                location.reload()
+                            },
+                            error: function(err){
+                                let resJSON=err.responseJSON
+                                displayToast(`Erro ${resJSON.name} ao atualizar informação: `,resJSON.original.sqlMessage)
+                            }
+                        })
+                    }
+
                 },
                 showFunctions(){
                     if(this.functions && this.editing==false){

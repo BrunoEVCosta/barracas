@@ -8,6 +8,8 @@ const filaChapeus = require("./../components/barracas/controller/filaChapeus");
 const getRow=require("./../components/barracas/controller/getRow")
 const reservasAno=require('./../components/barracas/controller/relatorioReservasAno')
 const relatorioReservas = require('./../components/barracas/controller/relatorioReservas')
+const criarReserva=require('./../components/barracas/controller/reservarCriar')
+const pago=require('./../components/barracas/controller/pago')
 
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
@@ -25,6 +27,15 @@ router.post('/set/price',isLoggedIn,isAdmin,(req,res)=>{
         res.json(err)
     })
 })
+
+router.post('/set/pago',isLoggedIn,(req,res)=>{
+    pago(req.body).then(data=>{
+        res.json(data)
+    }).catch(err=>{
+        res.json(err)
+    })
+})
+
 router.get('/list/prices',(req,res)=>{
     managePrices.listPrices().then(data=>{
         res.json(data)
@@ -82,6 +93,25 @@ router.get('/reservas/:ano/:espacoId',isLoggedIn,function(req,res,next){
     }).catch(function(err){
         res.status(404).json(err)
     })
+})
+
+router.post('/reserve/item',isLoggedIn, async (req,res)=>{
+    try {
+        let options = {
+            barracaChapeusId: req.body.barracaChapeusId,
+            valor: req.body.valor,
+            inicio: req.body.inicio,
+            fim: req.body.fim,
+            nome: req.body.nome,
+            operadorId: req.body.operadorId,
+        }
+        let result=await criarReserva(options)
+        if (result instanceof Error) throw Error
+        let created=result.dataValues.barracaChapeusId==options.barracaChapeusId
+        res.json({created})
+    }catch (e) {
+        res.json(e)
+    }
 })
 
 router.get('/relatorios/reservas/:ano/:mes',async (req,res)=>{

@@ -51,6 +51,13 @@ m.getRent=function(attributes){
 	})
 }
 
+m.setPago=function(attributes){
+	return db.Pago.create(attributes).catch(err=>{
+		console.log("Error setting as paid: ",err)
+		return err
+	})
+}
+
 m.rentTent=function(attributes){
 	return db.Aluguer
 	.create({
@@ -88,7 +95,7 @@ m.reserveTent=function(attributes){
 		inicio: attributes.startDate,
 		fim: attributes.endDate,
 		valor: attributes.price,
-		operadorId: attributes.userId,
+		operadorId: attributes.userId
 	}).then(function(task){
 		return task.dataValues.id 
 	}).catch(function(err){
@@ -106,12 +113,20 @@ m.reserveEdit=function(attributes){
 		inicio: attributes.inicio,
 		fim: attributes.fim,
 		valor: attributes.valor,
-		operadorId: attributes.userId,		
+		operadorId: attributes.userId,
+		del:attributes.del? attributes.del:0
 	}).then(function(task){
 		return task.dataValues.id 
 	}).catch(function(err){
 		console.log('Reserve Tent - Err: '+ err);
 		return err
+	})
+}
+
+m.reservarCriar=function(attributes){
+	return db.Reservas.create(attributes).catch(e=>{
+		console.log("Criar reserva reserveCriar: ",e)
+		return e
 	})
 }
 
@@ -149,6 +164,8 @@ m.reportReserves=function(attributes){
 			},{
 				model: db.Pessoas
 			}]
+		},{
+			model: db.Pago
 		}],
 		order:[['BarracaChapeusId','DESC']],
 		where: attributes.where

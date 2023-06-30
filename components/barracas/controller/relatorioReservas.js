@@ -28,6 +28,12 @@ module.exports = function(transporter){
 				row.dataValues.reservaId=row.dataValues.id
 				Object.assign(row.dataValues, row.dataValues.BarracasChapeu.dataValues)
 				let espacoId=row.dataValues.id
+				let Pago={pago:false}
+				if(row.dataValues.Pago){
+					Pago.pago=row.dataValues.Pago.pago
+					Pago.valor=row.dataValues.Pago.valor
+					Pago.em=row.dataValues.Pago.em
+				}
 				row.dataValues.pessoa=row.dataValues.Pessoa.nome
 				delete row.dataValues.Pessoa
 				if ( row.dataValues.ReservasEdico != null) {
@@ -55,12 +61,13 @@ module.exports = function(transporter){
 					fim:getDatePart(row.dataValues.fim),
 					"Inicio-Fim":getDatePart(row.dataValues.inicio)+" - "+getDatePart(row.dataValues.fim),
 					valor:row.dataValues.valor,
-					pago:row.dataValues.pago,
+					Pago,
 					Responsavel:row.dataValues.pessoa,
 					operadorId:row.dataValues.operadorId,
 					registo: row.dataValues.registo.toUTCString() ,
 					reservaId:row.dataValues.reservaId,
-					espacoId
+					espacoId,
+					Cancelado:row.dataValues.del
 				}
 			})
 			Object.keys(data).forEach(function(key){

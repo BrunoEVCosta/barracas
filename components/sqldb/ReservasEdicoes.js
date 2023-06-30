@@ -22,6 +22,13 @@
     comentarioId: DataTypes.INTEGER(11),
     operadorId: DataTypes.INTEGER(11),
     em: DataTypes.DATE,
+    del: {
+      type: DataTypes.BOOLEAN(1),
+      autoIncrement: false,
+      primaryKey: false,
+      allowNull: true,
+      unique: false,
+    },
   }, {
       tableName: 'ReservasEdicoes',
       timestamps: false,
@@ -41,6 +48,7 @@
             foreignKey: 'operadorId',              //on ReservasEdicoes
             targetKey: 'id',  //foreign key  
           });
+          //TODO Might be unnecessary because changes will imply cancelation and new entry
           ReservasEdicoes.belongsTo(models.BarracasChapeus, {
             foreignKey: 'barracaChapeu',              //on ReservasEdicoes
             targetKey: 'id',  //foreign key

@@ -2,8 +2,8 @@ var models= require('./../models');
 const db = require("../../sqldb");
 
 m.cancelRent=function(attributes){
-	return db.Aluguer
-		.destroy({
+	return db.Reserva
+		.create({
 			where: attributes.where,
 		}).then(function(task){
 			return task
