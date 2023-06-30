@@ -77,6 +77,7 @@ function getCityAndCountry(ipv4){
     })
 }
 
+
 module.exports = {
     extractMetadataFromLogin,hashPassword,validatePassword,preSalt
 }

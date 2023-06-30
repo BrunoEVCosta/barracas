@@ -44,7 +44,11 @@ module.exports = function(sequelize, DataTypes) {
         Reservas.belongsTo(models.ReservasEdicoes, {
             foreignKey: 'id',              //on ReservasEdicoes
             targetKey: 'reservaId',  //foreign key  
-        }); 
+        });
+        Reservas.belongsTo(models.Pago,{
+            foreignKey: 'id',            //on Reservas
+            targetKey: 'reservaId'
+        })
       }
     },
   });

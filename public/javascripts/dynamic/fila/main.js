@@ -44,27 +44,34 @@ Vue.component("collapse",(resolve,reject)=>{
                     let now=new Date()
                     let anoCorrente=now.getFullYear()
                     let mesCorrente=this.pad((now.getMonth()+1),2)
-                    return await $.get(`/relatorios/reservas/${anoCorrente}/${mesCorrente}/${id}`)
+                    return await $.get(`/api/v1/reservas/${anoCorrente}/${id}`)
                 },
                 async reservar(){
                     let collapse=this.$el
                     let that=this
-
+                    $('.cc-revoke').removeClass("cc-bottom")
+                    $('.cc-revoke').addClass("cc-top")
                     const DateTime=easepick.DateTime
                     let reservas=await this.reservas(this.item.id)
-                    reservas=reservas.dados.rows.map(d=>{
+                    reservas=reservas.map(d=>{
                         const start = new DateTime(d.inicio, 'YYYY-MM-DD');
                         const end = new DateTime(d.fim, 'YYYY-MM-DD');
 
                         return [start, end];
-                    })//todo set to blank in case of empty
+                    })
+                    let plugins=[]
+                    if(reservas.length==0){
+                        plugins=['RangePlugin']
+                    }else{
+                        plugins=['RangePlugin', 'LockPlugin']
+                    }
                     const picker = new easepick.easepick.create({
                         element: document.getElementById('datepicker'),
                         css: [
                             'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
                             'https://easepick.com/css/demo_hotelcal.css',
                         ],
-                        plugins: ['RangePlugin', 'LockPlugin'],
+                        plugins,
                         RangePlugin: {
                             tooltipNumber(num) {
                                 return num - 1;
@@ -99,6 +106,8 @@ Vue.component("collapse",(resolve,reject)=>{
                     
 
                     $('.modal#reserveTent button.reservar').click(function(){
+                        $('.cc-revoke').removeClass("cc-top")
+                        $('.cc-revoke').addClass("cc-bottom")
                         //TODO verify has date
                         var name=$('.modal#reserveTent input#name').val()
                         var duration=$('.modal#reserveTent .date#datepicker').val()

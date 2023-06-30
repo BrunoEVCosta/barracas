@@ -11,7 +11,8 @@
         strong.text-center {{item.startDate}}
         span.text-center até:
         strong.text-center.mt-0.mb-2 {{item.endDate}}
-        .d-grid
+        //TODO make a view for this button
+        //.d-grid
             button.btn.btn-warning(@click="mudarAluguer") Mudar aluguer
     //Allows re-rent
     .alugar.card.card-body(v-if="Object.keys(precos).length>0")
@@ -26,4 +27,4 @@
                     input.form-control(id="otherValue",type="number",min="0.00",step="0.50",size="3",v-model="outroPreco" )
                     .input-group-text €
                 .d-grid
-                    .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar Por Este Valor
+                    .btn.btn-primary.btn-lg.otherValue(:price="outroPreco",duracao="Dia",@click="alugar") Alugar por {{outroPreco}}€

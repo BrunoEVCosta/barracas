@@ -1,11 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const {isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
+const {getUserId, isLoggedIn,isAdmin}=require('./../components/auth/fullAccess')
 const listRows = require("./../components/barracas/controller/listRows");
 const managePrices = require("./../components/barracas/controller/prices");
 const filaBarracas = require("./../components/barracas/controller/filaBarracas");
 const filaChapeus = require("./../components/barracas/controller/filaChapeus");
 const getRow=require("./../components/barracas/controller/getRow")
+const reservasAno=require('./../components/barracas/controller/relatorioReservasAno')
+const relatorioReservas = require('./../components/barracas/controller/relatorioReservas')
+const criarReserva=require('./../components/barracas/controller/reservarCriar')
+const pago=require('./../components/barracas/controller/pago')
 
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
@@ -23,6 +27,15 @@ router.post('/set/price',isLoggedIn,isAdmin,(req,res)=>{
         res.json(err)
     })
 })
+
+router.post('/set/pago',isLoggedIn,(req,res)=>{
+    pago(req.body).then(data=>{
+        res.json(data)
+    }).catch(err=>{
+        res.json(err)
+    })
+})
+
 router.get('/list/prices',(req,res)=>{
     managePrices.listPrices().then(data=>{
         res.json(data)
@@ -73,7 +86,52 @@ router.get('/get-row/:tipo/:numero',async (req,res)=>{
     }
 })
 
+router.get('/reservas/:ano/:espacoId',isLoggedIn,function(req,res,next){
+    var options=req.params;
+    reservasAno(options).then(dados=>{
+        res.json(dados)
+    }).catch(function(err){
+        res.status(404).json(err)
+    })
+})
+
+router.post('/reserve/item',isLoggedIn, async (req,res)=>{
+    try {
+        let options = {
+            barracaChapeusId: req.body.barracaChapeusId,
+            valor: req.body.valor,
+            inicio: req.body.inicio,
+            fim: req.body.fim,
+            nome: req.body.nome,
+            operadorId: req.body.operadorId,
+        }
+        let result=await criarReserva(options)
+        if (result instanceof Error) throw Error
+        let created=result.dataValues.barracaChapeusId==options.barracaChapeusId
+        res.json({created})
+    }catch (e) {
+        res.json(e)
+    }
+})
+
+router.get('/relatorios/reservas/:ano/:mes',async (req,res)=>{
+    let options=req.params
+    try{
+        let results=await relatorioReservas(options)
+        res.json(results)
+    }catch (e) {
+        res.json({error:{msg:e.message}})
+    }
+
+})
+
 router.post('/check/availability',async (req,res)=>{
     const {id,startDate,endDate}=req.body
 })
+
+router.get('/get/userId',isLoggedIn,(req,res)=>{
+    let userId=getUserId(req,res)
+    res.json({userId})
+})
+
 module.exports = router
