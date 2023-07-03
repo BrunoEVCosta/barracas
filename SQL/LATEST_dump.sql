@@ -37,7 +37,7 @@ CREATE TABLE `Acesso` (
   PRIMARY KEY (`id`),
   KEY `Acesso_fk0` (`pessoasId`),
   CONSTRAINT `Acesso_fk0` FOREIGN KEY (`pessoasId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=405 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=418 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,7 +413,20 @@ INSERT INTO `Acesso` VALUES
 (401,9,'2023-07-02 14:19:17','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','x02tarwm0fn6501rfhi6a75d7rs09a3cxd9whxqwcnqvae4vvcgdcqblz3t06b',1,NULL),
 (402,1,'2023-07-02 14:35:45','109.48.247.176','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Almada','NOS COMUNICACOES S.A','yqt6j6bw1wi90opfzh6k0xqoko8hay6uk50ygb42br9akul1up4g1atco8ws4h',1,NULL),
 (403,6,'2023-07-02 14:36:31','87.196.74.68','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','b6wsnce32jjf5iautuu3weaz115mweut9j8bwilgtcb7fvetz5vgtdi7hbms7p',1,NULL),
-(404,9,'2023-07-02 14:38:26','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','ge2hpl4vfym3j1qar3oosafr8vnpj3aaoeozv8xwz3d5zspuwwwww18k7nccr5',1,NULL);
+(404,9,'2023-07-02 14:38:26','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','ge2hpl4vfym3j1qar3oosafr8vnpj3aaoeozv8xwz3d5zspuwwwww18k7nccr5',1,NULL),
+(405,9,'2023-07-02 15:18:31','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','oo9n1wu52qq7pl6dog0s6hg9sfx9mdl2fdutb4sucszt6c3cgzvfjwp22h24yv',1,NULL),
+(406,9,'2023-07-02 15:39:41','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','6criueta186px1rmmwbdarjcd16y88ayfgc95rl9oi79jm1j0ig5eo3sqq0rfb',1,NULL),
+(407,9,'2023-07-02 15:43:29','87.196.73.216','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','6rw1mcmxatosrarjd5fb55n3nvx3zt3uuioicn57jk3377ks5rttjbhmbf7sd5',1,NULL),
+(408,1,'2023-07-02 16:35:49','87.196.72.79','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Lisbon','NOS COMUNICACOES S.A','dpj48yw7k7p7yf1wwubkjds9kd7ijhyi7wl8sfqo4b1qu89vpzclvosxz7r5o2',1,NULL),
+(409,9,'2023-07-02 18:44:14','87.196.72.239','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','xw9vzn80q3pkmo6j5c4gvb4yp4gc2frx6x37qglbxdswiqbd7qzn7oewsl39u4',1,NULL),
+(410,9,'2023-07-02 19:49:49','85.138.83.74','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Caldas da Rainha','NOS COMUNICACOES S.A','9pr3z6eepm2h3yry26aqu1u1namsznqg1oct28r6f96bgf1am5134dfl1mebqz',1,NULL),
+(411,9,'2023-07-03 06:52:17','85.138.83.74','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Caldas da Rainha','NOS COMUNICACOES S.A','i46ndqtgpr3jhf17o0q7aliacv1q9e710wr5eoj2ld3n2j8e9qsw1y89916jy8',1,NULL),
+(412,9,'2023-07-03 07:58:14','87.196.74.231','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','57pih23p8mcmdzuk80sdlh95gzqeh7r332r42cbxaarnfwkm0v97knpnap48c5',1,NULL),
+(413,9,'2023-07-03 10:07:15','87.196.74.231','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','l8s8z74a1csr23036k7nfgyg9mf6y619df1qupjzznxfpz16hatsfa9f24ltnw',1,NULL),
+(414,6,'2023-07-03 10:49:21','87.196.75.56','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','oernp8n8fu70c3awexbbe7sdtc3zd2jzquuj56c6geym5ibiix3futw21q5am7',1,NULL),
+(415,9,'2023-07-03 11:26:11','87.196.74.231','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','swq8o4072moiqxoy563z1z7k4rzvgmncv6gatpyupqnf7cpl3nfzox5mj1416s',1,NULL),
+(416,9,'2023-07-03 13:57:34','87.196.73.206','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1pyogyf6fevsg3iv9lb17l9ws4jk0xkiow13gm7nw0bfy5p9hj0i5672rk0mmh',1,NULL),
+(417,9,'2023-07-03 15:20:29','87.196.73.206','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8coqugo5z359nxhz26bhe6sgucsktqcnx9tyk5m4txs5cma2ka6zntp9tj64tl',1,NULL);
 /*!40000 ALTER TABLE `Acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +455,7 @@ CREATE TABLE `Aluguer` (
   CONSTRAINT `Aluguer_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
   CONSTRAINT `Aluguer_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `Aluguer_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=786 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=792 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1210,7 +1223,13 @@ INSERT INTO `Aluguer` VALUES
 (782,42,'Tarde','2023-07-02 12:59:01',6,NULL,999999,999999,9,'2023-07-02 12:59:01'),
 (783,61,'Tarde','2023-07-02 12:59:17',10,NULL,999999,999999,9,'2023-07-02 12:59:17'),
 (784,57,'Tarde','2023-07-02 14:10:17',10,NULL,999999,999999,9,'2023-07-02 14:10:17'),
-(785,18,'Tarde','2023-07-02 14:10:40',6,NULL,999999,999999,9,'2023-07-02 14:10:40');
+(785,18,'Tarde','2023-07-02 14:10:40',6,NULL,999999,999999,9,'2023-07-02 14:10:40'),
+(786,10,'Tarde','2023-07-02 15:18:56',6,NULL,999999,999999,9,'2023-07-02 15:18:56'),
+(787,63,'Tarde','2023-07-02 15:30:19',10,NULL,999999,999999,9,'2023-07-02 15:30:19'),
+(788,64,'Tarde','2023-07-02 15:30:23',10,NULL,999999,999999,9,'2023-07-02 15:30:23'),
+(789,32,'Tarde','2023-07-02 15:30:55',6,NULL,999999,999999,9,'2023-07-02 15:30:55'),
+(790,60,'Dia','2023-07-03 11:26:33',12,NULL,999999,999999,9,'2023-07-03 11:26:33'),
+(791,57,'Dia','2023-07-03 13:57:52',8,NULL,999999,999999,9,'2023-07-03 13:57:52');
 /*!40000 ALTER TABLE `Aluguer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1495,7 +1514,7 @@ CREATE TABLE `Reservas` (
   CONSTRAINT `Reservas_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
   CONSTRAINT `Reservas_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `Reservas_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1587,7 +1606,10 @@ INSERT INTO `Reservas` VALUES
 (117,47,'Alenquer','2023-07-04','2023-07-07',15,NULL,8,'2023-07-01 13:32:59',0),
 (118,15,'Augusto Gaspar ','2023-07-01','2023-07-15',90,NULL,9,'2023-07-01 13:48:06',0),
 (119,5,'Alexandre Pedro ','2023-07-02','2023-07-31',130,NULL,9,'2023-07-01 16:45:40',0),
-(120,35,'Jorge Lopes ','2023-07-02','2023-07-15',90,NULL,9,'2023-07-01 17:08:21',0);
+(120,35,'Jorge Lopes ','2023-07-02','2023-07-15',90,NULL,9,'2023-07-01 17:08:21',0),
+(121,57,'D. Fernanda','2023-07-08','2023-07-14',8,NULL,8,'2023-07-03 06:43:34',0),
+(122,6,'Alexandre Pedro ','2023-07-02','2023-07-31',130,NULL,9,'2023-07-03 08:39:37',0),
+(123,4,'','2023-07-03','2023-07-07',0,NULL,8,'2023-07-03 15:37:32',0);
 /*!40000 ALTER TABLE `Reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1617,7 +1639,7 @@ CREATE TABLE `ReservasEdicoes` (
   CONSTRAINT `ReservasEdicoes_fk0` FOREIGN KEY (`reservaId`) REFERENCES `Reservas` (`id`),
   CONSTRAINT `ReservasEdicoes_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `ReservasEdicoes_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1653,7 +1675,8 @@ INSERT INTO `ReservasEdicoes` VALUES
 (30,46,'Alenquer','2023-07-04','2023-07-06',15,116,NULL,8,'2023-07-01 13:36:03',0),
 (31,48,'Alenquer','2023-07-03','2023-07-07',25,115,NULL,8,'2023-07-01 13:37:56',0),
 (32,46,'Alenquer','2023-07-04','2023-07-07',15,116,NULL,8,'2023-07-01 13:40:15',0),
-(33,46,'Alenquer','2023-07-04','2023-07-07',15,116,NULL,1,'2023-07-01 13:51:27',0);
+(33,46,'Alenquer','2023-07-04','2023-07-07',15,116,NULL,1,'2023-07-01 13:51:27',0),
+(34,6,'Alexandre Pedro ','2023-07-02','2023-07-31',130,119,NULL,9,'2023-07-03 08:39:37',1);
 /*!40000 ALTER TABLE `ReservasEdicoes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1666,4 +1689,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-02 15:40:35
+-- Dump completed on 2023-07-03 16:53:03
