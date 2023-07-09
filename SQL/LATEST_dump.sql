@@ -1,4 +1,4 @@
--- MariaDB dump 10.19  Distrib 10.11.4-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.19-11.0.2-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: barracas
 -- ------------------------------------------------------
@@ -37,7 +37,7 @@ CREATE TABLE `Acesso` (
   PRIMARY KEY (`id`),
   KEY `Acesso_fk0` (`pessoasId`),
   CONSTRAINT `Acesso_fk0` FOREIGN KEY (`pessoasId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=418 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=519 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +426,108 @@ INSERT INTO `Acesso` VALUES
 (414,6,'2023-07-03 10:49:21','87.196.75.56','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','oernp8n8fu70c3awexbbe7sdtc3zd2jzquuj56c6geym5ibiix3futw21q5am7',1,NULL),
 (415,9,'2023-07-03 11:26:11','87.196.74.231','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','swq8o4072moiqxoy563z1z7k4rzvgmncv6gatpyupqnf7cpl3nfzox5mj1416s',1,NULL),
 (416,9,'2023-07-03 13:57:34','87.196.73.206','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1pyogyf6fevsg3iv9lb17l9ws4jk0xkiow13gm7nw0bfy5p9hj0i5672rk0mmh',1,NULL),
-(417,9,'2023-07-03 15:20:29','87.196.73.206','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8coqugo5z359nxhz26bhe6sgucsktqcnx9tyk5m4txs5cma2ka6zntp9tj64tl',1,NULL);
+(417,9,'2023-07-03 15:20:29','87.196.73.206','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8coqugo5z359nxhz26bhe6sgucsktqcnx9tyk5m4txs5cma2ka6zntp9tj64tl',1,NULL),
+(418,9,'2023-07-03 17:32:21','87.196.75.71','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','b4dk52ux3nnpj8dieuvyby2zazbc5qpejgw9t83xsxpg1oth6ryqxoj3l9o2nu',1,NULL),
+(419,9,'2023-07-03 17:36:24','87.196.75.71','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','6nh7ik4ikj79dnr7m81g5etisosbp2q9v5i2femnsr74adc3vbeeqtuvujwa15',1,NULL),
+(420,9,'2023-07-03 18:00:11','87.196.75.71','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','qswq0ulxlc9sw5bgrcmp42fz869nlrb1eyt53jxbkf275p26md5fawzsoxfvt7',1,NULL),
+(421,6,'2023-07-03 18:02:48','87.196.75.56','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','c53g0bi8bz98r61nbui6hbhfedztwp8jzcj4cxhjjzhkyka0nuo6itlg4jgvp5',1,NULL),
+(422,9,'2023-07-04 09:28:06','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','rn0xxi2zt106qddbve0myarh1ewxtemn3bybhlbo479zpce6ictt936p52jpgs',1,NULL),
+(423,9,'2023-07-04 09:55:03','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','aiqjm71nq9jj56aifwpril6ze8n0ctbnk6bzoniw7nc6yarkv8dxnntoz7j9n9',1,NULL),
+(424,9,'2023-07-04 10:06:39','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','fftluqspaa3mnnxp0ps7oceonxalkx5wfj2v2j2cnx9ef7urfkdukgd6gkfk3o',1,NULL),
+(425,9,'2023-07-04 10:32:38','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','o5lppbbfn08f7jcr0ancjqnrl9ntclhbh6rcbwevtf3ww8eza65nb9yndl25c5',1,NULL),
+(426,9,'2023-07-04 10:58:42','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','xjovcv4zj18ff97mm6vk4dhla5lqn5kr3vn9wx9lptunjw61pktin25y8ea4kr',1,NULL),
+(427,9,'2023-07-04 12:49:00','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','apk5kifqwv0a28bm59hha9s8d7eeha70ngeb5ueutazybmxc1akpeq3nx4qjfw',1,NULL),
+(428,9,'2023-07-04 12:50:32','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','78670gt9gs1a7alsauybvs09fxcxp6c2y6i79n91xsfij3veb2o2fyloieadze',1,NULL),
+(429,9,'2023-07-04 13:08:20','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','10ra1ef7mm525y7elfmusl4o6pahxd43p9bii9zdgsxyvc8687t9ifej6rzz32',1,NULL),
+(430,9,'2023-07-04 13:50:52','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','96ri63vwhdss50fh1e7ht8yl4pby4bltumikrrty5x960jbmi7pyu30qn7tscr',1,NULL),
+(431,9,'2023-07-04 14:12:51','87.196.72.41','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','fghew1ercjvr80mjjjhzbrkpcv981ujs9led0mngobkn14k7l29bwfo3e0pep8',1,NULL),
+(432,6,'2023-07-04 14:44:57','87.196.73.79','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','lehq0ykiu6hkvp149drjrh80nq9hz4keeit8pqen2iqpk5m1hjtiraguxv6sut',1,NULL),
+(433,9,'2023-07-04 16:10:02','87.196.74.107','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8mnu95poa7phfsjqi9hgjdbh3j29az6m0rvza88ykon2zxylod0dy04smjrx86',1,NULL),
+(434,9,'2023-07-04 16:55:58','87.196.74.107','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','ys55zbmo5za2lud2564bljz0i31657m10kl7f9m5vb1mkrj0uzqsp64x4fi8o5',1,NULL),
+(435,9,'2023-07-04 18:38:31','87.196.73.94','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','dqxmd7jkkxm7avfpbuyotyltehpfqfl45pwic6ikznl1kbm28tuth6z8ltcxm5',1,NULL),
+(436,9,'2023-07-05 08:45:40','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1aaetfwk0a7888y8rclhyyi7vf49tk9mgym8f7yiyn59odoviiat13fc74euyd',1,NULL),
+(437,9,'2023-07-05 11:00:03','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','3c4aibzk4pbc63dlicht616hmdwuqf7wdqb5q8r3npc1aaugc702i1h1m5h5oa',1,NULL),
+(438,9,'2023-07-05 11:08:38','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8w3g4ky199sak53ixuqi9lll5fg4gczo351xv6ipynkj48jofox5g00o49vsxk',1,NULL),
+(439,9,'2023-07-05 11:23:29','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','ftftpc54rio5tig69mhg6b33mhsqmegq3mv6w8g4br6nl1cr9rol0us5cpri8t',1,NULL),
+(440,9,'2023-07-05 11:31:08','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','i2xt2h8glihy4u777y4ymzort4lfvmfsikrgtsoyhp72yk1eq1bf4yeq1oedhz',1,NULL),
+(441,9,'2023-07-05 11:44:40','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','vnh1vyq55dwb4l54idei29ibmiqelueua5vrgjhabptal7twqa67w2zoxoluq1',1,NULL),
+(442,9,'2023-07-05 13:57:18','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','914035agerug70ub1xl7yhod95i0m41klwmicnam4oaf3c7ml8oeeqx0it541v',1,NULL),
+(443,9,'2023-07-05 14:23:39','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','h20exyyi3dfaq7cm5skqks7jf89focbx25hjk1yybyuzii4cojdlu4vroxi4m8',1,NULL),
+(444,9,'2023-07-05 14:24:14','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','3wt8j43adzgjpf30kjgfnrg1rpv1v66ydxfnzrfyoc9cpvqo0jz1ri4i42ccon',1,NULL),
+(445,9,'2023-07-05 14:27:23','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1hjwtfsxsbq8vdic1k8fcedo5sgyc6k1grfwv7ovrbdk93frcqpbnqn07wvp22',1,NULL),
+(446,9,'2023-07-05 14:43:37','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','3y7xeusbjh0lzf0nhh0tv2cxtnztz8yi8ha1hob7mf6lotl5dinxtf552myefv',1,NULL),
+(447,6,'2023-07-05 15:14:40','87.196.73.177','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','fikqux95lgqwnrqczo5oz6qovlt37s3n7nphtjlls8lukyisoozb9696xgn7t7',1,NULL),
+(448,9,'2023-07-05 15:41:52','87.196.74.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','03jr7yt0qle2j6jakytiq32qosp29okaftc7jmyli9979rakbbq8h33vgawjzx',1,NULL),
+(449,6,'2023-07-05 20:58:47','217.129.234.45','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Caldas da Rainha','Nowo Communications','5j59xopydhho3giaxu9o7nurwuqkaadnje88o7y61l5xvf3d18glcwogi30whh',1,NULL),
+(450,9,'2023-07-06 09:47:46','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','m86lgm6fkjgsiqt3lmhkcny2i4dbbkwxjbph2mw0ph8wp7qy8ohoccni6v67f1',1,NULL),
+(451,9,'2023-07-06 09:52:26','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','jyj3ebevw1et91e9zj99r244lbz54ls1uxn1h23yh4igr8c6g4v97k96x1ltfa',1,NULL),
+(452,9,'2023-07-06 10:33:21','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','kby20l2i2rd9w19ipzs0b102jqe02p0yv3daxlj06mpw9dr5d0iojl81yjokqd',1,NULL),
+(453,9,'2023-07-06 11:05:38','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8xlfh9neubb6bncixjhgag5kpyrn5bphp9wq1ctup41fhy3x3bahukkzgdlm9t',1,NULL),
+(454,9,'2023-07-06 11:12:44','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','9q9dmuwhi9vsd1kvohvx24fi6o7f5n8ix7faev9pjekbqpho4trtrwav877a3m',1,NULL),
+(455,9,'2023-07-06 11:17:36','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','wrirrcou6ybll9oc0fgul7eztym8zuu5pbdyjg3tmjrizfg3uws6jdyrp0l5ve',1,NULL),
+(456,9,'2023-07-06 11:25:37','87.196.74.187','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','5dhxvfpcfzaufhb89rgudf0suk4uild1p37m2cf6g4gcf443v0cb8wxfiqiywo',1,NULL),
+(457,9,'2023-07-06 13:42:48','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','j54odvoq7dd9kc6ed8ljtvohfih9ilm8jw38pa4jiy057nr3o9buqsllwxjxlm',1,NULL),
+(458,9,'2023-07-06 13:50:43','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','f08jlmjsbe0l970gtwg8tu4mmwwi4jw3zkg7a5n87dcurob42usk8et17azcnx',1,NULL),
+(459,9,'2023-07-06 14:58:11','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','plr7ckpq2zqnhdn49sfxoijav5zwwbpak33d2wwvcucrhko5ouh00tkbegspqr',1,NULL),
+(460,9,'2023-07-06 15:12:30','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','b5fpl6ul4lnn0zji1tvmz83qmtf19n0n17tljc9decfz4c4gptb7nkp9j1og5x',1,NULL),
+(461,6,'2023-07-06 15:13:18','87.196.75.43','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','fa2vccjbjfyr0w119c7pc60wlwhthzv4s3rl54sfqu31umbe908cl1knzhmola',1,NULL),
+(462,9,'2023-07-06 15:15:31','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','k18cs1o56gvmlwoed66edoz4g6nts35vfaes4ljvfmz0n2m67ptxcsdmbfun90',1,NULL),
+(463,9,'2023-07-06 15:26:02','87.196.74.13','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','merl0d9j1moitp5b8w8gfz0exom55i05vbbailat6g57d86t8zcwhsz7td7gwc',1,NULL),
+(464,9,'2023-07-06 18:07:29','87.196.74.74','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1m70fg0crbbf6nkf0xme7rvzey2c9ttbjyd8s0zhk81u1psgbgyunmrb3uohfx',1,NULL),
+(465,6,'2023-07-07 06:22:41','217.129.234.45','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Caldas da Rainha','Nowo Communications','boyf6bz465ksuozplqgxhwx8am30ni4m2rw33i7in0e3sqobjqy26a5wzua1mm',1,NULL),
+(466,9,'2023-07-07 07:30:36','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','5if44sh3rhz6ah2csunji2l1rgxvql26r3tyhjxbkp7s0usrmzghdn99p666pf',1,NULL),
+(467,9,'2023-07-07 09:54:12','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','0zkrhveto4jf9bhx66mwl107h9vcqxhujiz78cw0ni6310iwbzchiwiyme2dse',1,NULL),
+(468,9,'2023-07-07 10:49:08','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','rpc377byqd9k23qe0fahrnzmx1jax1lthsl3r5sjn8u7lycpewkjy97h40foss',1,NULL),
+(469,9,'2023-07-07 11:00:19','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','hw64f0ccb2wpywzhyf0b3smzo4lg1hpjcm13x6jzr72w2ac3se7p67l7cio54q',1,NULL),
+(470,9,'2023-07-07 11:06:04','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','yneumsa4p06fim762vb3b5s2cp0phowlnkgocqhaf142q4ymcgxk2c1ewqxbge',1,NULL),
+(471,9,'2023-07-07 11:23:10','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','27xaxo8zmmyvmqkcg4gxkduyrq7pak3scgi9zmbtkavu4gmgjahv57lomodufm',1,NULL),
+(472,9,'2023-07-07 11:56:09','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','5ogpuiuouhtgdzcfh6mn2094ipwvz9dak97t1woxa36ll8wyuzg6idskoq6xa1',1,NULL),
+(473,9,'2023-07-07 12:15:36','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','pff4p96p2xucdr7i57hakzvedtalu2cvjlcobevmxzv98cdqpi9y0zndgzrh87',1,NULL),
+(474,9,'2023-07-07 15:02:16','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','hrevy45bb0qmll33loax2ah2fgzuyci7qtednrhcmuizpdgsb8z4xsii12dkt1',1,NULL),
+(475,9,'2023-07-07 15:37:56','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','uuq21i0zzfiwg955lqqogipg9rt29z7g5erqund8yw6itv0dba5kvws7adewlt',1,NULL),
+(476,9,'2023-07-07 16:46:15','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','xo7f82ar9rb3xxxmalcg9me96bcf180uwi8n682eak95ct2q3f3qi3ldatn3r0',1,NULL),
+(477,9,'2023-07-07 16:48:17','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','qlib3ue6r85ezapf53ngi550ayf86bt5aojgu08jtzsp6dmvhoxj2v9xw238iw',1,NULL),
+(478,9,'2023-07-07 17:48:08','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','15ur95z26c40b2rgomtxxjai3z95hk0m6lafglme8ndgjv2vx2pijcclcid8q7',1,NULL),
+(479,9,'2023-07-07 18:18:48','87.196.73.255','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','i72auoa3ar06cmy22fnz7d8y9c7zxz0fwxy6hdzp4dv1rsxedqmwbwnxb1ci4k',1,NULL),
+(480,9,'2023-07-08 08:21:33','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','nglib4ksnjwqeiaf79ojz6hb8nqozpck39sefw5lecco5zuoy6f18v6n2jr5g3',1,NULL),
+(481,9,'2023-07-08 09:53:11','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','a07bgx8t7on2i2letf8csi7k0g8ppe60fl03fuxu1triljkg36sbzquuau0gqs',1,NULL),
+(482,9,'2023-07-08 10:23:15','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','n2icfa83b993kf7pqchffvmnhuwha4mhthkl5hnlvnmtcjm4oyeco3ex4lw74a',1,NULL),
+(483,9,'2023-07-08 11:22:44','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','kzq4jndtsczrthv2p1pj7r3xfjxzfl17463k36zuykq88vyurrsv5w9zs8un62',1,NULL),
+(484,9,'2023-07-08 13:15:27','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','1v5buml7doutn5eaidzpvsayu0z3edynis9oxny5z64j26ti6z2xuzlrz5hwg9',1,NULL),
+(485,9,'2023-07-08 13:29:16','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','bg8lig3n06bgu7pp5prbde37svdzh2kx39nh6rqifth7qhwt3g2z0svwpt2vqz',1,NULL),
+(486,9,'2023-07-08 13:53:13','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','kds66lvlwt39mx6jtmmuv6c1wdyr6t4qlki34cstqglpe10jqontpcilu4ggnm',1,NULL),
+(487,9,'2023-07-08 14:43:34','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','j18waqt88fypxlkqj9rk8wt3q8xnlncguabih9hx7o25d0pg7y8g98l3173j19',1,NULL),
+(488,6,'2023-07-08 15:06:59','87.196.72.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','v14tpu0xc7up5t6f29rrospshutzotb4tc09nvq2wyts1d9cy5bjhrro07naf7',1,NULL),
+(489,9,'2023-07-08 15:18:01','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','kyh85dv94uugmodp4y1t8euskyb389z6slfey7cl58yc3k5v3aok4951ulcb2z',1,NULL),
+(490,9,'2023-07-08 15:33:19','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','yt401q8ruz95wtijgo8lr499o7ujit2z0xywnxbah47knwj2riz2daest2ozgl',1,NULL),
+(491,9,'2023-07-08 15:44:31','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','w4odn4kqki24h1qn9p5homfi18my8li6fxpd7aohptsa6kremv0w6muuzocqwl',1,NULL),
+(492,1,'2023-07-08 17:00:02','109.48.247.176','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Almada','NOS COMUNICACOES S.A','hmqpvh8joswgsi2aj7bw27samxh1zu6iu4yxdxpnfyq1oabhzo6g7mg492d8vc',1,NULL),
+(493,6,'2023-07-08 17:45:58','87.196.72.93','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','rpc3jeund9s1qkk2mfpql3yv63xrsugfebbahm8tq8xnp1jlidwfyhqr3c832y',1,NULL),
+(494,9,'2023-07-08 18:07:43','87.196.74.95','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','2mf2vq28pomu4xt57nb3q2ocubpk002rrzjznrdyzyg4bzg8tnttptle2edpsu',1,NULL),
+(495,1,'2023-07-08 20:07:30','109.48.247.176','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Almada','NOS COMUNICACOES S.A','dzp2k2mjvxu6yhut7jyu8i7sw4acroch375rmkvnhr72iif3hzi5tqds56kyxa',1,NULL),
+(496,1,'2023-07-08 22:00:13','109.48.247.176','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Almada','NOS COMUNICACOES S.A','4nidfrpo8n5dv2rn4nh8c8shbtftltldesqlo15h4ieljcp8xmrdms1d93dfdu',1,NULL),
+(497,1,'2023-07-08 22:18:20','109.48.247.176','Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1','Portugal','Almada','NOS COMUNICACOES S.A','0mc579k4l0fzbx382sd0g566jqbw4r3k1i7lwe6kd9m68aut64dqx6lws7hett',1,NULL),
+(498,9,'2023-07-09 08:17:27','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8nfk0llpecx1chizweoge1m8ryia7gc6k2e6tsherrd6mcq7ytjkb0ccrq5lhq',1,NULL),
+(499,6,'2023-07-09 09:55:11','87.196.74.31','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','w3w72rq4bvw43sm39eq2jep6f39s8stnhqa29meogdsqewoostpqxbzpywxqib',1,NULL),
+(500,9,'2023-07-09 11:13:26','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','wruw7kd9sbvx7nvs310nv2zds9p2frt25hdtedppb7h9lvfgc6s4csin0mzwm2',1,NULL),
+(501,9,'2023-07-09 11:48:40','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','4da872yim8ny7fo5ai0dpooxprqj94jm261ajl8ebajnicj3sx8rwu1mc5mc7y',1,NULL),
+(502,9,'2023-07-09 11:50:26','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','tpuubb4o00buzugmvqdjw8dyo0iofc33g8qev9igl5z82ey9ov02c15zydc3bv',1,NULL),
+(503,9,'2023-07-09 12:12:45','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','v49zci5a3a2ydzxkb1xr6ls6qeqjfzdct1gw0fbk1xo4179xxbugfhtrqw0ohr',1,NULL),
+(504,9,'2023-07-09 13:01:54','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','k9xbj0bzksjyps76s1n9zow77ac118ck7f1ky9du40fmzurkwoo122wmp3jl6j',1,NULL),
+(505,9,'2023-07-09 13:08:27','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','5q9utga8xvp5rfg8g38snl6zplk1fbp1pp5ktcnyxm3c9hm4qqkau12m7yppl9',1,NULL),
+(506,9,'2023-07-09 13:21:07','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','7cfqjztkot60ratfbf1hqkne85lc8gvr6wuqf9npu1u4zt5qa9tu31igq2yb0c',1,NULL),
+(507,9,'2023-07-09 13:38:03','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','0100p6u739lr30ratuqgs5yi7y51jgao325q7z1hg65n72slfrnxdz81szq26w',1,NULL),
+(508,9,'2023-07-09 13:39:04','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','lsraybd83nbscj5v5vdu0ljop2kf46op9gn5kopsioq562w525smocxra9ifgj',1,NULL),
+(509,9,'2023-07-09 13:53:02','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','8f8kam2yuwbprhax3trk8kthvajtyf6gauu7o8buawqo5o3swl924qxzei5zsd',1,NULL),
+(510,9,'2023-07-09 13:56:07','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','zftyea0pxko5j39w6s96pbcobyq8p6pi37y75vkxhipta45kvle73jsimzywnu',1,NULL),
+(511,9,'2023-07-09 14:24:57','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','oofosd15eu6d1tuy5emdzqns2wfmiar82wnv4cy2ysejby25z3bvaonc9fuspc',1,NULL),
+(512,9,'2023-07-09 14:34:47','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','oyuydzgyjfldta87anks6zbebqvcz578ayrxttyl7onx1oev7uy9xduqnkgjkm',1,NULL),
+(513,9,'2023-07-09 14:40:43','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','12hq7o84s9krsbfbf6i2mrjreoudwwv5przj3mlkx31kii1e09jvzblw60vnia',1,NULL),
+(514,6,'2023-07-09 15:27:24','87.196.74.31','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','0jhywrsmmne9k2g3x3l0058hy6vb525ptv6gizycmk7o7u19faimo3baxnnvo2',1,NULL),
+(515,9,'2023-07-09 15:45:53','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','cx7b1j60e9cntgu7ebd7t8iqyckxebdso722640fbwklvb39475pwon8u9lv6b',1,NULL),
+(516,9,'2023-07-09 15:47:38','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','h48fpvn61jtlu5bc1o38ibf6numo1kt8y23xdtq7w70sr08zijrnykdus5rgr3',1,NULL),
+(517,9,'2023-07-09 16:48:37','87.196.73.21','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','ihew9veyxkv63ot8ns6wkc1dw02emafd56wtnfcnoxw3wohjntwkzpfonqbo3p',1,NULL),
+(518,9,'2023-07-09 19:11:52','87.196.74.253','Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36','Portugal','Lisbon','NOS COMUNICACOES S.A','tzv51i75hk7qbvbus6htkqqv8pajek2h16n39b4b7uco89871osydcojtl66ru',1,NULL);
 /*!40000 ALTER TABLE `Acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,7 +556,7 @@ CREATE TABLE `Aluguer` (
   CONSTRAINT `Aluguer_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
   CONSTRAINT `Aluguer_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `Aluguer_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=792 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=867 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1229,7 +1330,82 @@ INSERT INTO `Aluguer` VALUES
 (788,64,'Tarde','2023-07-02 15:30:23',10,NULL,999999,999999,9,'2023-07-02 15:30:23'),
 (789,32,'Tarde','2023-07-02 15:30:55',6,NULL,999999,999999,9,'2023-07-02 15:30:55'),
 (790,60,'Dia','2023-07-03 11:26:33',12,NULL,999999,999999,9,'2023-07-03 11:26:33'),
-(791,57,'Dia','2023-07-03 13:57:52',8,NULL,999999,999999,9,'2023-07-03 13:57:52');
+(791,57,'Dia','2023-07-03 13:57:52',8,NULL,999999,999999,9,'2023-07-03 13:57:52'),
+(792,43,'Dia','2023-07-04 09:44:57',9,NULL,999999,999999,9,'2023-07-04 09:44:57'),
+(793,7,'Dia','2023-07-04 09:45:24',9,NULL,999999,999999,9,'2023-07-04 09:45:24'),
+(794,60,'Dia','2023-07-04 10:32:46',12,NULL,999999,999999,9,'2023-07-04 10:32:46'),
+(795,59,'Dia','2023-07-04 10:58:53',12,NULL,999999,999999,9,'2023-07-04 10:58:53'),
+(796,5,'Tarde','2023-07-04 12:49:13',6,NULL,999999,999999,9,'2023-07-04 12:49:13'),
+(797,50,'Tarde','2023-07-04 13:08:44',6,NULL,999999,999999,9,'2023-07-04 13:08:44'),
+(798,61,'Tarde','2023-07-04 13:51:06',10,NULL,999999,999999,9,'2023-07-04 13:51:06'),
+(799,58,'Tarde','2023-07-04 16:10:41',10,NULL,999999,999999,9,'2023-07-04 16:10:41'),
+(800,1,'Dia','2023-07-05 09:56:37',9,NULL,999999,999999,9,'2023-07-05 09:56:37'),
+(801,5,'Dia','2023-07-05 09:56:46',9,NULL,999999,999999,9,'2023-07-05 09:56:46'),
+(802,10,'Dia','2023-07-05 09:56:52',9,NULL,999999,999999,9,'2023-07-05 09:56:52'),
+(803,35,'Dia','2023-07-05 09:57:00',9,NULL,999999,999999,9,'2023-07-05 09:57:00'),
+(804,37,'Dia','2023-07-05 11:00:19',9,NULL,999999,999999,9,'2023-07-05 11:00:19'),
+(805,44,'Dia','2023-07-05 11:08:44',9,NULL,999999,999999,9,'2023-07-05 11:08:44'),
+(806,58,'Dia','2023-07-05 11:44:56',12,NULL,999999,999999,9,'2023-07-05 11:44:56'),
+(807,59,'Tarde','2023-07-05 13:57:30',10,NULL,999999,999999,9,'2023-07-05 13:57:30'),
+(808,58,'Tarde','2023-07-05 15:42:11',10,NULL,999999,999999,9,'2023-07-05 15:42:11'),
+(809,35,'Dia','2023-07-06 10:33:33',9,NULL,999999,999999,9,'2023-07-06 10:33:33'),
+(810,16,'Dia','2023-07-06 11:12:52',9,NULL,999999,999999,9,'2023-07-06 11:12:52'),
+(811,58,'Dia','2023-07-06 11:25:49',12,NULL,999999,999999,9,'2023-07-06 11:25:49'),
+(812,59,'Dia','2023-07-06 11:25:57',12,NULL,999999,999999,9,'2023-07-06 11:25:57'),
+(813,61,'Tarde','2023-07-06 13:43:04',10,NULL,999999,999999,9,'2023-07-06 13:43:04'),
+(814,19,'Tarde','2023-07-06 13:50:56',6,NULL,999999,999999,9,'2023-07-06 13:50:56'),
+(815,64,'Tarde','2023-07-06 15:26:15',10,NULL,999999,999999,9,'2023-07-06 15:26:15'),
+(816,35,'Dia','2023-07-07 09:54:19',9,NULL,999999,999999,9,'2023-07-07 09:54:19'),
+(817,17,'Dia','2023-07-07 11:00:31',9,NULL,999999,999999,9,'2023-07-07 11:00:31'),
+(818,37,'Dia','2023-07-07 11:13:03',9,NULL,999999,999999,9,'2023-07-07 11:13:03'),
+(819,5,'Dia','2023-07-07 11:23:18',9,NULL,999999,999999,9,'2023-07-07 11:23:18'),
+(820,60,'Dia','2023-07-07 11:56:17',12,NULL,999999,999999,9,'2023-07-07 11:56:17'),
+(821,59,'Dia','2023-07-07 12:15:47',12,NULL,999999,999999,9,'2023-07-07 12:15:47'),
+(822,19,'Dia','2023-07-07 12:16:30',9,NULL,999999,999999,9,'2023-07-07 12:16:30'),
+(823,16,'Tarde','2023-07-07 15:02:22',6,NULL,999999,999999,9,'2023-07-07 15:02:22'),
+(824,64,'Dia','2023-07-07 16:46:40',6,NULL,999999,999999,9,'2023-07-07 16:46:40'),
+(825,35,'Dia','2023-07-08 09:53:19',9,NULL,999999,999999,9,'2023-07-08 09:53:19'),
+(826,60,'Dia','2023-07-08 09:53:29',12,NULL,999999,999999,9,'2023-07-08 09:53:29'),
+(827,61,'Dia','2023-07-08 10:23:24',12,NULL,999999,999999,9,'2023-07-08 10:23:24'),
+(828,64,'Dia','2023-07-08 11:23:06',12,NULL,999999,999999,9,'2023-07-08 11:23:06'),
+(829,63,'Dia','2023-07-08 11:23:08',12,NULL,999999,999999,9,'2023-07-08 11:23:08'),
+(830,58,'Tarde','2023-07-08 13:15:41',10,NULL,999999,999999,9,'2023-07-08 13:15:41'),
+(831,44,'Tarde','2023-07-08 13:29:38',6,NULL,999999,999999,9,'2023-07-08 13:29:38'),
+(832,5,'Tarde','2023-07-08 14:43:50',6,NULL,999999,999999,9,'2023-07-08 14:43:50'),
+(833,16,'Tarde','2023-07-08 14:44:03',6,NULL,999999,999999,9,'2023-07-08 14:44:03'),
+(834,50,'Tarde','2023-07-08 15:44:45',6,NULL,999999,999999,9,'2023-07-08 15:44:45'),
+(835,50,'Dia','2023-07-09 11:01:09',9,NULL,999999,999999,9,'2023-07-09 11:01:09'),
+(836,51,'Dia','2023-07-09 11:01:12',9,NULL,999999,999999,9,'2023-07-09 11:01:12'),
+(837,52,'Dia','2023-07-09 11:01:14',9,NULL,999999,999999,9,'2023-07-09 11:01:14'),
+(838,53,'Dia','2023-07-09 11:01:16',9,NULL,999999,999999,9,'2023-07-09 11:01:16'),
+(839,44,'Dia','2023-07-09 11:01:36',9,NULL,999999,999999,9,'2023-07-09 11:01:36'),
+(840,35,'Dia','2023-07-09 11:01:49',9,NULL,999999,999999,9,'2023-07-09 11:01:49'),
+(841,36,'Dia','2023-07-09 11:01:54',9,NULL,999999,999999,9,'2023-07-09 11:01:54'),
+(842,37,'Dia','2023-07-09 11:01:57',9,NULL,999999,999999,9,'2023-07-09 11:01:57'),
+(843,38,'Dia','2023-07-09 11:02:02',9,NULL,999999,999999,9,'2023-07-09 11:02:02'),
+(844,42,'Dia','2023-07-09 11:02:08',9,NULL,999999,999999,9,'2023-07-09 11:02:08'),
+(845,60,'Dia','2023-07-09 11:02:29',12,NULL,999999,999999,9,'2023-07-09 11:02:29'),
+(846,59,'Manhã','2023-07-09 11:02:33',10,NULL,999999,999999,9,'2023-07-09 11:02:33'),
+(847,65,'Dia','2023-07-09 11:02:53',12,NULL,999999,999999,9,'2023-07-09 11:02:53'),
+(848,63,'Dia','2023-07-09 11:02:58',12,NULL,999999,999999,9,'2023-07-09 11:02:58'),
+(849,16,'Dia','2023-07-09 11:03:26',9,NULL,999999,999999,9,'2023-07-09 11:03:26'),
+(850,18,'Dia','2023-07-09 11:03:30',9,NULL,999999,999999,9,'2023-07-09 11:03:30'),
+(851,19,'Dia','2023-07-09 11:03:35',9,NULL,999999,999999,9,'2023-07-09 11:03:35'),
+(852,24,'Dia','2023-07-09 11:03:50',9,NULL,999999,999999,9,'2023-07-09 11:03:50'),
+(853,7,'Dia','2023-07-09 11:04:11',9,NULL,999999,999999,9,'2023-07-09 11:04:11'),
+(854,9,'Dia','2023-07-09 11:04:16',9,NULL,999999,999999,9,'2023-07-09 11:04:16'),
+(855,11,'Dia','2023-07-09 11:04:21',9,NULL,999999,999999,9,'2023-07-09 11:04:21'),
+(856,3,'Dia','2023-07-09 11:04:36',9,NULL,999999,999999,9,'2023-07-09 11:04:36'),
+(857,32,'Dia','2023-07-09 11:13:41',9,NULL,999999,999999,9,'2023-07-09 11:13:41'),
+(858,58,'Dia','2023-07-09 11:48:49',12,NULL,999999,999999,9,'2023-07-09 11:48:49'),
+(859,5,'Tarde','2023-07-09 12:12:56',6,NULL,999999,999999,9,'2023-07-09 12:12:56'),
+(860,26,'Tarde','2023-07-09 13:21:16',6,NULL,999999,999999,9,'2023-07-09 13:21:16'),
+(861,29,'Tarde','2023-07-09 13:56:15',6,NULL,999999,999999,9,'2023-07-09 13:56:15'),
+(862,46,'Tarde','2023-07-09 14:25:09',6,NULL,999999,999999,9,'2023-07-09 14:25:09'),
+(863,48,'Tarde','2023-07-09 14:34:55',6,NULL,999999,999999,9,'2023-07-09 14:34:55'),
+(864,56,'Tarde','2023-07-09 14:40:53',6,NULL,999999,999999,9,'2023-07-09 14:40:53'),
+(865,61,'Tarde','2023-07-09 15:46:10',10,NULL,999999,999999,9,'2023-07-09 15:46:10'),
+(866,64,'Tarde','2023-07-09 15:46:45',10,NULL,999999,999999,9,'2023-07-09 15:46:45');
 /*!40000 ALTER TABLE `Aluguer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1371,7 +1547,7 @@ CREATE TABLE `Pago` (
   CONSTRAINT `Pago_fk0` FOREIGN KEY (`reservaId`) REFERENCES `Reservas` (`id`),
   CONSTRAINT `Pago_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `Pago_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1386,7 +1562,11 @@ INSERT INTO `Pago` VALUES
 (3,20,1,90,NULL,1,'2023-06-30 16:47:48'),
 (4,20,1,86,NULL,1,'2023-06-30 16:48:17'),
 (5,20,1,84,NULL,1,'2023-06-30 16:48:25'),
-(6,90,1,120,NULL,9,'2023-07-02 10:23:01');
+(6,90,1,120,NULL,9,'2023-07-02 10:23:01'),
+(7,130,1,126,NULL,9,'2023-07-06 09:53:38'),
+(8,130,1,56,NULL,8,'2023-07-08 22:03:42'),
+(9,130,1,127,NULL,8,'2023-07-08 22:25:17'),
+(10,0,1,123,NULL,8,'2023-07-09 07:08:19');
 /*!40000 ALTER TABLE `Pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1514,7 +1694,7 @@ CREATE TABLE `Reservas` (
   CONSTRAINT `Reservas_fk0` FOREIGN KEY (`barracaChapeusId`) REFERENCES `BarracasChapeus` (`id`),
   CONSTRAINT `Reservas_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `Reservas_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1609,7 +1789,13 @@ INSERT INTO `Reservas` VALUES
 (120,35,'Jorge Lopes ','2023-07-02','2023-07-15',90,NULL,9,'2023-07-01 17:08:21',0),
 (121,57,'D. Fernanda','2023-07-08','2023-07-14',8,NULL,8,'2023-07-03 06:43:34',0),
 (122,6,'Alexandre Pedro ','2023-07-02','2023-07-31',130,NULL,9,'2023-07-03 08:39:37',0),
-(123,4,'','2023-07-03','2023-07-07',0,NULL,8,'2023-07-03 15:37:32',0);
+(123,4,'','2023-07-03','2023-07-07',0,NULL,8,'2023-07-03 15:37:32',0),
+(124,5,'Mafalda lopes','2023-07-01','2023-07-06',54,NULL,9,'2023-07-03 17:38:32',0),
+(125,43,'Jorge Lopes ','2023-07-02','2023-07-15',90,NULL,9,'2023-07-04 13:52:25',0),
+(126,1,'Fernanda do Rosário ','2023-07-10','2023-07-31',130,NULL,9,'2023-07-05 14:44:35',0),
+(127,15,'Alexandre Pedro ','2023-07-02','2023-07-31',130,NULL,8,'2023-07-08 22:10:12',0),
+(128,6,'Augusto Gaspar ','2023-07-01','2023-07-15',90,NULL,8,'2023-07-08 22:21:30',0),
+(129,29,'Ana Paula neves','2023-07-10','2023-07-16',55,NULL,9,'2023-07-09 13:54:30',0);
 /*!40000 ALTER TABLE `Reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1639,7 +1825,7 @@ CREATE TABLE `ReservasEdicoes` (
   CONSTRAINT `ReservasEdicoes_fk0` FOREIGN KEY (`reservaId`) REFERENCES `Reservas` (`id`),
   CONSTRAINT `ReservasEdicoes_fk1` FOREIGN KEY (`comentarioId`) REFERENCES `Comentarios` (`id`),
   CONSTRAINT `ReservasEdicoes_fk2` FOREIGN KEY (`operadorId`) REFERENCES `Pessoas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1676,7 +1862,15 @@ INSERT INTO `ReservasEdicoes` VALUES
 (31,48,'Alenquer','2023-07-03','2023-07-07',25,115,NULL,8,'2023-07-01 13:37:56',0),
 (32,46,'Alenquer','2023-07-04','2023-07-07',15,116,NULL,8,'2023-07-01 13:40:15',0),
 (33,46,'Alenquer','2023-07-04','2023-07-07',15,116,NULL,1,'2023-07-01 13:51:27',0),
-(34,6,'Alexandre Pedro ','2023-07-02','2023-07-31',130,119,NULL,9,'2023-07-03 08:39:37',1);
+(34,6,'Alexandre Pedro ','2023-07-02','2023-07-31',130,119,NULL,9,'2023-07-03 08:39:37',1),
+(35,5,'Mafalda lopes','2023-07-31','2023-08-05',54,124,NULL,9,'2023-07-04 09:56:28',0),
+(36,5,'Mafalda lopes','2023-07-31','2023-08-05',54,124,NULL,9,'2023-07-04 09:57:27',0),
+(37,43,'Jorge Lopes ','2023-07-02','2023-07-15',90,120,NULL,9,'2023-07-04 13:52:25',1),
+(38,5,'Mafalda lopes','2023-07-31','2023-08-06',55,124,NULL,9,'2023-07-04 14:13:51',0),
+(39,5,'Mafalda lopes','2023-07-31','2023-08-06',55,124,NULL,9,'2023-07-04 14:14:33',0),
+(40,1,'Fernanda do Rosário ','2023-07-05','2023-08-05',130,126,NULL,9,'2023-07-06 09:53:04',0),
+(41,15,'Alexandre Pedro ','2023-07-02','2023-07-31',130,122,NULL,8,'2023-07-08 22:10:12',1),
+(42,6,'Augusto Gaspar ','2023-07-01','2023-07-15',90,118,NULL,8,'2023-07-08 22:21:30',1);
 /*!40000 ALTER TABLE `ReservasEdicoes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1689,4 +1883,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-03 16:53:03
+-- Dump completed on 2023-07-09 22:44:11
