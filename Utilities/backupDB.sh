@@ -16,7 +16,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 backup=${DIR}/../SQL/DB_backup/$(date +"%y-%m-%d-%H:%M:%S")-${database}_dump.sql
 
-mysqldump -u ${user} --add-drop-table ${database} -p > $backup
+mariadb-dump -u ${user} --add-drop-table ${database} -p > $backup
 
 cp $backup ${DIR}/../SQL/LATEST_dump.sql
 
