@@ -99,6 +99,7 @@ module.exports = function(row){
                 endDate: endDate,
       			pago: false,
                 rentId: rentId,
+                duration
       		}
       	}
       	for (i in data){
