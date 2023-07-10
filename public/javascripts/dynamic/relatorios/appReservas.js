@@ -256,7 +256,7 @@ window.app=new Vue({
             mes:"00",
             ano:"00"
         },
-        hiddenColumns:["reservaId","espacoId","inicio","fim","inicioLong","fimLong","operadorId"],
+        hiddenColumns:["reservaId","espacoId","inicio","fim","inicioLong","fimLong","operadorId","subTipo"],
         rowOptions:{
             barraca:[{localizacao:"Fila 1"}],
             chapeu:[{localizacao:"Fila Chapeu 1"}]
