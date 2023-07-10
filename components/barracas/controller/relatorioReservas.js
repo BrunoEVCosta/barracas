@@ -11,7 +11,7 @@ module.exports = function(transporter){
  	queryMonth=="00" ? queryMonth="01" : null
  	attributes.where={
  		inicio: {
- 			[Op.lte]: `${year}-${nextMonthSTR}-01`
+ 			[Op.lt]: `${year}-${nextMonthSTR}-01`
  		},
  		fim: {
  			[Op.gte]: `${year}-${queryMonth}-01`
