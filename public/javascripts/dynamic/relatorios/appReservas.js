@@ -16,7 +16,8 @@ Vue.component("reserva",(resolve,reject)=>{
                     fila:{localizacao:this.reserva.fila,},
                     itemsDaFila:[{}],
                     newItem:{number:this.reserva["#"],id:this.reserva.espacoId},
-                    inicioFim:this.reserva['Inicio-Fim'],
+                    //TODO deprecation notice. Keep the item in db output for the column support.
+                    //inicioFim:this.reserva['Inicio-Fim'],
                     inicio:this.reserva.inicio,
                     fim:this.reserva.fim,
                     nome:this.reserva.nome,
@@ -24,7 +25,15 @@ Vue.component("reserva",(resolve,reject)=>{
                 }
             },
             computed:{
-
+                hasExpired(){
+                    let now=new Date()
+                    let end=new Date(this.fim)
+                    if(end<now && this.reserva.Cancelado==false){
+                        return true
+                    }else{
+                        return false
+                    }
+                }
             },
             methods:{
                 async definirComoPago(){
@@ -166,7 +175,9 @@ Vue.component("reserva",(resolve,reject)=>{
                         valor: this.valor,
                         userId: this.userId
                     }
+                    //MayBe do this to all.
                     if(this.reserva.espacoId != this.newItem.id) {
+                    //if(1 == 1) {
 
                         reservedNewLocation=await $.ajax({
                             type:'POST',
