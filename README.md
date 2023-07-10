@@ -18,7 +18,9 @@ node install.js
 - Popper might not be required by using v.5 of bootstrap
 - update google auth
 - add notification of information request
-- Implement Pago
+- Add global view for date
+- Add modal as component (Row view)
+- Fix edit, not al
 - Implement Comments
 - Fix logout /redirect messes up revoke in access
 - Add method to change rent to another tent
