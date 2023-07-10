@@ -1,4 +1,4 @@
-tr(:class="{'table-danger': reserva.Cancelado==true, 'd-none':removeCancelled==true && reserva.Cancelado==true}")
+tr(:class="{'table-danger': reserva.Cancelado==true, 'table-warning':hasExpired,  'd-none':removeCancelled==true && reserva.Cancelado==true}")
   //TODO function to remove deleted from view
   //TODO if Cancelado show all edits function
   td(v-for="(value,key) of reserva" @click="showFunctions" :class="{'d-none':hideColumn(key)}" )
@@ -26,7 +26,7 @@ tr(:class="{'table-danger': reserva.Cancelado==true, 'd-none':removeCancelled==t
       :placeholder="reserva.number"
     )
     input(type="text", v-if="key=='nome' && editing",v-model="nome",:placeholder='reserva.nome')
-    input(type="text", v-if="key=='Inicio-Fim' && editing ",v-model="inicioFim", :id="'datepicker'+reserva.reservaId" )
+    input(type="text", v-if="key=='Inicio-Fim' && editing ", :id="'datepicker'+reserva.reservaId" )
     input(type="number", v-if="key=='valor' && editing",v-model="valor", :placeholder="reserva.valor")
   td(v-if="functions==true && reserva.Cancelado==false")
     button.btn.btn-primary(@click="toggleEditing",v-if="editing==false") Editar
