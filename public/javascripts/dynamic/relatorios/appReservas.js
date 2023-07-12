@@ -103,6 +103,7 @@ Vue.component("reserva",(resolve,reject)=>{
                         //calendars:2,
                         //grid:2,
                         zIndex:1003,
+                        inline:true,
                         setup(picker) {
                             picker.on('select',e=>{
                                 const {start,end}=e.detail
