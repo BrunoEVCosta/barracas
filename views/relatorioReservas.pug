@@ -24,6 +24,15 @@ block content
     .form-check.form-switch()
       input.form-check-input(type="checkbox" role="switch" id="switchRemoveCancelled" checked v-model="removeCancelled" )
       label.form-check-label(for="switchRemoveCancelled") Remover cancelados
+    .container
+      .row
+        .col-auto
+          label.form-label(for="") Filtrar colunas
+        .col-auto
+          input.form-control(type="text",@keyup="filterResults",v-model="filter.filter" )
+        .col
+          v-select(:options="['#','tipo','fila','nome']",v-model="filter.type",style="width:200px")
+
     table.table.table-hover.reserves.report(v-if="Object.keys(this.reservas[0]).length>0")
       thead
         th(v-for="header in Object.keys(reservas[0])" :class="{'d-none':hiddenColumns.indexOf(header)>-1}" )

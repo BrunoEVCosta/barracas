@@ -262,8 +262,12 @@ Vue.component('v-select', VueSelect)
 window.app=new Vue({
     el:"#app",
     data:{
-        foo:'bar',
+        filter:{
+            type:"nome",
+            filter:""
+        },
         reservas:[{}],
+        backupReservas:[{}],
         vista:{
             mes:"00",
             ano:"00"
@@ -283,6 +287,9 @@ window.app=new Vue({
         isActive(mes){
             return mes==this.vista.mes
         },
+        filterResults(){
+            this.reservas=this.backupReservas.filter(d=> d[this.filter.type].toLowerCase().includes(this.filter.filter.toLowerCase()))
+        }
     },
     async beforeMount(){
         try{
@@ -294,6 +301,7 @@ window.app=new Vue({
             let userId=await $.get("/api/v1/get/userId")
             this.userId=userId.userId
             this.reservas=dados.rows
+            this.backupReservas=dados.rows
         }catch (e) {
             displayToast("Unable to load data",e)
         }
