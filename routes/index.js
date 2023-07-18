@@ -137,6 +137,9 @@ router.get('/informacao',function(req,res){
 router.get('/vista-geral',isLoggedIn, function(req, res, next){
   res.render('vistaGeral',{title: "Vista Geral"})
 })
+router.get('/vista-geral/:ano/:mes/:dia',isLoggedIn, function(req, res, next){
+  res.render('vistaGeral',{title: "Vista Geral"})
+})
 // Reserve layout
 router.get('/calendar/:espaco',isLoggedIn,function(req,res){
   let espaco = req.params.espaco

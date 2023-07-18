@@ -6,10 +6,13 @@ var models= require('./../models');
 var data=[]
 
 
-module.exports = function(row){
+module.exports = function(row,alternativeDate){
+
     let currentYear=getYear(new Date())
-     return new Promise(function(resolve,reject){
+
+    return new Promise(function(resolve,reject){
         var call='getRow'
+
         var attributes={}
         attributes.where={
             "localizacao":"Fila "+row,
@@ -43,7 +46,7 @@ module.exports = function(row){
       		try{
                 //Doesn't iterate values in aluguer. Should join with diferent key so it got an array
       		    rented=res.rows[i].dataValues.Aluguer.dataValues.data
-      			rented=isDateToday(rented)
+      			rented=isDateToday(rented,alternativeDate)
                 rentId=res.rows[i].dataValues.Aluguer.dataValues.id
                 if(rented === true){
                     //Rented is based on today's date
@@ -127,8 +130,9 @@ module.exports = function(row){
   })
 }
 
-function isDateToday(date){
-	var now=new Date()
+function isDateToday(date,alternativeDate){
+
+    var now= alternativeDate==undefined? new Date() : new Date(alternativeDate)
 	var d=new Date(date)
 	if (now.getFullYear()==d.getFullYear()){
 		if(now.getMonth()==d.getMonth()){

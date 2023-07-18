@@ -30,7 +30,7 @@ block content
 						.btn.btn-primary.h2 {{ filaBarraca.localizacao  }} (Traseira)
 					fila(:mini='true',:orientacao="'Traseira'", :fila="elementosDaFila('barracas',filaBarraca.localizacao).elementos")
 
-
+		input.form-control(type="date",v-model="alternativeDate",@change="gotoDate")
 	//.general-schema(load="true")
 		.barracas.fila-vertical(fila="1")
 			h3 Fila 1

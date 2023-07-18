@@ -6,7 +6,7 @@ $(document).ready(function(){
     scriptName=[]
 
 
-    if(paths[1]==undefined){
+    if(paths[0]=="vista-geral"){
         scriptName=[
             "main"
         ]

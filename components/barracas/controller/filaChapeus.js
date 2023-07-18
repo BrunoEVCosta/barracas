@@ -5,7 +5,7 @@ var models= require('./../models');
 var data=[]
 
 
-module.exports = function(row){
+module.exports = function(row,alternativeDate){
 
  return new Promise(function(resolve,reject){
  	var call='getRow'
@@ -118,7 +118,8 @@ module.exports = function(row){
   })
 }
 
-function isDateToday(date){
+function isDateToday(date,alternativeDate){
+    var now= alternativeDate==undefined? new Date() : new Date(alternativeDate)
 	var now=new Date()
 	var d=new Date(date)
 	if (now.getFullYear()==d.getFullYear()){

@@ -75,6 +75,26 @@ router.get('/fila/:tipo/:filaNumero',async (req,res)=>{
     }
 })
 
+router.get('/fila/:tipo/:filaNumero/:ano/:mes/:dia',async (req,res)=>{
+    let tipo=req.params.tipo
+    let fila=req.params.filaNumero
+    let alternativeDate=`${req.params.ano}-${req.params.mes}-${req.params.dia}`
+    let metaFila
+    try{
+        if(tipo=="barracas"){
+            metaFila= await filaBarracas(fila,alternativeDate)
+            res.json(metaFila)
+        }else if(tipo=="chapeus"){
+            metaFila= await filaChapeus(fila,alternativeDate)
+            res.json(metaFila)
+        }else{
+            throw new Error("IncorrectTipInURL")
+        }
+    }catch(e){
+        res.json(e)
+    }
+})
+
 router.get('/get-row/:tipo/:numero',async (req,res)=>{
     try{
         const {tipo,numero} =req.params
