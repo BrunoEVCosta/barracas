@@ -37,7 +37,7 @@ module.exports = function(row,alternativeDate){
             let annex=row.dataValues.numero.endsWith("A")
       		try{
       			rented=res.rows[i].dataValues.Aluguer.dataValues.data
-      			rented=isDateToday(rented	)
+      			rented=isDateToday(rented,alternativeDate)
                 rentId=res.rows[i].dataValues.Aluguer.dataValues.id
                 if(rented === true){
                     //Rented is based on today's date
@@ -60,7 +60,7 @@ module.exports = function(row,alternativeDate){
                             let edicao=reserva.dataValues.ReservasEdico
                             let tempStartDate = edicao.dataValues.inicio
                             let tempEndDate = edicao.dataValues.fim
-                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate,alternativeDate)
                             if(tempIsReserved == true && edicao.dataValues.del==false) {
                                 reserved = reserved === true || tempIsReserved
                                 startDate = getDatePart(tempStartDate)
@@ -74,7 +74,7 @@ module.exports = function(row,alternativeDate){
                         } else {
                             let tempStartDate = reserva.dataValues.inicio
                             let tempEndDate = reserva.dataValues.fim
-                            let tempIsReserved= isReserved(tempStartDate, tempEndDate)
+                            let tempIsReserved= isReserved(tempStartDate, tempEndDate,alternativeDate)
                             if(tempIsReserved == true && reserva.dataValues.del==false) {
                                 reserved = reserved === true || tempIsReserved
                                 startDate = getDatePart(tempStartDate)
@@ -146,11 +146,11 @@ function pad(num, size) {
   return s;
 }
 
-function isReserved(start,end){
+function isReserved(start,end,alternativeDate){
   var start=new Date(start)
   var end=new Date(end)
   var end=end.setDate(end.getDate()+1)
-  var now=new Date()
+  var now= alternativeDate==undefined? new Date() : new Date(alternativeDate)
   if( now.getTime()>start.getTime() && now.getTime()<end ){
     return true
   }else{
