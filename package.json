@@ -40,7 +40,7 @@
     "vue-select": "^3.20.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "babel-core": "^4.7.16",
     "babel-loader": "^9.1.2",
     "babel-plugin-lodash": "^3.3.4",
     "babel-preset-env": "^0.0.0",
