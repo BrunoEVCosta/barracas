@@ -118,10 +118,13 @@ window.app=new Vue({
     computed:{
         test(a){
             return console.log(a)
-        },
-
+        }
     },
     methods:{
+        setSpacing(index){
+            if(index>1) return true
+            else return false
+        },
         elementosFrontais(tipo,fila){
             try {
                 return this.geral[tipo][fila].frontais
@@ -151,7 +154,8 @@ window.app=new Vue({
             let tipo="barracas"
             let numFila=index+1  //Human numbers
             let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
-            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral","Frontal"].indexOf(el.subtipo)!=-1).subtipo
+            if (orientacao=="Frontal") orientacao="Lateral"
 
             let frontais={
                 normal:barracaChapeu.filter(el=>el.frontal==true && !el.annex),

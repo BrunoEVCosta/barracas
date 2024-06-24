@@ -204,6 +204,8 @@ window.app=new Vue({
         this.barracasFrontais.normal=this.barracaChapeu.filter(el=>el.frontal==true && !el.annex)
         this.barracasFrontais.anexo=this.barracaChapeu.filter(el=>el.frontal==true && el.annex)
         //Gets first match
-        this.orientation=this.barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+
+        this.orientation=this.barracaChapeu.find(el=>["Frontal","Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+        if(this.orientation=="Frontal") this.orientation="Lateral"
     }
 })
