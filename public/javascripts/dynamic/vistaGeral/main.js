@@ -119,16 +119,12 @@ window.app=new Vue({
     computed:{
         test(a){
             return console.log(a)
-        },
-
+        }
     },
     methods:{
-        gotoDate(){
-            let alternativaDate=this.alternativeDate.split("-")
-            if(alternativaDate.length==3){
-                location.pathname=`/vista-geral/${alternativaDate[0]}/${alternativaDate[1]}/${alternativaDate[2]}`
-            }
-            console.log(this.alternativeDate)
+        setSpacing(index){
+            if(index>1) return true
+            else return false
         },
         elementosFrontais(tipo,fila){
             try {
@@ -163,14 +159,11 @@ window.app=new Vue({
         for (let [index,fila] of this.fila.barracas.entries()){
             let tipo="barracas"
             let numFila=index+1  //Human numbers
-            let barracaChapeu
-            if(alternativeDate===undefined){
-                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
-            }else{
-                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}/${alternativeDate}`)
-            }
 
-            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral","Frontal"].indexOf(el.subtipo)!=-1).subtipo
+            if (orientacao=="Frontal") orientacao="Lateral"
+
 
             let frontais={
                 normal:barracaChapeu.filter(el=>el.frontal==true && !el.annex),
