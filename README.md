@@ -43,12 +43,47 @@ Preço e mapa
 
 ## Docker
 ```bash
-docker build -t barracas:v1 .  
-docker run --rm --name barracas-webserver -p 3035:3000 -d barracas:v1
+docker build -t barracas:v2024-1 .  
+docker run --rm --name barracas-webserver -p 3037:3000 --mount type=bind,src=/run/mysqld/mysqld.sock,dst=/run/mysqld/mysqld.sock -d barracas:v2024-1
 docker stop barracas-webserver
 docker rmi barracas:v1
 
 
+```
+
+## Nginx
+Add the proxy for docker instance
+```nginx
+server {
+	server_name barracas.obanheiro.pt;
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/barracas.obanheiro.pt-0001/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/barracas.obanheiro.pt-0001/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+	
+	access_log /var/log/nginx/barracas.obanheiro.pt.log;
+
+	location / {
+	       	proxy_set_header X-Real-IP $remote_addr;
+	       	proxy_set_header X-Forward-Proto $scheme;
+		proxy_set_header X_Forwarded_Proto $scheme;
+		proxy_set_header X_Forwarded_Host $host;
+		proxy_set_header HTTP_X_FORWARDED_PROTO $scheme;
+		proxy_pass       http://127.0.0.1:3037;
+	       	proxy_http_version 1.1;
+	       	proxy_set_header Upgrade $http_upgrade;
+	       	proxy_set_header Connection 'upgrade';
+	       	proxy_set_header Host $host;
+       		proxy_cache_bypass $http_upgrade;
+	}	
+}
+
+
+```
+Generate certificates
+```bash 
+sudo certbot
 ```
 
 ## Deploy the new version of dev
