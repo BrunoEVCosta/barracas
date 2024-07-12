@@ -11,7 +11,6 @@ Vue.component("collapse",(resolve,reject)=>{
             data:function(){
                 return {
                     outroPreco:0.00,
-
                 }
 
             },
@@ -115,12 +114,6 @@ Vue.component("collapse",(resolve,reject)=>{
                         var endDate=duration.split(' - ')[1]
                         var price=$('.modal#reserveTent input#price').val()
                         var pago=$('.modal#reserveTent input#pago').val()
-
-
-                        
-
-
-
 
 
                         let artigoIndefinido=that.tipo=="Barraca"?"a":"o"

@@ -126,6 +126,13 @@ window.app=new Vue({
             if(index>1) return true
             else return false
         },
+        gotoDate(){
+            let alternativaDate=this.alternativeDate.split("-")
+            if(alternativaDate.length==3){
+                location.pathname=`/vista-geral/${alternativaDate[0]}/${alternativaDate[1]}/${alternativaDate[2]}`
+            }
+            console.log(this.alternativeDate)
+        },
         elementosFrontais(tipo,fila){
             try {
                 return this.geral[tipo][fila].frontais
