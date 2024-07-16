@@ -68,4 +68,5 @@ SQL/DB_backup/*
 public/webpack/*
 
 #JetBrains folder
+.DS_Store
 .idea
