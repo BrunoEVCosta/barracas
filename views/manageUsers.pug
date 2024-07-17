@@ -14,9 +14,14 @@ block content
     tbody
       for row in dados
         tr(accessId=row.userId)
-          td=row.active
+          td
+            .form-check.form-switch
+              input#flexSwitchCheckDefault.form-check-input(type='checkbox', role='switch' checked=row.active disabled="true")
           td=row.userId
-          td=row.name
+          td
+            h5 #{row.name}
+            p #{row.email}
+
           td=row.permission
           td
             .row
