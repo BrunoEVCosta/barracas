@@ -53,8 +53,16 @@ Vue.component("collapse",(resolve,reject)=>{
                     const DateTime=easepick.DateTime
                     let reservas=await this.reservas(this.item.id)
                     reservas=reservas.map(d=>{
+                        //todo fix to inclusivity of dates add day to end
+                        var daysToAdd = 1;
+                        // Milliseconds in a day
+                        var millisecondsInDay = 1000 * 60 * 60 * 24;
+                        // Add milliseconds for the desired days
+                        var newDateInMilliseconds = new Date(d.fim).getTime() + (daysToAdd * millisecondsInDay);
+                        // Create a new Date object with the modified milliseconds
+                        var newEnd = new Date(newDateInMilliseconds);
                         const start = new DateTime(d.inicio, 'YYYY-MM-DD');
-                        const end = new DateTime(d.fim, 'YYYY-MM-DD');
+                        const end = new DateTime(newEnd, 'YYYY-MM-DD');
 
                         return [start, end];
                     })
@@ -73,7 +81,7 @@ Vue.component("collapse",(resolve,reject)=>{
                         plugins,
                         RangePlugin: {
                             tooltipNumber(num) {
-                                return num - 1;
+                                return num;
                             },
                             locale: {
                                 one: 'day',
@@ -83,9 +91,10 @@ Vue.component("collapse",(resolve,reject)=>{
                         //calendars:2,
                         //grid:2,
                         zIndex:1003,
+
                         LockPlugin: {
                             minDate: new Date(),
-                            minDays: 2,
+                            minDays: 1,
                             inseparable: true,
                             filter(date, picked) {
                                 if (picked.length === 1) {
