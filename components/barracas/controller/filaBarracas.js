@@ -131,17 +131,16 @@ module.exports = function(row,alternativeDate){
 }
 
 function isDateToday(date,alternativeDate){
-
-    var now= alternativeDate==undefined? new Date() : new Date(alternativeDate)
-	var d=new Date(date)
-	if (now.getFullYear()==d.getFullYear()){
-		if(now.getMonth()==d.getMonth()){
-			if(now.getDate()==d.getDate()){
-				return true
-			}
-		}
-	}
-	return false
+    var requestDate = alternativeDate==undefined? new Date() : new Date(alternativeDate)
+    var now=new Date(date)
+    if (now.getFullYear()==requestDate.getFullYear()){ //TODO set to bigger than when the rented is set correctly for the requested date
+        if(now.getMonth()==requestDate.getMonth()){
+            if(now.getDate()==requestDate.getDate()){
+                return true
+            }
+        }
+    }
+    return false
 }
 
 function getDatePart(date){
