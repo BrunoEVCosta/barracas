@@ -53,16 +53,8 @@ Vue.component("collapse",(resolve,reject)=>{
                     const DateTime=easepick.DateTime
                     let reservas=await this.reservas(this.item.id)
                     reservas=reservas.map(d=>{
-                        //todo fix to inclusivity of dates add day to end
-                        var daysToAdd = 1;
-                        // Milliseconds in a day
-                        var millisecondsInDay = 1000 * 60 * 60 * 24;
-                        // Add milliseconds for the desired days
-                        var newDateInMilliseconds = new Date(d.fim).getTime() + (daysToAdd * millisecondsInDay);
-                        // Create a new Date object with the modified milliseconds
-                        var newEnd = new Date(newDateInMilliseconds);
                         const start = new DateTime(d.inicio, 'YYYY-MM-DD');
-                        const end = new DateTime(newEnd, 'YYYY-MM-DD');
+                        const end = new DateTime(d.fim, 'YYYY-MM-DD');
 
                         return [start, end];
                     })
@@ -98,11 +90,10 @@ Vue.component("collapse",(resolve,reject)=>{
                             inseparable: true,
                             filter(date, picked) {
                                 if (picked.length === 1) {
-                                    const incl = date.isBefore(picked[0]) ? '[)' : '(]';
+                                    const incl = date.isBefore(picked[0]) ? '[)' : '(]';  //Inclusive or exclusive
                                     return !picked[0].isSame(date, 'day') && date.inArray(reservas, incl);
                                 }
-
-                                return date.inArray(reservas, '[)');
+                                return date.inArray(reservas, '(]');
                             },
                         }
                     });
