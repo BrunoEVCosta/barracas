@@ -120,7 +120,6 @@ module.exports = function(row,alternativeDate){
 
 function isDateToday(date,alternativeDate){
     var now= alternativeDate==undefined? new Date() : new Date(alternativeDate)
-	var now=new Date()
 	var d=new Date(date)
 	if (now.getFullYear()==d.getFullYear()){
 		if(now.getMonth()==d.getMonth()){

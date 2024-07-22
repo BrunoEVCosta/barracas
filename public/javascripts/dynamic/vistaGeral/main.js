@@ -167,7 +167,13 @@ window.app=new Vue({
             let tipo="barracas"
             let numFila=index+1  //Human numbers
 
-            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            let barracaChapeu
+            if(alternativeDate===undefined){
+                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            }else {
+                barracaChapeu = await $.get(`/api/v1/fila/${tipo}/${numFila}/${alternativeDate}`)
+            }
+
             let orientacao=barracaChapeu.find(el=>["Traseira","Lateral","Frontal"].indexOf(el.subtipo)!=-1).subtipo
             if (orientacao=="Frontal") orientacao="Lateral"
 
