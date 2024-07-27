@@ -95,5 +95,5 @@ block content
             a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
             - now=new Date()
             - year=now.getFullYear()
-            - month=now.getMonth()+1
+            - month="0"+(now.getMonth()+1)
             a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas

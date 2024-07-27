@@ -53,6 +53,10 @@ router.get('/barracas/fila/:numero',isLoggedIn,function(req, res, next){
   })
 })
 
+router.get('/barracas/fila/:numero/mudar', isLoggedIn,(req,res)=>{
+  res.render('mudarAluguer',{title:"Mudar Aluguer"})
+})
+
 router.get('/chapeus/fila/:numero',isLoggedIn,function(req, res, next){
   var fila = req.params.numero;
   filaChapeus(fila).then(function(dados){
@@ -111,11 +115,7 @@ router.get('/relatorios/aluguer/hoje',isLoggedIn,function(req, res, next){
 
 router.get('/relatorios/reservas/:ano/:mes/',isLoggedIn,function(req,res,next){
   var options=req.params;
-  require('./../components/barracas/controller/relatorioReservas')(options).then(function(dados){
-    res.render("relatorioReservas",{title:"Relatório reservas mês",dados:dados})
-  }).catch(function(err){
-    res.status(404).json(err)
-  })  
+  res.render("relatorioReservas",{title:"Relatório reservas mês"})
 })
 
 router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,res,next){
@@ -129,11 +129,15 @@ router.get('/relatorios/reservas/:ano/:mes/:espacoId',isLoggedIn,function(req,re
 
 
 
+
 router.get('/informacao',function(req,res){
   res.render("informacao",{title:"Informações sobre aluguer de barracas e chapéus",apiKey})
 })
 
 router.get('/vista-geral',isLoggedIn, function(req, res, next){
+  res.render('vistaGeral',{title: "Vista Geral"})
+})
+router.get('/vista-geral/:ano/:mes/:dia',isLoggedIn, function(req, res, next){
   res.render('vistaGeral',{title: "Vista Geral"})
 })
 // Reserve layout

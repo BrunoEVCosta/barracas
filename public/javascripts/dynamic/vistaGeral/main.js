@@ -102,6 +102,7 @@ Vue.component("fila",(resolve,reject)=> {
 window.app=new Vue({
     el:"#app",
     data:{
+        alternativeDate:undefined,
         subTipos:[],
         duracoes:[],
         precos:[{}],
@@ -118,10 +119,20 @@ window.app=new Vue({
     computed:{
         test(a){
             return console.log(a)
-        },
-
+        }
     },
     methods:{
+        setSpacing(index){
+            if(index>1) return true
+            else return false
+        },
+        gotoDate(){
+            let alternativaDate=this.alternativeDate.split("-")
+            if(alternativaDate.length==3){
+                location.pathname=`/vista-geral/${alternativaDate[0]}/${alternativaDate[1]}/${alternativaDate[2]}`
+            }
+            console.log(this.alternativeDate)
+        },
         elementosFrontais(tipo,fila){
             try {
                 return this.geral[tipo][fila].frontais
@@ -139,6 +150,11 @@ window.app=new Vue({
         }
     },
     async beforeMount(){
+        let pathnameArray=location.pathname.split("/")
+        let alternativeDate
+        if(pathnameArray.length==5){
+            alternativeDate=`${pathnameArray[2]}/${pathnameArray[3]}/${pathnameArray[4]}`
+        }
         this.fila.barracas=await $.get("/api/v1/list/rows/Barraca")
         this.fila.chapeus=await $.get("/api/v1/list/rows/Chapeu")
 
@@ -150,8 +166,17 @@ window.app=new Vue({
         for (let [index,fila] of this.fila.barracas.entries()){
             let tipo="barracas"
             let numFila=index+1  //Human numbers
-            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
-            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
+
+            let barracaChapeu
+            if(alternativeDate===undefined){
+                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            }else {
+                barracaChapeu = await $.get(`/api/v1/fila/${tipo}/${numFila}/${alternativeDate}`)
+            }
+
+            let orientacao=barracaChapeu.find(el=>["Traseira","Lateral","Frontal"].indexOf(el.subtipo)!=-1).subtipo
+            if (orientacao=="Frontal") orientacao="Lateral"
+
 
             let frontais={
                 normal:barracaChapeu.filter(el=>el.frontal==true && !el.annex),
@@ -167,7 +192,12 @@ window.app=new Vue({
         for (let [index,fila] of this.fila.chapeus.entries()){
             let tipo="chapeus"
             let numFila=index+1  //Human numbers
-            let barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            let barracaChapeu
+            if(alternativeDate===undefined){
+                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}`)
+            }else{
+                barracaChapeu=await $.get(`/api/v1/fila/${tipo}/${numFila}/${alternativeDate}`)
+            }
             let orientacao=barracaChapeu.find(el=>["Traseira","Lateral"].indexOf(el.subtipo)!=-1).subtipo
 
             let frontais={

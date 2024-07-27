@@ -30,17 +30,32 @@ module.exports = {
             import: ['vue-select/dist/vue-select.css'],
             filename:'vue.js'
         },
-        "canvas-datagrid":{
+        /*"canvas-datagrid":{
             import: "canvas-datagrid",
             filename: "canvas-datagrid.js",
-        },
+        },*/
+        /*"easepick-css":{
+            import: "@easepick/bundle/dist/index.css",
+            filename: "easepick-css.js"
+        },*/
+        /*"easepick":{
+            import: "@easepick/datetime/dist/index",
+            filename: "easepick.js"
+        }*/
     },
     resolve: {
         alias: {
             jquery: "jquery/src/jquery",
+            datetime: "@easepick/datetime/dist/index"
         }
     },
+    //Provide jquery to modules
     plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery:'jquery',
+            DateTime:'datetime'
+        })
     ],
     output: {
         path: path.resolve(__dirname, 'public/webpack'),

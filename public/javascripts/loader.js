@@ -24,7 +24,9 @@ if(paths[0]==="vista-geral"){
 if(paths[0]==="client"){
     url="/javascripts/dynamic/client/init.js"
 }
-
+if(paths[0]==="relatorios"){
+    url="/javascripts/dynamic/relatorios/init.js"
+}
 var script = document.createElement('script');
 if(url !== undefined){
     script.src = url;

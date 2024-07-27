@@ -10,7 +10,7 @@ module.exports = {
     password: '',
     dialect: 'mysql', // PostgreSQL, MySQL, MariaDB, SQLite and MSSQL See more: http://docs.sequelizejs.com/en/latest/
     logging: console.log,   //True starts to make it cry.
-    timezone: '+05:30',
+    timezone: '+00:00',
     dialectOptions: {
       socketPath: '/run/mysqld/mysqld.sock',
       supportBigNumbers: true,

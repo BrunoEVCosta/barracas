@@ -11,6 +11,12 @@ $(document).ready(function(){
             "main"
         ]
     }
+    //Should overwrite fila
+    if(paths[3]=="mudar"){
+        scriptName=[
+            'mudar'
+        ]
+    }
 
 
     scriptTarget = $('script#actions')[0];

@@ -6,9 +6,9 @@ $(document).ready(function(){
     scriptName=[]
 
 
-    if(paths[0]=="vista-geral"){
+    if(paths[1]=="reservas"){
         scriptName=[
-            "main"
+            "appReservas"
         ]
     }
 
@@ -17,7 +17,7 @@ $(document).ready(function(){
     scriptName.forEach(scriptName=>{
         let url=""
         if(isName(scriptName)){
-            url="/javascripts/dynamic/vistaGeral/"+scriptName+".js";
+            url="/javascripts/dynamic/relatorios/"+scriptName+".js";
         }else{
             url=scriptName
         }

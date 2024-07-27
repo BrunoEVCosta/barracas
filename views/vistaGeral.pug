@@ -8,8 +8,9 @@ block content
 		.d-flex.flex-row.justify-content-start
 			.flex-fill.btn.btn-primary Agua
 		.d-flex.flex-row.justify-content-start
-			.fila(v-for="filaBarraca,index of fila.barracas",v-if="geral.barracas[filaBarraca.localizacao]" )
-				#laterais.m-4(v-if="elementosDaFila('barracas',filaBarraca.localizacao).orientacao=='Lateral'")
+			.fila(v-for="filaBarraca,index of fila.barracas",v-if="geral.barracas[filaBarraca.localizacao]" :id="'Fila-'+index" )
+				//Definido por causa das filas de 2024
+				#laterais(v-if="elementosDaFila('barracas',filaBarraca.localizacao).orientacao=='Lateral'" v-bind:class="{'m-4': setSpacing(index),'mt-4':(index==0 || index==1), }")
 					a(:href="'/barracas/fila/'+(parseInt(index)+1)")
 						.btn.btn-primary.h2 {{ filaBarraca.localizacao }}
 					#frontais.d-flex.flex-row
@@ -30,7 +31,7 @@ block content
 						.btn.btn-primary.h2 {{ filaBarraca.localizacao  }} (Traseira)
 					fila(:mini='true',:orientacao="'Traseira'", :fila="elementosDaFila('barracas',filaBarraca.localizacao).elementos")
 
-
+		input.form-control(type="date",v-model="alternativeDate",@change="gotoDate")
 	//.general-schema(load="true")
 		.barracas.fila-vertical(fila="1")
 			h3 Fila 1

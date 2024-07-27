@@ -46,7 +46,13 @@ function getScope(req,res){
     })
 }
 
+function getUserId(req,res){
+    var cookies = new Cookies( req, res, { "keys": keys } ), unsigned, signed, tampered;
+    return cookies.get('userId',{signed:true})
+}
+
 module.exports= {
     isLoggedIn,
-    isAdmin
+    isAdmin,
+    getUserId
 }

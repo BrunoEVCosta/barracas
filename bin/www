@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('brapi:server');
 var http = require('http');
 var lex = require('greenlock-express');
-
+let port=3000  //Default on localserver
 var email='brunovasquescosta@gmail.com';
 var domains= [ 'obanheiro.pt','barracas.obanheiro.pt'];
 
@@ -147,7 +147,7 @@ function localServer(server){
    * Get port from environment and store in Express.
    */
 
-  var port = normalizePort(process.env.PORT || '3000');
+  port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
 
   /**
