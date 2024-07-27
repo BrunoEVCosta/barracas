@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack"
+    "build": "webpack",
+    "launch": "bash launch.sh"
   },
   "dependencies": {
     "@easepick/bundle": "^1.2.1",
