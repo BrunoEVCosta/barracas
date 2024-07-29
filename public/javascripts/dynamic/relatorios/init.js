@@ -12,6 +12,11 @@ $(document).ready(function(){
         ]
     }
 
+    if(paths[1]=="aluguer"){
+        scriptName=[
+            'appAlugueres'
+        ]
+    }
 
     scriptTarget = $('script#actions')[0];
     scriptName.forEach(scriptName=>{

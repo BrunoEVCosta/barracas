@@ -3,19 +3,21 @@ extends layout
 block content
   a(href="/")
     h1=title
-  table.table.table-hover
-    thead
-      th Quantidade
-      th Valor
-      th Total
-    tbody
-      for row in dados.rows
+  #app
+    table.table.table-hover
+      thead
+        th Quantidade
+        th Valor
+        th Total
+      tbody
+        for row in dados.rows
+          tr
+            //TODO add qt
+            td=row.quantidade
+            td=row.valor
+            td=row.sum
         tr
-          //TODO add qt
-          td=row.quantidade
-          td=row.valor
-          td=row.sum
-      tr
-        th
-        th Valor Total
-        th=dados.total
+          th
+          th Valor Total
+          th=dados.total
+    textarea.form-control(:value="comment" rows="4", v-model="comment" @change="saveComment", @blur="saveComment" @input="saveComment")

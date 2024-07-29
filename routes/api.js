@@ -10,6 +10,7 @@ const reservasAno=require('./../components/barracas/controller/relatorioReservas
 const relatorioReservas = require('./../components/barracas/controller/relatorioReservas')
 const criarReserva=require('./../components/barracas/controller/reservarCriar')
 const pago=require('./../components/barracas/controller/pago')
+const comments=require('./../components/barracas/direct/comments')
 
 // API
 router.get('/list/rows/:tipo',(req,res)=>{
@@ -152,6 +153,29 @@ router.post('/check/availability',async (req,res)=>{
 router.get('/get/userId',isLoggedIn,(req,res)=>{
     let userId=getUserId(req,res)
     res.json({userId})
+})
+
+router.get('/get/note/main', isLoggedIn, (req,res)=>{
+    //Main is 1
+    comments.get(1).then(data=> {
+        return res.json(data)
+    }).catch(err=>{
+        return res.json(err)
+    })
+})
+
+
+router.post('/set/note/main', isLoggedIn, async (req,res)=>{
+    comentario=req.body.data
+    let mainComments = await comments.get(1)
+    let result
+    if(mainComments==null){
+        result= await comments.create(comentario)
+    }else{
+        result= await comments.update(1,comentario)
+    }
+    res.json(result)
+
 })
 
 module.exports = router

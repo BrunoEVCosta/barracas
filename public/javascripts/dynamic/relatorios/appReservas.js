@@ -258,7 +258,6 @@ Vue.component("reserva",(resolve,reject)=>{
         })
     })
 })
-Vue.component('v-select', VueSelect)
 window.app=new Vue({
     el:"#app",
     data:{
@@ -305,6 +304,7 @@ window.app=new Vue({
         }catch (e) {
             displayToast("Unable to load data",e)
         }
-        
+
     }
 })
+Vue.component('v-select', VueSelect)
