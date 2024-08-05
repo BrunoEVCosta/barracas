@@ -39,31 +39,34 @@ module.exports = function(options,callBack){
 		 				accessToken: attributes.accessToken
 		 			})	 				
 	 			}).catch(function(err){
+					err.cause="Erro do sistema"
 	 				console.log("Err increment" +err)
 	 				reject({
 		 				access:err,
-		 				attempt:attempt
+		 				attempt:attempt++
 		 			})
 	 			})
 	 		}else{
 	 			models['incrementLoginAttempt'](attributes).then(function(incRes){
 		 			reject({
-		 				access:"denied",
-		 				attempt:incRes.dataValues.attempt
+		 				access:{cause:"Palavra passe incorrecta"},
+		 				attempt:incRes.dataValues.attempt++
 		 			})	
 	 			}).catch(function(err){
-	 				console.log("Err increment" +err)
+					err.cause="Palavra passe incorrecta"
+					console.log("Err increment" +err)
 	 				reject({
 		 				access:err,
-		 				attempt:attempt
+		 				attempt:attempt++
 		 			})
 	 			})
 	 		}	
 	 	}).catch(function(err){
 	 		console.log("Err main" +err)
+			err.cause="Dados incorrectos"
 	 		reject({
 		 		access:err,
-		 		attempt:''
+		 		attempt:'∞'
 		 	})
 	 	})
  	})	 

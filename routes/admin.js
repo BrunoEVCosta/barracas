@@ -40,7 +40,7 @@ router.post('/login',async function(req, res, next){
 
         res.redirect("/")
     }catch(err){
-        res.status(404).json(err)
+        res.render('admin/failLogin',{title:"Login",message:err.message,attempt:err.attempt,causa:err.access.cause})
     }
 
     function callBack(name,accessId,userId,token){
