@@ -10,6 +10,7 @@ docker build -t barracas:v${version} .
 runningContainer=$(docker ps | grep barracas | cut -f1 -d' ')
 
 docker stop $runningContainer &&
+sleep 10 &&	
 docker run --rm --name barracas-webserver -p 3037:3000 --mount type=bind,src=/run/mysqld/mysqld.sock,dst=/run/mysqld/mysqld.sock -d barracas:v${version}
 
 

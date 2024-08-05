@@ -36,7 +36,8 @@ block content
                   a.btn.btn-primary.btn-lg(role="button",href="/users/manage/accesses") Gerir acessos
                   a.btn.btn-primary.btn-lg(role="button",href="/admin/prices") Preços
             .profile-pic
-              img(src="/images/profile.png" height="70px")
+              a(href="/admin")
+                img(src="/images/profile.png" height="70px")
     else
       form.mt-2.card(method="POST",action="/admin/login")
         .card-body
