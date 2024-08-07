@@ -17,12 +17,13 @@ function insertScripts(names) {
     }
 }
 //let names=webpack.entry.map(pkg=>pkg.filename)
+//Loads the javascripts built by webpack in /public/webpack in the browser. webpack.config.js for list of entries
 let names=["popper","bootstrap",
     "vue",
 
     //'easepick-css',
 
-    'cookieconsent']
+    'cookieconsent',"canvas-datagrid"]
 insertScripts(names);
 
 

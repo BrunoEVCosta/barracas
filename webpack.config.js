@@ -30,10 +30,10 @@ module.exports = {
             import: ['vue-select/dist/vue-select.css'],
             filename:'vue.js'
         },
-        /*"canvas-datagrid":{
+        "canvas-datagrid":{
             import: "canvas-datagrid",
             filename: "canvas-datagrid.js",
-        },*/
+        },
         /*"easepick-css":{
             import: "@easepick/bundle/dist/index.css",
             filename: "easepick-css.js"

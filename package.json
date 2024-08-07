@@ -14,7 +14,7 @@
     "@netbofia/buildingblocks": "^1.0.2",
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.3.0",
-    "canvas-datagrid": "^0.4.6",
+    "canvas-datagrid": "^0.4.7",
     "cookie-parser": "~1.4.3",
     "cookieconsent": "^3.1.1",
     "cookies": "^0.7.1",
