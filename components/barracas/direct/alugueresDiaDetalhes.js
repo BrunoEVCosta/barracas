@@ -7,15 +7,13 @@ const Sequelize = require('sequelize');
 
 
 module.exports = function(date){
-    let now=new Date()
-    let today=`${now.getFullYear()}-${now.getMonth()+1}-${now.getDay()}`
     return db['Aluguer'].findAll({
         include: [{
             model:db['Pessoas'],
         },{
             model:db['BarracasChapeus'],
         }],
-        where: Sequelize.where(Sequelize.fn('date', Sequelize.col('data')),today)
+        where: Sequelize.where(Sequelize.fn('date', Sequelize.col('data')),date)
     }).then(function(model){
 
         return processExportData(model)
@@ -28,14 +26,17 @@ module.exports = function(date){
 
 function processExportData(model){
     return model.map(aluguer=>{
+        let date=aluguer.dataValues.registo.toJSON()
         return {
-            tipo:aluguer.BarracasChapeu.dataValues.tipo,
-            barracaChapeu:aluguer.BarracasChapeu.dataValues.numero,
-            fila:aluguer.BarracasChapeu.dataValues.localizacao,
-            periodo:aluguer.dataValues.nome,
-            valor:aluguer.dataValues.valor,
-            pessoa:aluguer.Pessoa.dataValues.nome,
-            registo:aluguer.dataValues.registo.toJSON(),
+            Tipo:aluguer.BarracasChapeu.dataValues.tipo,
+            Numero:aluguer.BarracasChapeu.dataValues.numero,
+            Fila:aluguer.BarracasChapeu.dataValues.localizacao,
+            Periodo:aluguer.dataValues.nome,
+            Valor:aluguer.dataValues.valor,
+            Pessoa:aluguer.Pessoa.dataValues.nome,
+            Data:date.split("T")[0],
+            Horas:date.split("T")[1].split(".")[0],
+            "Time Zone":date.split("T")[1].split(".")[1]
         }
     })
 }

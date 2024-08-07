@@ -11,6 +11,8 @@ const login=require('../components/auth/login')
 const {extractMetadataFromLogin}=require('.././components/auth/procedures')
 const {OAuth2Client} = require("google-auth-library");
 const revokeAccessToken=require('../components/auth/revokeAccessToken')
+const rentedDetails=require("../components/barracas/direct/alugueresDiaDetalhes")
+
 
 /* GET home page. */
 function getCookieData(req,res){
@@ -23,6 +25,7 @@ function getCookieData(req,res){
     }
     return result;
 }
+
 router.get('/', isLoggedIn, isAdmin, function(req, res, next) {
     res.render('index', { title: 'Gestão de barracas',dados: getCookieData(req),role:"admin",loggedin: true });
 });
@@ -57,7 +60,6 @@ router.post('/login/redirect/google',function(req,res){
 router.get('/login/redirect/google',function(req,res){
     console.log(req.query)
 })
-
 
 router.post('/login/verify/google-token',function(req,res){
     const client = new OAuth2Client(CLIENT_ID);
@@ -97,13 +99,22 @@ router.post('/login/verify/google-token',function(req,res){
     verify().catch(console.error);
 })
 
-
-
-
-
 //Manage misc
 router.get('/prices',isLoggedIn,isAdmin,(req,res)=>{
     res.render('admin/managePrices')
 })
 
+router.get('/details/alugueres',isLoggedIn,isAdmin,async (req,res)=>{
+    let now=new Date()
+    let today=`${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`
+    let details=await rentedDetails(today)
+    res.render('admin/detailedRents',{today:today,details:details,data:details})
+})
+
+router.get('/details/alugueres/:date',isLoggedIn,isAdmin,async (req,res)=>{
+    let date=new Date(Date.parse(req.params.date))
+    let today=date.toJSON().slice(0,10)
+    let details=await rentedDetails(today)
+    res.render('admin/detailedRents',{today:today,details:details,data:details})
+})
 module.exports = router

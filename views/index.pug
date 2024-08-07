@@ -31,10 +31,12 @@ block content
                   a.btn.btn-primary.btn-sm(role="button",href="/users/manage/users") utilizadores
                   a.btn.btn-primary.btn-sm(role="button",href="/users/manage/accesses") Acessos
                   a.btn.btn-primary.btn-sm(role="button",href="/admin/prices") Preços
+                  a.btn.btn-primary.btn-sm(role="button",href="/admin/details/alugueres") Detalhes Alugueres
                 .pc.d-none.d-md-block
                   a.btn.btn-primary.btn-lg(role="button",href="/users/manage/users") Gerir utilizadores
                   a.btn.btn-primary.btn-lg(role="button",href="/users/manage/accesses") Gerir acessos
                   a.btn.btn-primary.btn-lg(role="button",href="/admin/prices") Preços
+                  a.btn.btn-primary.btn-lg(role="button",href="/admin/details/alugueres") Detalhes Alugueres
             .profile-pic
               a(href="/admin")
                 img(src="/images/profile.png" height="70px")
@@ -90,11 +92,12 @@ block content
             a.btn.btn-primary.btn-lg.tent(role="button",href="/vista-geral")
               p.h1.p-2 Vista Geral
       .card
-        .card-title
-          h2 Relatórios
+        .card-header
+          h2.text-center Relatórios
         .card-body
-            a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
-            - now=new Date()
-            - year=now.getFullYear()
-            - month="0"+(now.getMonth()+1)
-            a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas
+          .container.text-center
+              a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/aluguer/hoje") Alugueres Dia
+              - now=new Date()
+              - year=now.getFullYear()
+              - month="0"+(now.getMonth()+1)
+              a.btn.btn-primary.btn-lg.tent(role="button",href="/relatorios/reservas/"+year+"/"+month) Reservas

@@ -1,0 +1,14 @@
+extends ../layout
+block content
+    h2 Detalhes de aluguer de #{today}
+        input#datePicker.form-control-lg(type="date", onchange="changeDate()")
+    canvas-datagrid.myGridStyle#grid(data=data)
+    script.
+        setTimeout(function(){
+            document.getElementById("grid").schema[4].type="number";
+
+        },3000)
+        function changeDate() {
+            let newDate=document.getElementById("datePicker").value
+            document.location=newDate;
+        }
