@@ -1,6 +1,6 @@
 # barracas
 Gestao de espaços 
-
+Uma ferramenta para gerenciar os alugueres de Tendas de praia. 
 
 ### Building dependencies
 
